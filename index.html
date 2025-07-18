@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ana Sá Oliveira</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
+    </head>
+    <body style='min-height: 100vh; display: flex; flex-direction: column; background-color: #fee9f0;'>
+        <header class="w3-margin">
+            <nav class="w3-bar w3-round-xxlarge" style='display: flex; justify-content: center; background-color: #ff94bd;'>
+                <div class="w3-bar-item w3-pink w3-round-xxlarge">🌸 About</div>
+                <a href="education.html" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
+                <a href="skills.html" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
+                <a href="projects.html" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
+                <a href="contact.html" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
+            </nav>
+        </header>
+
+        <main style="flex-grow: 1;">
+            <div class="w3-col s12 m12 l4">
+                <div class="w3-container">
+                    <br class="w3-hide-large">
+                    <div class="w3-container w3-center">
+                        <img src="assets/img/Ana.jpeg" class="w3-circle" style="width: 100%; max-width: 296px; height: auto;" alt="Ana Sá Oliveira">
+                    </div>
+                    <div class="w3-container w3-center">
+                        <h2>
+                            <b>
+                                Ana Sá Oliveira
+                            </b>
+                        </h2>
+                        <h4>Software Engineer</h4>
+                        <h6>Braga, Portugal<br>
+                            <script>
+                                const birthDate = new Date('2004-01-05');
+                                const today = new Date();
+
+                                let age = today.getFullYear() - birthDate.getFullYear();
+
+                                // Ajusta se ainda não fez aniversário este ano
+                                const hasBirthdayPassed =
+                                    today.getMonth() > birthDate.getMonth() ||
+                                    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+                                if (!hasBirthdayPassed) {
+                                    age--;
+                                }
+
+                                document.write(age + " years old");
+                            </script>
+                        </h6>
+                        <br>
+                        <a href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <img src="assets/icons/GitHub.png" style="width:30px;" alt="Descrição da imagem" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/ana-s%C3%A1-oliveira-b24680329/"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <img src="assets/icons/LinkedIn.png" style="width:30px;" alt="Descrição da imagem" />
+                        </a>
+                        <br>
+                        <br>
+                        <h6>Currently pursuing a Master's degree<br>in Software Engineering<br>at University of Minho</h6>
+                        <br>
+                        <h6>Maintains this personal website<br>to showcase her projects and skills</h6>
+                        <br>
+                        <img src="assets/gifs/Cat_Computer.gif" class="w3-margin-bottom" style="width:150px;" alt="Descrição da imagem" />
+                        </div>
+                </div>
+            </div>
+            <div class="w3-col s12 m12 l4">
+                <div class="w3-container w3-margin-right">
+                    <br>
+                    <h2>🌸 About</h2>
+                        <h4>
+                            <br>
+                            <b>So, who am I?</b>
+                            <br>
+                            <br>
+                            I’m Ana Sá Oliveira, a software engineer from Portugal.
+                            <br>
+                            <br>
+                            As a kid, I loved drawing and creating — I was always curious and enjoyed turning ideas into something real.
+                            In my teens, I fell in love with math, finding joy in solving problems and uncovering patterns.
+                            Programming felt like the perfect way to combine these two passions: creativity and logic.
+                            <br>
+                            <br>
+                            Now, as a software engineer, I’m driven by the thrill of building projects that matter and the endless chance to learn and grow.
+                            <br>
+                            <br>
+                            Outside programming, I enjoy the little things — listening to music, spending time by the pool, and going to the beach in the summer (even if I sometimes end up sunburnt 😅). I love playing cards with friends and, above all, I’m a true foodie. I can never say no to good food — especially pizza!
+                            <br>
+                            <br>
+                            <div class="w3-center">
+                                <img src="assets/img/Cat_Pizza.png" class="w3-margin" style="width:200px;" alt="Descrição da imagem" />
+                            </div>
+                        </h4>
+                </div>
+            </div>
+            <div class="w3-col s12 m12 l4">
+                <br>
+                <div class="w3-center w3-margin">
+                    <img src="assets/img/Ana2.jpeg" class="w3-margin-bottom" style="width: 100%; max-width: 556px; height: auto;" alt="Descrição da imagem" />
+                </div>
+            </div>
+        </main>
+
+        <footer style='background-color: #ff94bd;'>
+            <address class="w3-bar" style='display: flex; justify-content: center;'>
+                <div class="w3-bar-item">
+                    <script>
+                        document.write("© " + new Date().getFullYear() + " Ana Sá Oliveira ❤️");
+                    </script>
+                </div>
+                <div class="w3-bar-item">
+                    Built with <a href="https://www.w3schools.com/w3css/" class="w3-hover-text-white" target="_blank">w3.css</a> 🎀
+                </div>
+                <div class="w3-bar-item">
+                    <span>If you like this website, give it a star on </span>
+                    <a href="https://github.com/a104437ana/a104437ana.github.io" class="w3-hover-text-white" target="_blank">GitHub</a>
+                    <span> ⭐</span>
+                </div>
+            </address>
+        </footer>
+    </body>
+</html>
