@@ -34,29 +34,31 @@
                         <h4>Software Engineer</h4>
                         <h6>Braga, Portugal<br>
                             <script>
-                                const birthDate = new Date('2004-01-05');
-                                const today = new Date();
+                                function calculateAge(birthDateStr) {
+                                    const birthDate = new Date(birthDateStr);
+                                    const today = new Date();
 
-                                let age = today.getFullYear() - birthDate.getFullYear();
+                                    let age = today.getFullYear() - birthDate.getFullYear();
 
-                                // Ajusta se ainda não fez aniversário este ano
-                                const hasBirthdayPassed =
-                                    today.getMonth() > birthDate.getMonth() ||
-                                    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+                                    const hasBirthdayPassed =
+                                        today.getMonth() > birthDate.getMonth() ||
+                                        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
 
-                                if (!hasBirthdayPassed) {
-                                    age--;
+                                    if (!hasBirthdayPassed) {
+                                        age--;
+                                    }
+                                    return age;
                                 }
-
+                                const age = calculateAge('2004-01-05');
                                 document.write(age + " years old");
                             </script>
                         </h6>
                         <br>
                         <a href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                            <img src="assets/icons/GitHub.png" style="width:30px;" alt="Descrição da imagem" />
+                            <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
                         </a>
                         <a href="https://www.linkedin.com/in/ana-s%C3%A1-oliveira-b24680329/"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                            <img src="assets/icons/LinkedIn.png" style="width:30px;" alt="Descrição da imagem" />
+                            <img src="assets/icons/LinkedIn.png" style="width:30px;" alt="LinkedIn" />
                         </a>
                         <br>
                         <br>
@@ -64,7 +66,7 @@
                         <br>
                         <h6>Maintains this personal website<br>to showcase her projects and skills</h6>
                         <br>
-                        <img src="assets/gifs/Cat_Computer.gif" class="w3-margin-bottom" style="width:150px;" alt="Descrição da imagem" />
+                        <img src="assets/gifs/Cat_Computer.gif" class="w3-margin-bottom" style="width:150px;" alt="A cat at the computer" />
                         </div>
                 </div>
             </div>
@@ -74,13 +76,17 @@
                     <h2>🌸 About</h2>
                         <h4>
                             <br>
-                            I’m <b>Ana Sá Oliveira</b>, a 21-year-old <b>software engineer</b> from Portugal.
+                            I’m <b>Ana Sá Oliveira</b>, a
+                            <script>
+                                const ageAgain = calculateAge('2004-01-05');
+                                document.write(ageAgain);
+                            </script>-year-old <b>software engineer</b> from Portugal 🇵🇹
                             <br>
                             <br>
-                            In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the University of Minho.
+                            In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the University of Minho 🎓
                             <br>
                             <br>
-                            I am currently pursuing my <b>Master’s degree in Software Engineering</b> at the same university.
+                            I am currently pursuing my <b>Master’s degree in Software Engineering</b> at the same university 💻
                             <br>
                             <br>
                             While pursuing my Master’s degree, I aim to:
@@ -102,7 +108,7 @@
             <div class="w3-col s12 m12 l4">
                 <br>
                 <div class="w3-center w3-margin">
-                    <img src="assets/img/Ana2.jpeg" class="w3-round-xxlarge w3-margin-bottom" style="width: 100%; max-width: 556px; height: auto;" alt="Descrição da imagem" />
+                    <img src="assets/img/Ana2.jpeg" class="w3-round-xxlarge w3-margin-bottom" style="width: 100%; max-width: 556px; height: auto;" alt="Ana Sá Oliveira" />
                 </div>
             </div>
         </main>
