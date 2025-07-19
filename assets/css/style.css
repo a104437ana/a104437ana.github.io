@@ -339,9 +339,9 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   
     .custom-timeline .container::before {
       left: 60px;
-      border: medium solid white;
+      border: medium solid black;
       border-width: 10px 10px 10px 0;
-      border-color: transparent white transparent transparent;
+      border-color: transparent black transparent transparent;
     }
   
     .custom-timeline .left::after,
