@@ -72,10 +72,55 @@
                 <div class="w3-container w3-margin-right">
                     <h2 class="w3-center">📬 Contact</h2>
                         <h4 class="w3-center">
+                            <h3><img src="assets/icons/Email.png" style="width:50px;" alt="Email ícone"><b> Email</b></h3>
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
+                                <div class="w3-margin">
+                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('ana.sa.oliveira7@gmail.com')">
+                                    <span style="word-break: break-all;">ana.sa.oliveira7@gmail.com</span>
+                                </div>
+                            </div>
+                            <br>
+                            <h3><img src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b> Phone Number</b></h3>
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
+                                <div class="w3-margin">
+                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('(+351) 918 983 702')">
+                                    <span style="word-break: break-all;">(+351) 918 983 702</span>
+                                </div>
+                            </div>
+                            <br>
+                            <h3><img src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone"><b> GitHub</b></h3>
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
+                                <div class="w3-margin">
+                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('github.com/a104437ana')">
+                                    <span style="word-break: break-all;">github.com/a104437ana</span>
+                                </div>
+                            </div>
+                            🔗
+                            <a href="https://github.com/a104437ana" class="w3-hover-text-blue" target="_blank">GitHub</a>
                             <br>
                             <br>
                             <br>
-                            <img src="/assets/img/under_construction.png" style="width:500px;">
+                            <h3><img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></h3>
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
+                                <div class="w3-margin">
+                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('linkedin.com/in/ana-sá-oliveira-b24680329/')">
+                                    <span style="word-break: break-all;">linkedin.com/in/ana-sá-oliveira-b24680329/</span>
+                                </div>
+                            </div>
+                            🔗
+                            <a href="https://linkedin.com/in/ana-sá-oliveira-b24680329/" class="w3-hover-text-blue" target="_blank">LinkedIn</a>
+                            <br>
+                            <br>
+                            <br>
+                            <script>
+                                function copiarTexto(texto) {
+                                navigator.clipboard.writeText(texto).then(() => {
+                                    alert('Texto copiado: ' + texto);
+                                }).catch(err => {
+                                    console.error('Erro ao copiar texto: ', err);
+                                });
+                                }
+                            </script>
                         </h4>
                 </div>
             </div>
