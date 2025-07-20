@@ -69,10 +69,78 @@
                 </div>
             </div>
             <div class="w3-col s12 m12 l8">
-                <div class="w3-container w3-margin-right">
-                    <h2 class="w3-center">📂 Projects</h2>
-                        <h4 class="w3-center">
-                        </h4>
+                <div class="w3-container w3-margin-right w3-center">
+                    <h2>📂 Projects</h2>
+                    <h4>
+                        Here’s a showcase of 2 projects I’ve worked on. For more projects and details, check out my
+                        <a href="https://github.com/a104437ana" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">GitHub</a> 🗂️
+                    </h4>
+                    <br>
+                    <div class="w3-content w3-display-container">
+                    
+                    <div class="w3-display-container mySlides">
+                        <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
+                            <br>
+                            <h2>
+                                <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
+                                <a href="https://github.com/a104437ana/LI1" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">
+                                    <b>LI1</b>
+                                </a>
+                            </h2>
+                            <h2>Crossy Road 🐔</h2>
+                            <h4>College Project 🎓, Game 🎮, Haskell 💻</h4>
+                            <br>
+                            <img src="assets/img/LI1.png" class="w3-margin-bottom" style="max-width: 90%; width:700px;" alt="A cat at the computer" />
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="w3-display-container mySlides">
+                        <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
+                            <br>
+                            <h2>
+                                <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
+                                <a href="https://github.com/a104437ana/LI2" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">
+                                    <b>LI2</b>
+                                </a>
+                            </h2>
+                            <h2>Roguelite 👾</h2>
+                            <h4>College Project 🎓, Game 🎮, C 💻</h4>
+                            <br>
+                            <img src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px;" alt="A cat at the computer" />
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    
+                    <button class="w3-button w3-display-left w3-pink w3-round" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-display-right w3-pink w3-round" onclick="plusDivs(1)">&#10095;</button>
+                    
+                    </div>
+                    <br>
+                    <br>
+                    
+                    <script>
+                    var slideIndex = 1;
+                    showDivs(slideIndex);
+                    
+                    function plusDivs(n) {
+                        showDivs(slideIndex += n);
+                    }
+                    
+                    function showDivs(n) {
+                        var i;
+                        var x = document.getElementsByClassName("mySlides");
+                        if (n > x.length) {slideIndex = 1}
+                        if (n < 1) {slideIndex = x.length}
+                        for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";  
+                        }
+                        x[slideIndex-1].style.display = "block";  
+                    }
+                    </script>
                 </div>
             </div>
         </main>
@@ -85,11 +153,11 @@
                     </script>
                 </div>
                 <div class="w3-bar-item">
-                    Built with <a href="https://www.w3schools.com/w3css/" class="w3-hover-text-white" target="_blank">w3.css</a> 🎀
+                    Built with <a href="https://www.w3schools.com/w3css/" class="w3-hover-text-white" target="_blank" rel="noopener noreferrer">w3.css</a> 🎀
                 </div>
                 <div class="w3-bar-item">
                     <span>If you like this website, give it a star on </span>
-                    <a href="https://github.com/a104437ana/a104437ana.github.io" class="w3-hover-text-white" target="_blank">GitHub</a>
+                    <a href="https://github.com/a104437ana/a104437ana.github.io" class="w3-hover-text-white" target="_blank" rel="noopener noreferrer">GitHub</a>
                     <span> ⭐</span>
                 </div>
             </address>
