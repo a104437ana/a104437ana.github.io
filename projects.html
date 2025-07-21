@@ -90,7 +90,7 @@
                             <h2>Crossy Road 🐔</h2>
                             <h4>College Project 🎓, Game 🎮, Haskell 💻</h4>
                             <br>
-                            <img src="assets/img/LI1.png" class="w3-margin-bottom" style="max-width: 90%; width:700px;" alt="A cat at the computer" />
+                            <img src="assets/img/LI1.png" class="w3-margin-bottom" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI1" onclick="onClick(this)"/>
                             <br>
                             <br>
                             <br>
@@ -108,12 +108,65 @@
                             <h2>Roguelite 👾</h2>
                             <h4>College Project 🎓, Game 🎮, C 💻</h4>
                             <br>
-                            <img src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px;" alt="A cat at the computer" />
+                            <img src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px; cursor: zoom-in;" alt="LI2" onclick="onClick(this)"/>
                             <br>
                             <br>
                             <br>
                         </div>
                     </div>
+                    <div class="w3-display-container mySlides">
+                        <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
+                            <br>
+                            <h2>
+                                <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
+                                <a href="https://github.com/a104437ana/LI3" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">
+                                    <b>LI3</b>
+                                </a>
+                            </h2>
+                            <h2>Flights & Reservations Application ✈️🏨</h2>
+                            <h4>College Project 🎓, App 📊, Tests ✅, C 💻</h4>
+                            <br>
+                            <img src="assets/img/LI3_1.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
+                            <img src="assets/img/LI3_2.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div id="modal01" onclick="this.style.display='none'"
+                        style="
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100vw;
+                        height: 100vh;
+                        background-color: rgba(0, 0, 0, 0.9);
+                        z-index: 9999;
+                        overflow: hidden;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: zoom-out;
+                        ">
+                        <img id="img01"
+                            style="
+                            max-width: 90%;
+                            max-height: 90%;
+                            width: auto;
+                            height: auto;
+                            object-fit: contain;
+                        " />
+                    </div>
+
+                    <script>
+                        function onClick(element) {
+                            const modal = document.getElementById("modal01");
+                            const modalImg = document.getElementById("img01");
+                            modalImg.src = element.src;
+                            modal.style.display = "flex";
+                        }
+                    </script>
                     
                     <button class="w3-button w3-display-left w3-pink w3-round" onclick="plusDivs(-1)">&#10094;</button>
                     <button class="w3-button w3-display-right w3-pink w3-round" onclick="plusDivs(1)">&#10095;</button>
