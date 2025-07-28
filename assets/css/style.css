@@ -237,7 +237,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   
   .custom-timeline {
     font-family: Helvetica, sans-serif;
-    padding: 20px 0;
+    padding: 0 0;
   }
   
   /* Timeline container */
@@ -318,7 +318,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
   
   .custom-timeline .content {
-    padding: 15px 30px;
+    padding: 0 30px;
     background-color: white;
     position: relative;
     border-radius: 6px;

@@ -7,172 +7,155 @@
         <link rel="stylesheet" href="assets/css/style.css" />
         <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
     </head>
-    <body>
-        <!-- Home -->
-        <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
-            <nav class="w3-bar w3-hide-medium w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
-                <div class="w3-bar-item w3-pink w3-round-xxlarge">Ana Sá Oliveira</div>
-                <a href="#about" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
-                <a href="#education" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
-                <a href="#skills" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
-                <a href="#projects" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
-                <a href="#contact" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
-            </nav>
-            
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
-                <div class="w3-container w3-content w3-margin">
-                    <div class="w3-col s12 m12 l6">
-                    <img src="assets/img/Ana.jpeg" class="w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
-                </div>
-                <div class="w3-col s12 m12 l6">
-                    <br class="w3-hide-medium w3-hide-small">
-                    <br class="w3-hide-medium w3-hide-small">
-                    <br class="w3-hide-medium w3-hide-small">
-                    <br>
-                    <div class="w3-xxxlarge">
-                        <b>
-                            <div class="w3-text-pink">
-                                Ana Sá Oliveira
-                            </div>
-                        </b>
-                    </div>
-                    <div class="w3-xxlarge">
-                        <b>
-                            Software Engineer
-                        </b>
-                    </div>
-                    <div class="w3-large">
-                        <br>
-                        Currently pursuing a Master's degree
-                        <br>in Software Engineering
-                        <br>at the <a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a>
-                    </div>
-                    <br>
-                    <a href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                        <img src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
-                    </a>
-                    &nbsp;
-                    <a href="https://www.linkedin.com/in/ana-s%C3%A1-oliveira-b24680329/"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                        <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
-                    </a>
-                </div>
-                </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#about">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
-        
-            
-        </div>
-        <!-- About -->
-        <div id="about" style="background-color: white; min-height: 100vh;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin">
-                    <h2>🌸 About</h2>
-                    <h4>
-                        <br>
-                        I’m <b>Ana Sá Oliveira</b>, a
-                        <script>
-                            function calculateAge(birthDateStr) {
-                                const birthDate = new Date(birthDateStr);
-                                const today = new Date();
+    <body style='min-height: 100vh; display: flex; flex-direction: column; background-color: #fee9f0;'>
 
-                                let age = today.getFullYear() - birthDate.getFullYear();
-
-                                const hasBirthdayPassed =
-                                    today.getMonth() > birthDate.getMonth() ||
-                                    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-
-                                if (!hasBirthdayPassed) {
-                                    age--;
-                                }
-                                return age;
-                            }
-                            const age = calculateAge('2004-01-05');
-                            document.write(age);
-                        </script>-year-old <b>software engineer</b> from Portugal 🇵🇹
-                        <br>
-                        <br>
-                        In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the University of Minho 🎓
-                        <br>
-                        <br>
-                        I am currently pursuing my <b>Master’s degree in Software Engineering</b> at the same university 💻
-                        <br>
-                        <br>
-                        While pursuing my Master’s degree, I aim to:
-                        <ul>
-                            <li><b>Learn</b> as much as possible from my Master’s degree;</li>
-                            <br>
-                            <li><b>Build</b> more personal projects;</li>
-                            <br>
-                            <li><b>Contribute</b> to external projects beyond my own;</li>
-                            <br>
-                            <li><b>Gain experience</b> through internships.</li>
-                        </ul>
-                        <br>
-                        I'm excited for the journey ahead and open to new opportunities 🚀✨
-                    </h4>
+        <main style="flex-grow: 1;">
+            <div class="w3-container w3-display-container" style="min-height: 100vh;">
+                <div class="w3-margin">
+                    <nav class="w3-bar w3-round-xxlarge" style='display: flex; justify-content: center; background-color: #ff94bd;'>
+                        <div class="w3-bar-item w3-pink w3-round-xxlarge">Ana Sá Oliveira</div>
+                        <a href="#about" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
+                        <a href="#education" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
+                        <a href="#skills" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
+                        <a href="#projects" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
+                        <a href="#contact" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
+                    </nav>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#education">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
-        </div>
-        <!-- Education -->
-        <div id="education" style="background-color: pink; min-height: 100vh;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin">
-                    <h2 class="w3-center">🎓 Education</h2>
-                    <br>
-                    <h4>
-                        <div class="custom-timeline">
-                            <div class="timeline">
-                            <div class="container left">
-                                <div class="content">
-                                <h3><b>2025–2027</b></h3>
-                                <p>Master's degree in Software Engineering at the University of Minho</p>
-                                <p>Currently enrolled 🟡</p>
+            <div class="w3-content w3-container w3-center">
+                    <div class="w3-display-middle">
+                        <div class="w3-half">
+                        <img src="assets/img/Ana.jpeg" class="w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+                    </div>
+                    <div class="w3-half">
+                        <div class="w3-xxxlarge">
+                            <b>
+                                <br>
+                                <div class="w3-text-pink">
+                                    Ana Sá Oliveira
                                 </div>
-                            </div>
-                            <div class="container right">
-                                <div class="content">
-                                <h3><b>2022–2025</b></h3>
-                                <p>Bachelor's degree in Software Engineering at the University of Minho</p>
-                                <p>Final grade: <b>16/20</b> ✅</p>
-                                </div>
-                            </div>
-                            <div class="container right">
-                                <div class="content">
-                                <h3><b>2019–2022</b></h3>
-                                <p>High School</p>
-                                <p>Final grade: <b>18/20</b> ✅</p>
-                                </div>
-                            </div>
-                            </div>
+                            </b>
                         </div>
-                    </h4>
+                        <div class="w3-xxlarge">
+                            <b>
+                                Software Engineer
+                            </b>
+                        </div>
+                        <div class="w3-large">
+                            <br>
+                            Currently pursuing a Master's degree
+                            <br>in Software Engineering
+                            <br>at the <a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a>
+                        </div>
+                        <br>
+                        <a href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <img src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
+                        </a>
+                        &nbsp;
+                        <a href="https://www.linkedin.com/in/ana-s%C3%A1-oliveira-b24680329/"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                            <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
+                        </a>
+                    </div>
+                    </div>
+                    <div class="w3-display-bottommiddle">
+                        <a href="#about">
+                            <img src="assets/gifs/scroll.gif" style="height: 125px;">
+                        </a>
+                    </div>
+            </div>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#skills">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
-        </div>
-        <!-- Skills -->
-        <div id="skills" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin">
-                    <h2>🛠️ Skills</h2>
+                <div id="about" style="background-color: white;">
+                    <div class="w3-container w3-display-container w3-content" style="height: 100vh;">
+                        <div class="">
+                    <h2 class="w3-text-pink"><b>🌸 About</b></h2>
+                        <h4>
+                            <br>
+                            I’m <b>Ana Sá Oliveira</b>, a
+                            <script>
+                                function calculateAge(birthDateStr) {
+                                    const birthDate = new Date(birthDateStr);
+                                    const today = new Date();
+
+                                    let age = today.getFullYear() - birthDate.getFullYear();
+
+                                    const hasBirthdayPassed =
+                                        today.getMonth() > birthDate.getMonth() ||
+                                        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+                                    if (!hasBirthdayPassed) {
+                                        age--;
+                                    }
+                                    return age;
+                                }
+                                const age = calculateAge('2004-01-05');
+                                document.write(age);
+                            </script>-year-old <b>software engineer</b> from Portugal 🇵🇹
+                            <br>
+                            <br>
+                            In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the University of Minho 🎓
+                            <br>
+                            <br>
+                            I am currently pursuing my <b>Master’s degree in Software Engineering</b> at the same university 💻
+                            <br>
+                            <br>
+                            While pursuing my Master’s degree, I aim to:
+                            <ul>
+                                <li><b>Learn</b> as much as possible from my Master’s degree;</li>
+                                <br>
+                                <li><b>Build</b> more personal projects;</li>
+                                <br>
+                                <li><b>Contribute</b> to external projects beyond my own;</li>
+                                <br>
+                                <li><b>Gain experience</b> through internships.</li>
+                            </ul>
+                            <br>
+                            I'm excited for the journey ahead and open to new opportunities 🚀✨
+                        </h4>
+                        <br>
+                        <a href="#about" class="w3-center">
+                            <img src="assets/gifs/scroll.gif" style="height: 125px;">
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div id="education" style="background-color: pink;">
+                    <div class="w3-display-container" style="height: 100vh;">
+                        <div class="w3-display-middle">
+                    <h2 class="w3-text-pink"><b>🎓 Education</b></h2>
+                        <h4>
+                            <div class="custom-timeline">
+                                <div class="timeline">
+                                <div class="container left">
+                                    <div class="content">
+                                    <h3><b>2025–2027</b></h3>
+                                    <p>Master's degree in Software Engineering at the University of Minho</p>
+                                    <p>Currently enrolled 🟡</p>
+                                    </div>
+                                </div>
+                                <div class="container right">
+                                    <div class="content">
+                                    <h3><b>2022–2025</b></h3>
+                                    <p>Bachelor's degree in Software Engineering at the University of Minho</p>
+                                    <p>Final grade: <b>16/20</b> ✅</p>
+                                    </div>
+                                </div>
+                                <div class="container right">
+                                    <div class="content">
+                                    <h3><b>2019–2022</b></h3>
+                                    <p>High School</p>
+                                    <p>Final grade: <b>18/20</b> ✅</p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="skills">
+                    <h2 class="w3-text-pink"><b>🛠️ Skills</b></h2>
                     <br>
                     <h3>🔧 Technical Skills</h3>
+                    <br>
                     <img src="assets/icons/PYTHON.svg" alt="Python" style="height: 40px;">
                     <img src="assets/icons/C.svg" alt="C" style="height: 40px;">
                     <img src="assets/icons/JAVA.svg" alt="Java" style="height: 40px;">
@@ -210,12 +193,14 @@
                     ... among others.
                     <br>
                     <br>
+                    <br>
                     <h3>🚀 Soft Skills</h3>
                     <h4>
                         <ul>
                             <li>Teamwork, critical thinking, problem-solving, creativity, proactivity and attention to detail ✅</li>
                         </ul>
                     </h4>
+                    <br>
                     <h3>🌐 Languages</h3>
                     <h4>
                         <ul>
@@ -223,6 +208,7 @@
                             <li>🇬🇧 <b>English</b> – Upper-intermediate (B2)</li>
                         </ul>
                     </h4>
+                    <br>
                     <h3>📌 Other Information</h3>
                     <h4>
                         <ul>
@@ -232,19 +218,8 @@
                         </ul>
                     </h4>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#projects">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
-        </div>
-        <!-- Projects -->
-        <div id="projects" style="background-color: pink; min-height: 100vh;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin" style="width: 90%;">
-                    <h2>📂 Projects</h2>
+                <div id="projects">
+                    <h2 class="w3-text-pink"><b>📂 Projects</b></h2>
                     <h4>
                         Here’s a showcase of 3 projects I’ve worked on. For more projects and details, check out my
                         <a href="https://github.com/a104437ana" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">GitHub</a> 🗂️
@@ -254,7 +229,6 @@
                     
                     <div class="w3-display-container mySlides">
                         <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
-                        <div class="w3-container w3-margin">
                             <br>
                             <h2>
                                 <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
@@ -270,11 +244,9 @@
                             <br>
                             <br>
                         </div>
-                        </div>
                     </div>
                     <div class="w3-display-container mySlides">
                         <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
-                            <div class="w3-container w3-margin">
                             <br>
                             <h2>
                                 <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
@@ -290,11 +262,9 @@
                             <br>
                             <br>
                         </div>
-                        </div>
                     </div>
                     <div class="w3-display-container mySlides">
                         <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
-                            <div class="w3-container w3-margin">
                             <br>
                             <h2>
                                 <img src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
@@ -310,7 +280,6 @@
                             <br>
                             <br>
                             <br>
-                            </div>
                         </div>
                     </div>
 
@@ -352,6 +321,8 @@
                     <button class="w3-button w3-display-right w3-pink w3-round" onclick="plusDivs(1)">&#10095;</button>
                     
                     </div>
+                    <br>
+                    <br>
                     
                     <script>
                     var slideIndex = 1;
@@ -373,19 +344,8 @@
                     }
                     </script>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#contact">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
-        </div>
-        <!-- Contact -->
-        <div id="contact" style="background-color: white; min-height: 100vh;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin">
-                    <h2>📬 Contact</h2>
+                <div id="contact">
+                    <h2><b class="w3-text-pink">📬 Contact</b></h2>
                     <br>
                         <h4 class="w3-center">
                             <h3><img src="assets/icons/Email.png" style="width:50px;" alt="Email ícone"><b> Email</b></h3>
@@ -430,6 +390,8 @@
                             </div>
                             🔗
                             <a href="https://linkedin.com/in/ana-sá-oliveira-b24680329/" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <br>
+                            <br>
                             <script>
                                 function copiarTexto(texto) {
                                 navigator.clipboard.writeText(texto).then(() => {
@@ -440,15 +402,10 @@
                                 }
                             </script>
                         </h4>
+                        <br>
                 </div>
-            </div>
-            <div style="text-align: center;">
-                <a href="#home">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px; transform: scaleY(-1);">
-                </a>
-            </div>
-        </div>
-        <!-- Footer -->
+        </main>
+
         <footer style='background-color: #ff94bd;'>
             <address class="w3-bar" style='display: flex; justify-content: center;'>
                 <div class="w3-bar-item">
