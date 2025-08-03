@@ -11,7 +11,6 @@
         <!-- Home -->
         <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <nav class="w3-bar w3-hide-medium w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
-                <div class="w3-bar-item w3-pink w3-round-xxlarge">Ana Sá Oliveira</div>
                 <a href="#about" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
                 <a href="#education" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
                 <a href="#skills" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
@@ -45,11 +44,11 @@
                         <br>
                         Currently pursuing a Master's degree
                         <br>in Software Engineering
-                        <br>at the <a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a>
+                        <br>at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a>
                     </div>
                     <br>
                     <a href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                        <img src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
+                        <img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
                     </a>
                     &nbsp;
                     <a href="https://www.linkedin.com/in/ana-s%C3%A1-oliveira-b24680329/"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
@@ -60,9 +59,7 @@
             </div>
         
             <div style="text-align: center;">
-                <a href="#about">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
+                <img class="dark" src="assets/gifs/scroll.gif" style="height: 125px;">
             </div>
         
             
@@ -117,12 +114,6 @@
                     </h4>
                 </div>
             </div>
-        
-            <div style="text-align: center;">
-                <a href="#education">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
         </div>
         <!-- Education -->
         <div id="education" style="background-color: pink; min-height: 100vh;display: flex; flex-direction: column;">
@@ -136,14 +127,14 @@
                             <div class="container left">
                                 <div class="content">
                                 <h3><b>2025–2027</b></h3>
-                                <p>Master's degree in Software Engineering at the University of Minho</p>
+                                <p>Master's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
                                 <p>Currently enrolled 🟡</p>
                                 </div>
                             </div>
                             <div class="container right">
                                 <div class="content">
                                 <h3><b>2022–2025</b></h3>
-                                <p>Bachelor's degree in Software Engineering at the University of Minho</p>
+                                <p>Bachelor's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
                                 <p>Final grade: <b>16/20</b> ✅</p>
                                 </div>
                             </div>
@@ -158,12 +149,6 @@
                         </div>
                     </h4>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#skills">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
             </div>
         </div>
         <!-- Skills -->
@@ -232,12 +217,6 @@
                         </ul>
                     </h4>
                 </div>
-            </div>
-        
-            <div style="text-align: center;">
-                <a href="#projects">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
             </div>
         </div>
         <!-- Projects -->
@@ -314,7 +293,7 @@
                         </div>
                     </div>
 
-                    <div id="modal01" onclick="this.style.display='none'"
+                    <div class="dark" id="modal01" onclick="this.style.display='none'"
                         style="
                         display: none;
                         position: fixed;
@@ -374,12 +353,6 @@
                     </script>
                 </div>
             </div>
-        
-            <div style="text-align: center;">
-                <a href="#contact">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px;">
-                </a>
-            </div>
         </div>
         <!-- Contact -->
         <div id="contact" style="background-color: white; min-height: 100vh;display: flex; flex-direction: column;">
@@ -390,7 +363,7 @@
                             <h3><img src="assets/icons/Email.png" style="width:50px;" alt="Email ícone"><b> Email</b></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
                                 <div class="w3-margin">
-                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('ana.sa.oliveira7@gmail.com')">
+                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'ana.sa.oliveira7@gmail.com')">
                                     <span style="word-break: break-all;">ana.sa.oliveira7@gmail.com</span>
                                 </div>
                             </div>
@@ -398,10 +371,10 @@
                             <a href="mailto:ana.sa.oliveira7@gmail.com" class="w3-hover-text-blue" rel="noopener noreferrer">Send Email</a>
                             <br>
                             <br>
-                            <h3><img src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b> Phone Number</b></h3>
+                            <h3><img class="dark" src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b> Phone Number</b></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
                                 <div class="w3-margin">
-                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('(+351) 918 983 702')">
+                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'(+351) 918 983 702')">
                                     <span style="word-break: break-all;">(+351) 918 983 702</span>
                                 </div>
                             </div>
@@ -409,10 +382,10 @@
                             <a href="tel:+351918983702" class="w3-hover-text-blue" rel="noopener noreferrer">Call Now</a>
                             <br>
                             <br>
-                            <h3><img src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></h3>
+                            <h3><img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
                                 <div class="w3-margin">
-                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('github.com/a104437ana')">
+                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'github.com/a104437ana')">
                                     <span style="word-break: break-all;">github.com/a104437ana</span>
                                 </div>
                             </div>
@@ -423,16 +396,28 @@
                             <h3><img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
                                 <div class="w3-margin">
-                                    <img class="w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto('linkedin.com/in/ana-sá-oliveira-b24680329/')">
-                                    <span style="word-break: break-all;">linkedin.com/in/ana-sá-oliveira-b24680329/</span>
+                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'www.linkedin.com/in/ana-sá-oliveira')">
+                                    <span style="word-break: break-all;">www.linkedin.com/in/ana-sá-oliveira</span>
                                 </div>
                             </div>
                             🔗
-                            <a href="https://linkedin.com/in/ana-sá-oliveira-b24680329/" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/ana-sá-oliveira" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <br>
+                            <br>
                             <script>
-                                function copiarTexto(texto) {
+                                function copiarTexto(imgElement,texto) {
                                 navigator.clipboard.writeText(texto).then(() => {
-                                    alert('Text copied: ' + texto);
+                                    const originalSrc = 'assets/icons/Copy.png';
+                                    const checkSrc = 'assets/icons/Check.png';
+                                    if (imgElement.dataset.timeoutId) {
+                                        clearTimeout(imgElement.dataset.timeoutId);
+                                    }
+                                    imgElement.src = checkSrc;
+                                    const timeoutId = setTimeout(() => {
+                                        imgElement.src = originalSrc;
+                                        imgElement.dataset.timeoutId = "";
+                                    }, 2000);
+                                    imgElement.dataset.timeoutId = timeoutId;
                                 }).catch(err => {
                                     console.error('Error copying text: ', err);
                                 });
@@ -440,11 +425,6 @@
                             </script>
                         </h4>
                 </div>
-            </div>
-            <div style="text-align: center;">
-                <a href="#home">
-                    <img src="assets/gifs/scroll.gif" style="height: 125px; transform: scaleY(-1);">
-                </a>
             </div>
         </div>
         <!-- Footer -->
@@ -457,5 +437,43 @@
                 </div>
             </address>
         </footer>
+        <button id="theme-toggle"
+            style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 14px;
+                border-radius: 50%;
+                border: none;
+                font-size: 24px;
+                background-color: #e91e63;
+                color: black;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 9999;
+            ">
+            🌙
+        </button>
+        <script>
+            const botao = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+          
+            // Aplica tema salvo ou detecta preferência do sistema
+            const temaSalvo = localStorage.getItem('theme');
+            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+            if (temaSalvo === 'dark' || (!temaSalvo && prefereEscuro)) {
+              root.classList.add('dark-mode');
+              botao.textContent = '☀️';
+              botao.style.backgroundColor = '#ffffff';
+            }
+          
+            botao.addEventListener('click', () => {
+              const modoEscuroAtivo = root.classList.toggle('dark-mode');
+              botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
+              botao.style.backgroundColor = modoEscuroAtivo ? '#ffffff' : '#e91e63';
+              localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
+            });
+          </script>
     </body>
 </html>
