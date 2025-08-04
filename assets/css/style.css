@@ -425,3 +425,10 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     filter: invert(1);
   }
   
+  #theme-toggle:hover {
+    background-color: #000000 !important;
+  }
+
+  .dark-mode #theme-toggle:hover {
+    background-color: white !important;
+  }

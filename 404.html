@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>404 - Page not found</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
+    </head>
+    <body>
+        <!-- Home -->
+        <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
+            
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
+                <div class="w3-container w3-content w3-margin">
+                    <div class="w3-xxlarge">
+                        <b>
+                            <div class="w3-text-pink">
+                                4️⃣0️⃣4️⃣
+                                <br>
+                                Page not found
+                                <br>
+                                ☹️
+                                <br>
+                                <br>
+                            </div>
+                            <a href="index.html" class="w3-button w3-pink w3-round-large" style="white-space: normal; text-align: center;">
+                                Go back to Ana's portfolio ♥
+                            </a>
+                        </b>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer style='background-color: #ff94bd;'>
+                <address class="w3-bar" style='display: flex; justify-content: center;'>
+                    <div class="w3-bar-item">
+                        <script>
+                            document.write("© " + new Date().getFullYear() + " Ana Sá Oliveira");
+                        </script>
+                    </div>
+                </address>
+            </footer>
+        </div>
+        <button id="theme-toggle"
+            style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 14px;
+                border-radius: 50%;
+                border: none;
+                font-size: 24px;
+                background-color: #e91e63;
+                color: black;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 9999;
+            ">
+            🌙
+        </button>
+        <script>
+            const botao = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+          
+            // Aplica tema salvo ou detecta preferência do sistema
+            const temaSalvo = localStorage.getItem('theme');
+            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+            if (temaSalvo === 'dark' || (!temaSalvo && prefereEscuro)) {
+              root.classList.add('dark-mode');
+              botao.textContent = '☀️';
+              botao.style.backgroundColor = '#880732';
+            }
+          
+            botao.addEventListener('click', () => {
+              const modoEscuroAtivo = root.classList.toggle('dark-mode');
+              botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
+              botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
+              localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
+            });
+          </script>
+    </body>
+</html>

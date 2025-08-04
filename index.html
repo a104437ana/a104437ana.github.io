@@ -471,13 +471,13 @@
             if (temaSalvo === 'dark' || (!temaSalvo && prefereEscuro)) {
               root.classList.add('dark-mode');
               botao.textContent = '☀️';
-              botao.style.backgroundColor = '#ffffff';
+              botao.style.backgroundColor = '#880732';
             }
           
             botao.addEventListener('click', () => {
               const modoEscuroAtivo = root.classList.toggle('dark-mode');
               botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-              botao.style.backgroundColor = modoEscuroAtivo ? '#ffffff' : '#e91e63';
+              botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
               localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
             });
           </script>
