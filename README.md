@@ -7,7 +7,6 @@ This is my personal website built to showcase my work, skills and projects.
 
 ## Things I Plan to Add (If I have time)
 - [ ] CV download button
-- [x] Make home section prettier and others...
 - [ ] projects section better...
 
 ## Fun facts
