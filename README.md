@@ -8,6 +8,7 @@ This is my personal website built to showcase my work, skills and projects.
 ## Things I Plan to Do (If I have time)
 - [ ] **Make CV buttons functional** 👈
 - [ ] Improve the projects section
+- [ ] Add a more professional photo with a blue background
 - [ ] See the exact dates of some events mentioned on the website
 - [ ] Improve the skills section (maybe highlight languages)
 
