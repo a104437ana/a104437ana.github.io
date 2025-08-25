@@ -6,6 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/style.css" />
         <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
+        <script>
+            (function() {
+            const root = document.documentElement;
+            const temaSalvo = localStorage.getItem('theme');
+            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
+        
+            if (usarEscuro) root.classList.add('dark-mode');
+            })();
+        </script>
     </head>
     <body>
         <!-- Home -->
@@ -63,25 +73,21 @@
             🌙
         </button>
         <script>
-            const botao = document.getElementById('theme-toggle');
             const root = document.documentElement;
-          
-            // Aplica tema salvo ou detecta preferência do sistema
+            const botao = document.getElementById('theme-toggle');
             const temaSalvo = localStorage.getItem('theme');
             const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          
-            if (temaSalvo === 'dark' || (!temaSalvo && prefereEscuro)) {
-              root.classList.add('dark-mode');
-              botao.textContent = '☀️';
-              botao.style.backgroundColor = '#880732';
-            }
-          
+            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
+        
+            botao.textContent = usarEscuro ? '☀️' : '🌙';
+            botao.style.backgroundColor = usarEscuro ? '#880732' : '#e91e63';
+        
             botao.addEventListener('click', () => {
-              const modoEscuroAtivo = root.classList.toggle('dark-mode');
-              botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-              botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
-              localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
+            const modoEscuroAtivo = root.classList.toggle('dark-mode');
+            botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
+            botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
+            localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
             });
-          </script>
+        </script>
     </body>
 </html>
