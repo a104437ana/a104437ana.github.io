@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/assets/css/style.css" />
-        <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
+        <link class="w3-circle" rel="icon" type='image/png' href='/assets/icons/Ana.png'/>
         <meta name="google" content="notranslate">
         <script>
 
@@ -31,8 +31,8 @@
             function updateToggleButton() {
             const btn = document.getElementById("lang-toggle");
             btn.innerHTML = (currentLang === "en") 
-                ? '<img src="assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">' 
-                : '<img src="assets/icons/flag-ukus.png" alt="English" style="height: 1.3em;width: 1.3em; vertical-align: top;">';
+                ? '<img src="/assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">' 
+                : '<img src="/assets/icons/flag-ukus.png" alt="English" style="height: 1.3em;width: 1.3em; vertical-align: top;">';
             }
 
             document.addEventListener("DOMContentLoaded", () => {
@@ -124,7 +124,7 @@
                 cursor: pointer;
                 z-index: 9999;
             ">
-            <img src="assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">
+            <img src="/assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">
         </button>
         <script>
             const root = document.documentElement;
