@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Ana Sá Oliveira</title>
         <meta charset="utf-8" />
@@ -7,6 +7,36 @@
         <link rel="stylesheet" href="/assets/css/style.css" />
         <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
         <script>
+
+            // idioma inicial: detecta navegador ou localStorage
+            let currentLang = localStorage.getItem("lang") || navigator.language.slice(0,2) || "en";
+
+            function setLanguage(lang) {
+            document.querySelectorAll("[data-pt]").forEach(el => {
+                if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original (HTML em inglês)
+                el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
+            });
+            document.documentElement.lang = lang;
+            currentLang = lang;
+            localStorage.setItem("lang", lang);
+            updateToggleButton();
+            }
+
+            function toggleLanguage() {
+            setLanguage(currentLang === "en" ? "pt" : "en");
+            }
+
+            function updateToggleButton() {
+            const btn = document.getElementById("lang-toggle");
+            btn.innerHTML = (currentLang === "en") 
+                ? '<img src="assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">' 
+                : '<img src="assets/icons/flag-ukus.png" alt="English" style="height: 1.3em;width: 1.3em; vertical-align: top;">';
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+            setLanguage(currentLang);
+            });
+
             (function() {
             const root = document.documentElement;
             const temaSalvo = localStorage.getItem('theme');
@@ -21,11 +51,11 @@
         <!-- Home -->
         <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
-                <a href="#about" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
-                <a href="#education" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
-                <a href="#skills" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
-                <a href="#projects" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
-                <a href="#contact" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
+                <a href="#about" data-pt="🌸 Sobre" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
+                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
+                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
+                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
+                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
             </nav>
             <style>
                 .big {
@@ -81,26 +111,26 @@
                             </b>
                         </div>
                         <div class="big w3-hide-small w3-hide-medium w3-xxlarge">
-                            <b>
+                            <b data-pt="<div class='w3-xlarge'>Engenheira Informática</div>">
                                 Software Engineer
                             </b>
                         </div>
                         <div class="big w3-hide-large w3-xlarge">
-                            <b>
+                            <b data-pt="Engenheira Informática">
                                 Software Engineer
                             </b>
                         </div>
                         <div class="small w3-large">
-                            <b>
+                            <b data-pt="Engenheira Informática">
                                 Software Engineer
                             </b>
                         </div>
-                        <div class="w3-hide-small w3-large">
+                        <div class="w3-hide-small w3-large" data-pt="<br>Atualmente à procura de <b>estágio de verão</b><br> em desenvolvimento de software<br> para o <b>verão 2026</b>">
                             <br>
                             Currently looking for a <b>summer internship</b>
-                            <br>in software development for summer 2026
+                            <br>in software development for <b>summer 2026</b>
                         </div>
-                        <div class="w3-hide-large w3-hide-medium w3-large">
+                        <div class="w3-hide-large w3-hide-medium w3-large" data-pt="<br>À procura de um estágio de verão <br>☀️💻">
                             <br>
                             Looking for a summer internship <br>☀️💻
                         </div>
@@ -109,9 +139,13 @@
                             <img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
                         </a>
                         &nbsp;
-                        <a class="w3-hide-small" href="https://www.linkedin.com/in/ana-sá-oliveira"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                        <span data-pt='<a class="w3-hide-small" href="https://www.linkedin.com/in/ana-sá-oliveira/pt"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                             <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
-                        </a>
+                        </a>'>
+                            <a class="w3-hide-small" href="https://www.linkedin.com/in/ana-sá-oliveira/en"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+                                <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -129,12 +163,14 @@
                     <br>
                     <div class="w3-xxlarge">
                         <b>
-                            <div class="w3-text-pink">🌸 About</div>
+                            <div class="w3-text-pink" data-pt="🌸 Sobre">🌸 About</div>
                         </b>
                     </div>
                     <h4>
                         <br>
+                        <span data-pt="Eu sou a <b>Ana Sá Oliveira</b>, uma <b>engenheira informática</b> de">
                         I’m <b>Ana Sá Oliveira</b>, a
+                        </span>
                         <script>
                             function calculateAge(birthDateStr) {
                                 const birthDate = new Date(birthDateStr);
@@ -153,33 +189,52 @@
                             }
                             const age = calculateAge('2004-01-05');
                             document.write(age);
-                        </script>-year-old <b>software engineer</b> from Portugal <img src="assets/icons/flag-pt.png" alt="Portugal" style="height: 1.5em;width: auto; vertical-align: top;">
+                        </script><span data-pt=' anos, natural de Portugal <img src="assets/icons/flag-pt.png" alt="Portugal" style="height: 1.5em;width: auto; vertical-align: top;">'>-year-old <b>software engineer</b> from Portugal <img src="assets/icons/flag-pt.png" alt="Portugal" style="height: 1.5em;width: auto; vertical-align: top;">
+                        </span>
                         <br>
                         <br>
-                        In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a> 🎓
+                        <span data-pt='Em 2025, concluí a <b>Licenciatura em Engenharia Informática</b> na <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">Universidade do Minho</a> 🎓'>
+                            In 2025, I completed my <b>Bachelor’s degree in Software Engineering</b> at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a> 🎓
+                        </span>
                         <br>
                         <br>
+                        <span data-pt='Estou atualmente no primeiro ano do <b>Mestrado em Engenharia Informática</b> na mesma universidade 💻'>
                         I am currently in the first year of my <b>Master’s degree in Software Engineering</b> at the same university 💻
+                        </span>
                         <br>
                         <br>
+                        <span data-pt="Estou entusiasmada com o percurso que tenho pela frente e aberta a novas oportunidades 🚀">
                         I'm excited for the journey ahead and open to new opportunities 🚀
+                        </span>
                         <br>
                         <br>
-                        <mark>I’m currently looking for my first <b>summer internship</b> in software development for <b>summer 2026</b> ⛱️</mark>
+                        <mark data-pt="Estou atualmente à procura do meu primeiro <b>estágio de verão</b> em desenvolvimento de software para o <b>verão 2026</b> ⛱️">I’m currently looking for my first <b>summer internship</b> in software development for <b>summer 2026</b> ⛱️</mark>
                         <br>
                         <br>
-                        If you have any opportunities or would like to connect, feel free to reach out (<a class="w3-hover-text-blue" href="#contact">Contact section</a> below) ✨
+                        <span data-pt='Se tiver alguma oportunidade ou quiser entrar em contacto, sinta-se à vontade para me procurar na <a class="w3-hover-text-blue" href="#contact">secção de contacto</a> abaixo ✨'>
+                            If you have any opportunities or would like to connect, feel free to reach out (<a class="w3-hover-text-blue" href="#contact">Contact section</a> below) ✨
+                        </span>
                         <br>
                         <br>
-                        If you'd like to view or download my CV, you can use the buttons just below 👇
+                        <span data-pt="Se quiser consultar ou descarregar o meu CV, pode usar os botões logo abaixo 👇">
+                            If you'd like to view or download my CV, you can use the buttons just below 👇
+                        </span>
                         <br>
                         <br>
-                        <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
-                            📄 View CV
-                        </a>
-                        <a href="assets/cv/en/cv.pdf" download class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" target="_blank" class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
+                            📄 Ver CV
+                        </a>'>
+                            <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
+                                📄 View CV
+                            </a>
+                        </span>
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" download class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
                             ⬇️ Download CV
-                        </a>
+                        </a>'>
+                            <a href="assets/cv/en/cv.pdf" download class="w3-button w3-round w3-yellow w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
+                                ⬇️ Download CV
+                            </a>
+                        </span>
                     </h4>
                     <h4><br></h4>
                 </div>
@@ -192,7 +247,7 @@
                     <br>
                     <div class="w3-xxlarge w3-center">
                         <b>
-                            <div class="w3-text-pink">🎓 Education</div>
+                            <div class="w3-text-pink" data-pt="🎓 Educação">🎓 Education</div>
                         </b>
                     </div>
                     <br>
@@ -202,22 +257,24 @@
                             <div class="container left">
                                 <div class="content">
                                 <h3><b>2025–2027</b></h3>
-                                <p>Master's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
-                                <p>First-year student 🟡</p>
+                                <p data-pt='Mestrado em Engenharia Informática na <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">Universidade do Minho</a>'>
+                                Master's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
+                                <p><span data-pt="Aluna do primeiro ano">First-year student</span> 🟡</p>
                                 </div>
                             </div>
                             <div class="container right">
                                 <div class="content">
                                 <h3><b>2022–2025</b></h3>
-                                <p>Bachelor's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
-                                <p>Final grade: <b>16/20</b> ✅</p>
+                                <p data-pt='Licenciatura em Engenharia Informática na <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">Universidade do Minho</a>'>
+                                Bachelor's degree in Software Engineering at the <a class="w3-hover-text-blue" href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer">University of Minho</a></p>
+                                <p><span data-pt="Nota final">Final grade</span>: <b>16/20</b> ✅</p>
                                 </div>
                             </div>
                             <div class="container right">
                                 <div class="content">
                                 <h3><b>2019–2022</b></h3>
-                                <p>High School</p>
-                                <p>Final grade: <b>18/20</b> ✅</p>
+                                <p data-pt="Ensino Secundário">High School</p>
+                                <p><span data-pt="Nota final">Final grade</span>: <b>18/20</b> ✅</p>
                                 </div>
                             </div>
                             </div>
@@ -234,11 +291,11 @@
                     <br>
                     <div class="w3-xxlarge">
                         <b>
-                            <div class="w3-text-pink">🛠️ Skills</div>
+                            <div class="w3-text-pink" data-pt="🛠️ Habilidades">🛠️ Skills</div>
                         </b>
                     </div>
                     <br>
-                    <h3>🔧 Technical Skills</h3>
+                    <h3 data-pt="🔧 Habilidades Técnicas">🔧 Technical Skills</h3>
                     <img src="assets/icons/PYTHON.svg" alt="Python" style="height: 40px;">
                     <img src="assets/icons/C.svg" alt="C" style="height: 40px;">
                     <img src="assets/icons/JAVA.svg" alt="Java" style="height: 40px;">
@@ -273,33 +330,33 @@
                     <img src="assets/icons/DOCKER.svg" alt="DOCKER" style="height: 40px;">
                     <img src="assets/icons/CMAKE.svg" alt="CMAKE" style="height: 40px;">
                     <img src="assets/icons/UBUNTU.svg" alt="UBUNTU" style="height: 40px;">
-                    ... among others.
+                    <span data-pt="... entre outras.">... among others.</span>
                     <br>
                     <br>
-                    <h3>🚀 Soft Skills</h3>
+                    <h3 data-pt="🚀 Habilidades Pessoais">🚀 Soft Skills</h3>
                     <h4>
                         <ul>
-                            <li>Teamwork, critical thinking, problem-solving, creativity, proactivity and attention to detail ✅</li>
+                            <li data-pt="Trabalho em equipa, pensamento crítico, resolução de problemas, criatividade, proatividade e atenção ao detalhe ✅">Teamwork, critical thinking, problem-solving, creativity, proactivity and attention to detail ✅</li>
                         </ul>
                     </h4>
-                    <h3>🌐 Languages</h3>
+                    <h3 data-pt="🌐 Línguas">🌐 Languages</h3>
                     <h4>
                         <ul>
-                            <li><img src="assets/icons/flag-ptbr.png" alt="Portuguese" style="height: 1.5em;width: auto; vertical-align: top;"> <b>Portuguese</b> – Native</li>
-                            <li><img src="assets/icons/flag-ukus.png" alt="English" style="height: 1.5em;width: auto; vertical-align: top;"> <b>English</b> – Upper-intermediate (B2)</li>
+                            <li><img src="assets/icons/flag-ptbr.png" alt="Portuguese" style="height: 1.5em;width: auto; vertical-align: top;"> <b data-pt="Português">Portuguese</b> – <span data-pt="Nativo">Native</span></li>
+                            <li><img src="assets/icons/flag-ukus.png" alt="English" style="height: 1.5em;width: auto; vertical-align: top;"> <b data-pt="Inglês">English</b> – <span data-pt="Intermédio Superior (B2)">Upper-intermediate (B2)</span></li>
                         </ul>
                     </h4>
-                    <h3>📌 Other Information</h3>
+                    <h3 data-pt="📌 Outras Informações">📌 Other Information</h3>
                     <h4>
                         <ul>
                             <li>
-                                🚘 <b>Driver’s License</b> – Valid and clean
+                                🚘 <b data-pt="Carta de Condução">Driver’s License</b> – <span data-pt="Válida e sem infrações">Valid and clean</span>
                             </li>
                             <li>
-                                🎹 <b>Piano</b> – Studied for 3 years, improving my focus and cognitive skills
+                                🎹 <b>Piano</b> – <span data-pt="Estudei durante 3 anos, melhorando a minha concentração e capacidades cognitivas">Studied for 3 years, improving my focus and cognitive skills</span>
                             </li>
                             <li>
-                                ⚜️ <b>Scout</b> – Active member of the <a class="w3-hover-text-blue" href="https://escutismo.pt/" target="_blank" rel="noopener noreferrer">Corpo Nacional de Escutas</a> from 2010 to 2020 (10 years), developing teamwork, resilience and community spirit
+                                ⚜️ <b data-pt="Escuteira">Scout</b> – <span data-pt='Membro ativo do <a class="w3-hover-text-blue" href="https://escutismo.pt/" target="_blank" rel="noopener noreferrer">Corpo Nacional de Escutas</a> de 2010 a 2020 (10 anos), desenvolvendo trabalho em equipa, resiliência e espírito comunitário'>Active member of the <a class="w3-hover-text-blue" href="https://escutismo.pt/" target="_blank" rel="noopener noreferrer">Corpo Nacional de Escutas</a> from 2010 to 2020 (10 years), developing teamwork, resilience and community spirit</span>
                             </li>
                         </ul>
                     </h4>
@@ -314,11 +371,11 @@
                     <br>
                     <div class="w3-xxlarge">
                         <b>
-                            <div class="w3-text-pink">📂 Projects</div>
+                            <div class="w3-text-pink" data-pt="📂 Projetos">📂 Projects</div>
                         </b>
                     </div>
                     <h4>
-                        Here’s a showcase of 3 projects I’ve worked on. For more projects and details, check out my
+                        <span data-pt="Aqui está uma apresentação de 3 projetos em que trabalhei. Para mais projetos e detalhes, consulte o meu">Here’s a showcase of 3 projects I’ve worked on. For more projects and details, check out my</span>
                         <a href="https://github.com/a104437ana" class="w3-hover-text-blue" target="_blank" rel="noopener noreferrer">GitHub</a> 🗂️
                     </h4>
                     <br>
@@ -335,7 +392,7 @@
                                 </a>
                             </h2>
                             <h2>Crossy Road 🐔</h2>
-                            <h4>College Project 🎓, Game 🎮, Haskell 💻</h4>
+                            <h4 data-pt="Projeto universitário 🎓, Jogo 🎮, Haskell 💻">College Project 🎓, Game 🎮, Haskell 💻</h4>
                             <br>
                             <img src="assets/img/LI1.png" class="w3-margin-bottom" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI1" onclick="onClick(this)"/>
                             <br>
@@ -355,7 +412,7 @@
                                 </a>
                             </h2>
                             <h2>Roguelite 👾</h2>
-                            <h4>College Project 🎓, Game 🎮, C 💻</h4>
+                            <h4 data-pt="Projeto universitário 🎓, Jogo 🎮, C 💻">College Project 🎓, Game 🎮, C 💻</h4>
                             <br>
                             <img src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px; cursor: zoom-in;" alt="LI2" onclick="onClick(this)"/>
                             <br>
@@ -374,8 +431,8 @@
                                     <b>LI3</b>
                                 </a>
                             </h2>
-                            <h2>Flights & Reservations Application ✈️🏨</h2>
-                            <h4>College Project 🎓, App 📊, Tests ✅, C 💻</h4>
+                            <h2 data-pt="Aplicação de Voos e Reservas ✈️🏨">Flights & Reservations Application ✈️🏨</h2>
+                            <h4 data-pt="Projeto universitário 🎓, App 📊, Testes ✅, C 💻">College Project 🎓, App 📊, Tests ✅, C 💻</h4>
                             <br>
                             <img src="assets/img/LI3_1.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
                             <img src="assets/img/LI3_2.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
@@ -455,7 +512,7 @@
                     <br>
                     <div class="w3-xxlarge w3-center">
                         <b>
-                            <div class="w3-text-pink">📬 Contact</div>
+                            <div class="w3-text-pink" data-pt="📬 Contactos">📬 Contact</div>
                         </b>
                     </div>
                     <br>
@@ -468,10 +525,10 @@
                                 </div>
                             </div>
                             ✉️
-                            <a href="mailto:ana.sa.oliveira7@gmail.com" class="w3-hover-text-blue" rel="noopener noreferrer">Send Email</a>
+                            <a href="mailto:ana.sa.oliveira7@gmail.com" class="w3-hover-text-blue" rel="noopener noreferrer" data-pt="Enviar email">Send Email</a>
                             <br>
                             <br>
-                            <h3><img class="dark" src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b> Phone Number</b></h3>
+                            <h3><img class="dark" src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b data-pt=" Número de Telemóvel"> Phone Number</b></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="background-color: #ffdc89;">
                                 <div class="w3-margin">
                                     <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'(+351) 918 983 702')">
@@ -479,7 +536,7 @@
                                 </div>
                             </div>
                             📞
-                            <a href="tel:+351918983702" class="w3-hover-text-blue" rel="noopener noreferrer">Call Now</a>
+                            <a href="tel:+351918983702" class="w3-hover-text-blue" rel="noopener noreferrer" data-pt="Ligar agora">Call Now</a>
                             <br>
                             <br>
                             <h3><img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></h3>
@@ -541,7 +598,7 @@
         <button id="theme-toggle"
             style="
                 position: fixed;
-                bottom: 20px;
+                bottom: 90px;
                 right: 20px;
                 padding: 10px 14px;
                 border-radius: 50%;
@@ -554,6 +611,23 @@
                 z-index: 9999;
             ">
             🌙
+        </button>
+        <button id="lang-toggle" onclick="toggleLanguage()"
+            style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 14px;
+                border-radius: 50%;
+                border: none;
+                font-size: 24px;
+                background-color: #e91e63;
+                color: black;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 9999;
+            ">
+            <img src="assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">
         </button>
         <script>
             const root = document.documentElement;

@@ -424,3 +424,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   .dark-mode img.dark {
     filter: invert(1);
   }
+
+  .dark-mode [id*=lang-toggle] {
+    background-color: #880732 !important;
+  }
