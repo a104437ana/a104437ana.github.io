@@ -6,7 +6,7 @@ This is my personal website built to showcase my work, skills and projects.
 [👉 Click here to check it out](https://a104437ana.github.io/)
 
 ## Things I Plan to Do (If I have time)
-- [ ] **Add language switch button (PT ↔ EN) above dark mode button** 👈
+- [ ] Improve scroll indicator
 - [ ] Improve the projects section
 - [ ] Add a more professional photo with a blue background
 - [ ] See the exact dates of some events mentioned on the website
