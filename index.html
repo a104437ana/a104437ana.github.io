@@ -74,9 +74,16 @@
                         display: block;
                     }
                 }
-            </style>
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
+
+                @media (max-width: 600px) {
+                    .hero-flex {
+                    align-items: initial !important; /* cancela o center */
+                    }
+                }
+                </style>
+            <div class="hero-flex" style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
                         <img src="assets/img/Ana.jpeg" class="w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
