@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
     <head>
         <title>Ana Sá Oliveira</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/assets/css/style.css" />
         <link class="w3-circle" rel="icon" type='image/png' href='assets/icons/Ana.png'/>
+        <meta name="google" content="notranslate">
         <script>
 
             // idioma inicial: detecta navegador ou localStorage
@@ -15,6 +16,7 @@
             document.querySelectorAll("[data-pt]").forEach(el => {
                 if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original (HTML em inglês)
                 el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
+                el.style.visibility = "visible";
             });
             document.documentElement.lang = lang;
             currentLang = lang;
@@ -46,6 +48,11 @@
             if (usarEscuro) root.classList.add('dark-mode');
             })();
         </script>
+        <style>
+            [data-pt] {
+                visibility: hidden; /* não mostra nada até o JS preencher */
+            }
+        </style>
     </head>
     <body>
         <!-- Home -->
