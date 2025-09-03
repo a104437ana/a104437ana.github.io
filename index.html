@@ -82,14 +82,63 @@
                 }
                 </style>
             <div class="hero-flex" style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
-                <div class="w3-container w3-content w3-margin">
+                <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+                        <div class="imagem-container">
+                            <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+
+                            <img src="assets/img/pc.png" class="overlay-img" alt="Computador">
+                        </div>
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
+                        <div class="imagem-container" style="max-width: 400px;">
+                            <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
+
+                            <img src="assets/img/pc.png" class="overlay-img" alt="Computador">
+                        </div>
                     </div>
+                    <style>
+                        /* Caixa que mantém as imagens sobrepostas */
+                        .imagem-container {
+                          position: relative;
+                          width: 100%;
+                          margin: auto;
+                        }
+                        
+                        /* Foto da Ana */
+                        .base-img {
+                          display: block;
+                          z-index: 1;
+                        }
+                        
+                        /* Computador em cima */
+                        .overlay-img {
+                          position: absolute;
+                          top: 48%;
+                          left: 10%;
+                          width: 80%;   /* ajuste se necessário */
+                          height: auto;
+                          z-index: 2;
+                        
+                        /* Animação: "fechar" verticalmente e desaparecer */
+                        transform-origin: bottom; /* fecha a partir do topo */
+                        animation: fecharPC 3s ease 2s forwards;
+                        animation-delay: 2.2s;
+                        }
+
+                        @keyframes fecharPC {
+                            0% {
+                                transform: scaleY(1) translateX(0);
+                            }
+                            50% {
+                                transform: scaleY(0.3) translateX(0); /* fecha até 30% da altura */
+                            }
+                            100% {
+                                transform: scaleY(0.3) translateX(-100vw); /* mantém altura fechada e desliza para a esquerda */
+                            }
+                        }
+                        </style>
                     <div class="w3-col s12 m12 l6">
                         <br class="w3-hide-medium w3-hide-small">
                         <br class="w3-hide-medium w3-hide-small">
@@ -164,6 +213,25 @@
                         <br class="w3-hide-small">
                     </div>
                 </div>
+                <style>
+                    .conteudo-animado {
+                        opacity: 0;
+                        transform: scale(0); /* começa do tamanho 0 */
+                        animation: crescer 0.8s ease forwards;
+                        animation-delay: 0.5s; /* ligeiro atraso */
+                    }
+
+                    @keyframes crescer {
+                    from {
+                        opacity: 0;
+                        transform: scale(0);   /* invisível e minúsculo */
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);   /* tamanho normal */
+                    }
+                    }
+                </style>
             </div>
             <div style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10;">
                 <img class="dark" src="assets/gifs/scroll.gif" style="height: 125px;">
