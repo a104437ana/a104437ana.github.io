@@ -125,6 +125,7 @@
                         transform-origin: bottom; /* fecha a partir do topo */
                         animation: fecharPC 3s ease 2s forwards;
                         animation-delay: 2.2s;
+                        animation-play-state: paused;
                         }
 
                         @keyframes fecharPC {
@@ -219,6 +220,7 @@
                         transform: scale(0); /* começa do tamanho 0 */
                         animation: crescer 0.8s ease forwards;
                         animation-delay: 0.5s; /* ligeiro atraso */
+                        animation-play-state: paused;
                     }
 
                     @keyframes crescer {
@@ -730,6 +732,13 @@
             botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
             localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
             });
-        </script>
+
+            window.addEventListener("load", () => {
+            document.querySelector(".conteudo-animado").style.animationPlayState = "running";
+            document.querySelectorAll(".overlay-img").forEach(img => {
+                img.style.animationPlayState = "running";
+            });
+            });
+</script>
     </body>
 </html>
