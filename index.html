@@ -216,7 +216,7 @@
                 <style>
                     .conteudo-animado {
                         opacity: 0;
-                        animation: fade 1.2s ease forwards;
+                        animation: fade 1.2s ease 0.1s forwards;
                         animation-play-state: paused;
                     }
 
@@ -231,7 +231,14 @@
                 </style>
             </div>
             <div style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                <img class="dark" src="assets/gifs/scroll.gif" style="height: 125px;">
+                <img class="dark scroll" src="assets/gifs/scroll.gif" style="height: 125px;">
+                <style>
+                    .scroll {
+                        opacity: 0;
+                        animation: fade 1.2s ease 4s forwards;
+                        animation-play-state: paused;
+                    }
+                </style>
             </div>
         
             
@@ -730,6 +737,7 @@
             document.querySelectorAll(".overlay-img").forEach(img => {
                 img.style.animationPlayState = "running";
             });
+            document.querySelector(".scroll").style.animationPlayState = "running";
             });
 </script>
     </body>
