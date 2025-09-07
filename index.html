@@ -23,10 +23,6 @@
             localStorage.setItem("lang", lang);
             }
 
-            function toggleLanguage() {
-            setLanguage(currentLang === "en" ? "pt" : "en");
-            }
-
             document.addEventListener("DOMContentLoaded", () => {
             setLanguage(currentLang);
             });
@@ -47,6 +43,76 @@
         </style>
     </head>
     <body>
+        <button id="theme-toggle"
+            style="
+                position: fixed;
+                bottom: 90px;
+                right: 20px;
+                padding: 10px 14px;
+                border-radius: 50%;
+                border: none;
+                font-size: 24px;
+                background-color: #e91e63;
+                color: black;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 9999;
+            ">
+            🌙
+        </button>
+        <button id="lang-toggle" onclick="toggleLanguage()"
+            style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 14px;
+                border-radius: 50%;
+                border: none;
+                font-size: 24px;
+                background-color: #e91e63;
+                color: black;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 9999;
+            ">
+            <img id="lang-icon" src="/assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">
+        </button>
+        <script>
+            const root = document.documentElement;
+            const botao = document.getElementById('theme-toggle');
+            const temaSalvo = localStorage.getItem('theme');
+            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
+        
+            botao.textContent = usarEscuro ? '☀️' : '🌙';
+            botao.style.backgroundColor = usarEscuro ? '#880732' : '#e91e63';
+        
+            botao.addEventListener('click', () => {
+            const modoEscuroAtivo = root.classList.toggle('dark-mode');
+            botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
+            botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
+            localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
+            });
+
+            const langButton = document.getElementById('lang-toggle');
+            const langIcon = document.getElementById('lang-icon');
+
+            const langIcons = { en: '/assets/icons/flag-pt.png', pt: '/assets/icons/flag-ukus.png'};
+
+            function updateLangButton(lang) {
+                langIcon.src = langIcons[lang];
+                langIcon.alt = lang === 'en' ? 'English' : 'Portuguese';
+            }
+
+            updateLangButton(currentLang);
+
+            langButton.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'pt' : 'en';
+                setLanguage(newLang);      // apenas textos com data-pt
+                updateLangButton(newLang); // atualiza a imagem do botão
+            });
+
+        </script>
         <!-- Home -->
         <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
@@ -681,57 +747,8 @@
                 </div>
             </address>
         </footer>
-        <button id="theme-toggle"
-            style="
-                position: fixed;
-                bottom: 90px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: none;
-                font-size: 24px;
-                background-color: #e91e63;
-                color: black;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            🌙
-        </button>
-        <button data-pt='<img src="/assets/icons/flag-ukus.png" alt="English" style="height: 1.3em;width: 1.3em; vertical-align: top;">' id="lang-toggle" onclick="toggleLanguage()"
-            style="
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: none;
-                font-size: 24px;
-                background-color: #e91e63;
-                color: black;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            <img src="assets/icons/flag-pt.png" alt="Portuguese" style="height: 1.3em;width: 1.3em; vertical-align: top;">
-        </button>
         <script>
-            const root = document.documentElement;
-            const botao = document.getElementById('theme-toggle');
-            const temaSalvo = localStorage.getItem('theme');
-            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
-        
-            botao.textContent = usarEscuro ? '☀️' : '🌙';
-            botao.style.backgroundColor = usarEscuro ? '#880732' : '#e91e63';
-        
-            botao.addEventListener('click', () => {
-            const modoEscuroAtivo = root.classList.toggle('dark-mode');
-            botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-            botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
-            localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
-            });
-
+            
             window.addEventListener("load", () => {
             document.querySelector(".conteudo-animado").style.animationPlayState = "running";
             document.querySelectorAll(".overlay-img").forEach(img => {
