@@ -48,7 +48,7 @@
         </style>
     </head>
     <body>
-        <button class="scroll" id="theme-toggle"
+        <button class="button-animated" id="theme-toggle"
             style="
                 position: fixed;
                 bottom: 90px;
@@ -65,7 +65,7 @@
             ">
             🌙
         </button>
-        <button class="scroll" id="lang-toggle" onclick="toggleLanguage()"
+        <button class="button-animated" id="lang-toggle" onclick="toggleLanguage()"
             style="
                 position: fixed;
                 bottom: 20px;
@@ -82,6 +82,22 @@
             ">
             <img id="lang-icon" style="height: 1.3em;width: 1.3em; vertical-align: top;">
         </button>
+        <style>
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            
+            .button-animated {
+                opacity: 0;
+                animation: fade 1.2s ease 1s forwards;
+                animation-play-state: paused;
+            }
+        </style>
         <script>
             const root = document.documentElement;
             const botao = document.getElementById('theme-toggle');
@@ -156,60 +172,11 @@
                 <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
-                        <div class="imagem-container">
-                            <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
-
-                            <img src="assets/img/pc.png" class="overlay-img" alt="Computador">
-                        </div>
+                        <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
-                        <div class="imagem-container" style="max-width: 400px;">
-                            <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
-
-                            <img src="assets/img/pc.png" class="overlay-img" alt="Computador">
-                        </div>
+                        <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
-                    <style>
-                        /* Caixa que mantém as imagens sobrepostas */
-                        .imagem-container {
-                          position: relative;
-                          width: 100%;
-                          margin: auto;
-                        }
-                        
-                        /* Foto da Ana */
-                        .base-img {
-                          display: block;
-                          z-index: 1;
-                        }
-                        
-                        /* Computador em cima */
-                        .overlay-img {
-                          position: absolute;
-                          top: 48%;
-                          left: 10%;
-                          width: 80%;   /* ajuste se necessário */
-                          height: auto;
-                          z-index: 2;
-                        
-                        /* Animação: "fechar" verticalmente e desaparecer */
-                        transform-origin: bottom; /* fecha a partir do topo */
-                        animation: fecharPC 2s ease 1s forwards;
-                        animation-play-state: paused;
-                        }
-
-                        @keyframes fecharPC {
-                            0% {
-                                transform: scaleY(1) translateX(0);
-                            }
-                            50% {
-                                transform: scaleY(0.3) translateX(0); /* fecha até 30% da altura */
-                            }
-                            100% {
-                                transform: scaleY(0.3) translateX(-100vw); /* mantém altura fechada e desliza para a esquerda */
-                            }
-                        }
-                        </style>
                     <div class="w3-col s12 m12 l6">
                         <br class="w3-hide-medium w3-hide-small">
                         <br class="w3-hide-medium w3-hide-small">
@@ -289,15 +256,6 @@
                         opacity: 0;
                         animation: fade 1.2s ease 0.1s forwards;
                         animation-play-state: paused;
-                    }
-
-                    @keyframes fade {
-                    from {
-                        opacity: 0;
-                    }
-                    to {
-                        opacity: 1;
-                    }
                     }
                 </style>
             </div>
@@ -756,11 +714,9 @@
             
             window.addEventListener("load", () => {
             document.querySelector(".conteudo-animado").style.animationPlayState = "running";
-            document.querySelectorAll(".overlay-img").forEach(img => {
-                img.style.animationPlayState = "running";
-            });
-            document.querySelectorAll(".scroll").forEach(img => {
-                img.style.animationPlayState = "running";
+            document.querySelector(".scroll").style.animationPlayState = "running";
+            document.querySelectorAll(".button-animated").forEach(button => {
+                button.style.animationPlayState = "running";
             });
             });
 </script>
