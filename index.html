@@ -48,7 +48,7 @@
         </style>
     </head>
     <body>
-        <button id="theme-toggle"
+        <button class="scroll" id="theme-toggle"
             style="
                 position: fixed;
                 bottom: 90px;
@@ -65,7 +65,7 @@
             ">
             🌙
         </button>
-        <button id="lang-toggle" onclick="toggleLanguage()"
+        <button class="scroll" id="lang-toggle" onclick="toggleLanguage()"
             style="
                 position: fixed;
                 bottom: 20px;
@@ -194,7 +194,7 @@
                         
                         /* Animação: "fechar" verticalmente e desaparecer */
                         transform-origin: bottom; /* fecha a partir do topo */
-                        animation: fecharPC 3s ease 2.2s forwards;
+                        animation: fecharPC 2s ease 1s forwards;
                         animation-play-state: paused;
                         }
 
@@ -306,7 +306,7 @@
                 <style>
                     .scroll {
                         opacity: 0;
-                        animation: fade 1.2s ease 4s forwards;
+                        animation: fade 1.2s ease 2s forwards;
                         animation-play-state: paused;
                     }
                 </style>
@@ -759,7 +759,9 @@
             document.querySelectorAll(".overlay-img").forEach(img => {
                 img.style.animationPlayState = "running";
             });
-            document.querySelector(".scroll").style.animationPlayState = "running";
+            document.querySelectorAll(".scroll").forEach(img => {
+                img.style.animationPlayState = "running";
+            });
             });
 </script>
     </body>
