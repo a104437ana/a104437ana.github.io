@@ -263,6 +263,10 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     background-color: #e91e63 !important;
   }
 
+  .dark-mode [style*="background-color: #FC8EAC"] {
+    background-color: #880732 !important;
+  }
+
   .w3-card-4 {
     border: 2px solid #000000 !important;
     box-shadow: none !important;
