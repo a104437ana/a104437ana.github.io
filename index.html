@@ -294,6 +294,7 @@
                         <span data-pt="Eu sou a <b>Ana Sá Oliveira</b>, uma <b>engenheira informática</b> de">
                         I’m <b>Ana Sá Oliveira</b>, a
                         </span>
+                        <span id="years">21</span>
                         <script>
                             function calculateAge(birthDateStr) {
                                 const birthDate = new Date(birthDateStr);
@@ -311,7 +312,7 @@
                                 return age;
                             }
                             const age = calculateAge('2004-01-05');
-                            document.write(age);
+                            document.getElementById("years").textContent = age;
                         </script><span data-pt=' anos, natural de Braga, Portugal <img src="assets/icons/flag-pt.png" alt="Portugal" style="height: 1.5em;width: auto; vertical-align: top;">'>-year-old <b>software engineer</b> from Braga, Portugal <img src="assets/icons/flag-pt.png" alt="Portugal" style="height: 1.5em;width: auto; vertical-align: top;">
                         </span>
                         <style>
@@ -582,7 +583,7 @@
                             <div class="w3-container w3-margin">
                             <br>
                             <h2>
-                                <img loading="lazy" class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
+                                <img class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
                                 <a href="https://github.com/a104437ana/LI2" target="_blank" rel="noopener noreferrer">
                                     <b>LI2</b>
                                 </a>
@@ -590,7 +591,7 @@
                             <h2>Roguelite 👾</h2>
                             <h4 data-pt="Projeto universitário 🎓, Jogo 🎮, C 💻">College Project 🎓, Game 🎮, C 💻</h4>
                             <br>
-                            <img loading="lazy" src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px; cursor: zoom-in;" alt="LI2" onclick="onClick(this)"/>
+                            <img src="assets/img/LI2.png" class="w3-margin-bottom" style="max-width: 90%; width:720px; cursor: zoom-in;" alt="LI2" onclick="onClick(this)"/>
                             <br>
                             <br>
                             <br>
@@ -602,7 +603,7 @@
                             <div class="w3-container w3-margin">
                             <br>
                             <h2>
-                                <img loading="lazy" class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
+                                <img class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
                                 <a href="https://github.com/a104437ana/LI3" target="_blank" rel="noopener noreferrer">
                                     <b>LI3</b>
                                 </a>
@@ -610,8 +611,8 @@
                             <h2 data-pt="Aplicação de Voos e Reservas ✈️🏨">Flights & Reservations Application ✈️🏨</h2>
                             <h4 data-pt="Projeto universitário 🎓, App 📊, Testes ✅, C 💻">College Project 🎓, App 📊, Tests ✅, C 💻</h4>
                             <br>
-                            <img loading="lazy" src="assets/img/LI3_1.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
-                            <img loading="lazy" src="assets/img/LI3_2.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
+                            <img src="assets/img/LI3_1.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
+                            <img src="assets/img/LI3_2.png" class="w3-margin-bottom" style="max-width: 90%; width:550px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
                             <br>
                             <br>
                             <br>
@@ -767,12 +768,13 @@
         <footer style='background-color: #ff94bd;'>
             <address class="w3-bar" style='display: flex; justify-content: center;'>
                 <div class="w3-bar-item">
-                    <script>
-                        document.write("© " + new Date().getFullYear() + " Ana Sá Oliveira");
-                    </script>
+                    © <span id="year">2025</span> Ana Sá Oliveira
                 </div>
             </address>
         </footer>
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
         <script>
             
             window.addEventListener("load", () => {
