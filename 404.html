@@ -137,7 +137,7 @@
                                 <br>
                                 <br>
                             </div>
-                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-pink w3-round-large" style="white-space: normal; text-align: center;">
+                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-pink w3-hover-pink w3-round-large" style="white-space: normal; text-align: center;">
                                 Go back to Ana's portfolio ♥
                             </a>
                         </b>
@@ -148,12 +148,13 @@
             <footer style='background-color: #ff94bd;'>
                 <address class="w3-bar" style='display: flex; justify-content: center;'>
                     <div class="w3-bar-item">
-                        <script>
-                            document.write("© " + new Date().getFullYear() + " Ana Sá Oliveira");
-                        </script>
+                        © <span id="year">2025</span> Ana Sá Oliveira
                     </div>
                 </address>
             </footer>
+            <script>
+                document.getElementById("year").textContent = new Date().getFullYear();
+            </script>
         </div>
     </body>
 </html>
