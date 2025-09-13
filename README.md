@@ -6,7 +6,8 @@ This is my personal website built to showcase my work, skills and projects.
 [👉 Click here to check it out](https://a104437ana.github.io/)
 
 ## Things I Plan to Do (If I have time)
-- [ ] Improve the projects section
+- [ ] Add more projects to the portfolio
+- [ ] Update CV
 
 ## Fun facts
 1. I’ll do my best to keep this website updated.
