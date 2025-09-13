@@ -286,6 +286,10 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     filter: invert(1);
   }
 
+  .dark-mode img.dark2 {
+    filter: grayscale(1) contrast(1000%) invert(1) !important;
+  }
+
   .dark-mode [id*=lang-toggle] {
     background-color: #880732 !important;
   }
