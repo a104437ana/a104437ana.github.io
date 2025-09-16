@@ -293,3 +293,21 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   .dark-mode [id*=lang-toggle] {
     background-color: #880732 !important;
   }
+
+  .final::before {
+    content: "──────────────────୨ৎ──────────────────";
+    position: absolute;
+    top: -0.7em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden
+  }
+  
+  .dark-mode .final::before {
+    display: none;
+  }
