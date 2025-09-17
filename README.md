@@ -1,9 +1,11 @@
-# Portfolio Website 🌸
+# Portfolio Website 💻💼
 ## Personal Project
 
-This is my personal website built to showcase my work, skills and projects.
+This is my portfolio website built to showcase my work, skills and projects.
 
-[👉 Click here to check it out](https://a104437ana.github.io/)
+[a104437ana.github.io](https://a104437ana.github.io/)
+
+[![Website](site.png)](https://a104437ana.github.io/)
 
 ## Things I Plan to Do (If I have time)
 - [ ] Add more projects to the portfolio
