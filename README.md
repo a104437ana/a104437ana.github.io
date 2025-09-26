@@ -8,7 +8,6 @@ This is my portfolio website built to showcase my work, skills and projects.
 [![Website](site.png)](https://a104437ana.github.io/)
 
 ## Things I Plan to Do (If I have time)
-- [ ] Improve projects section
 - [ ] Add more projects to the portfolio
 - [ ] Update CV
 - [ ] Improve hero section maybe
