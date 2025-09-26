@@ -251,7 +251,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     border-top: 2px solid white !important;
   }
 
-  .dark-mode #home[style*="background-color: #fee9f0"] {
+  .dark-mode #home {
     border-top: none !important;
   }
 
@@ -294,6 +294,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     background-color: #880732 !important;
   }
 
+  /*
   .final::before {
     content: "──────────────────୨ৎ──────────────────";
     position: absolute;
@@ -311,3 +312,4 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   .dark-mode .final::before {
     display: none;
   }
+  */

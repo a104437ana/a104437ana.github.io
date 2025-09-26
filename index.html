@@ -21,8 +21,16 @@
 
             function setLanguage(lang) {
             document.querySelectorAll("[data-pt]").forEach(el => {
-                if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original (HTML em inglês)
-                el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
+                if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+                    // Guarda a versão original do placeholder se ainda não tiver
+                    if (!el.dataset.en) el.dataset.en = el.placeholder;
+                    // Troca apenas o placeholder
+                    el.placeholder = (lang === "pt") ? el.dataset.pt : el.dataset.en;
+                } else {
+                    // Código original para elementos normais
+                    if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original
+                    el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
+                }
                 el.style.visibility = "visible";
             });
             document.documentElement.lang = lang;
@@ -142,7 +150,7 @@
 
         </script>
         <!-- Home -->
-        <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
+        <div id="home" style="background-color: white; min-height: 100vh;display: flex; flex-direction: column;">
             <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
                 <a href="#about" data-pt="🌸 Sobre" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
                 <a href="#education" data-pt="🎓 Educação" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
@@ -280,7 +288,7 @@
             
         </div>
         <!-- About -->
-        <div id="about" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="about" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -360,7 +368,7 @@
             </div>
         </div>
         <!-- Education -->
-        <div id="education" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="education" style="background-color: white;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -418,7 +426,7 @@
             </div>
         </div>
         <!-- Skills -->
-        <div id="skills" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="skills" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -541,7 +549,7 @@
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="projects" style="background-color: white;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin" style="width: 90%;">
                     <br>
@@ -720,10 +728,22 @@
                     </script>
                     <h6 class="w3-hide-small"><br></h6>
                 </div>
+                        <h4 data-pt='Cada projeto é resultado de várias contribuições. Este é o retrato das minhas contribuições no <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> ao longo do último ano:''>
+                            Each project is the outcome of multiple contributions. This represents my <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> contributions over the past year:
+                        </h4>
+                        <br>
+                        <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;"/>
+                        <style>
+                            .dark-mode .icone {
+                                filter: invert(1) hue-rotate(560deg);
+                            }
+                        </style>
+                        <br>
+                        <br>
             </div>
         </div>
         <!-- Contact -->
-        <div id="contact" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="contact" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -780,8 +800,150 @@
                             </span>
                             <br>
                             <br>
-                            <br>
+                            <h3><img loading="lazy" src="assets/icons/contact-form.png" style="width:50px;" alt="Contact form ícone"><b data-pt=" Formulário de Contacto"> Contact Form</b></h3>
+                            <style>
+                                .w3-hover-custom1:hover {
+                                background-color: #ffb2b2 !important;
+                                color: black !important;
+                            }
+                            .dark-mode .w3-hover-custom1:hover {
+                                background-color: #880732 !important;
+                                color: white !important;
+                            }
+                            .dark-mode input {
+                                color: white !important;
+                                border: 1px solid white !important;
+                            }
+                            .dark-mode textarea {
+                                color: white !important;
+                                border: 1px solid white !important;
+                            }
+                            </style>
+                            <form id="meuForm" novalidate action="https://formspree.io/f/meolyjkg" method="POST">
+                                <label data-pt="Nome" for="nome">Name</label>
+                                <br>
+                                <input data-pt="Seu nome" id="nome" autocomplete="off" class="w3-input  w3-round" style="border: 1px solid black; background-color: transparent; width: 100%;" type="text" name="name" placeholder="Your name" required>
+                                <span id="erro-nome" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira o seu nome.">Please enter your name.</b></span>
+                                <br>
+                                <label for="email">Email</label>
+                                <br>
+                                <input data-pt="Seu email" id="email" autocomplete="off" class="w3-input w3-round" style="border: 1px solid black;background-color: transparent;width: 100%;" type="email" name="email" placeholder="Your email" required>
+                                
+                                <span id="erro-email" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira um email válido.">Please enter a valid email.</b></span>
+                                <br>
+                                <label data-pt="Mensagem" for="mensagem">Message</label>
+                                <br>
+                                <textarea data-pt="Sua mensagem" id="mensagem" autocomplete="off" class="w3-input w3-round" style="border: 1px solid black;background-color: transparent;min-height: 3em; max-width: 5px; min-width: 100%; width: 100%; height: 9em;" name="message" placeholder="Your message" required></textarea>
+                                
+                                <span id="erro-mensagem" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira a sua mensagem.">Please enter your message.</b></span>
+                                <br>
+                                <span data-pt='<button class="w3-button w3-hover-custom1 w3-round" type="submit" style="background-color: #ffb2b2; border: none;">Enviar</button>'>
+                                    <button class="w3-button w3-hover-custom1 w3-round" type="submit" style="background-color: #ffb2b2; border: none;">Send</button>
+                                </span>
+                            </form>
+                            <div id="popup1">
+                            <div class="w3-margin" style="max-width: 400px;">
+                                <p data-pt="A sua mensagem foi enviada com sucesso! ✅">Your message has been sent successfully! ✅</p>
+                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup1.style.display='none'">Ok</button>
+                            </div>
+                            </div>
+                            <div id="popup2">
+                                <div class="w3-margin" style="max-width: 400px;">
+                                    <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup2.style.display='none'">Ok</button> 
+                                </div>
+                                </div>
+                            <div id="popup3">
+                                <div class="w3-margin" style="max-width: 400px;">
+                                    <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup3.style.display='none'">Ok</button>
+                                </div>
+                                </div>
+                            <style>
+                                #popup1, #popup2, #popup3{
+                                position:fixed;top:0;left:0;width:100%;height:100%;
+                                display:none;justify-content:center;align-items:center;
+                                background:rgba(0,0,0,.5);
+                                z-index:9999;
+                                }
+                                #popup1 div, #popup2 div, #popup3 div{
+                                background:#ffffff;padding:20px;border-radius:10px;text-align:center
+                                }
+                                .dark-mode #popup1 div, .dark-mode #popup2 div, .dark-mode #popup3 div{
+                                color:white;
+                                background:rgb(37, 37, 37);
+                                }
+                                .dark-mode #popup1, .dark-mode #popup2, .dark-mode #popup3{
+                                background:rgba(255, 255, 255, 0.5);
+                                }
+                            </style>
                             <script>
+                                document.getElementById("meuForm").addEventListener("submit", function(event) {
+                                    event.preventDefault();
+                                    let valido = true;
+
+                                    // Nome
+                                    const nome = document.getElementById('nome');
+                                    const erroNome = document.getElementById('erro-nome');
+                                    if (!nome.value.trim()) {
+                                        erroNome.style.display = 'inline';
+                                        valido = false;
+                                    } else {
+                                        erroNome.style.display = 'none';
+                                    }
+
+                                    // Email
+                                    const email = document.getElementById('email');
+                                    const erroEmail = document.getElementById('erro-email');
+                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+                                    if (!email.value.trim()) {
+                                        erroEmail.style.display = 'inline';
+                                        valido = false;
+                                    } else if (!emailRegex.test(email.value.trim())) {
+                                        erroEmail.style.display = 'inline';
+                                        valido = false;
+                                    } else {
+                                        erroEmail.style.display = 'none';
+                                    }
+
+                                    // Mensagem
+                                    const mensagem = document.getElementById('mensagem');
+                                    const erroMensagem = document.getElementById('erro-mensagem');
+                                    if (!mensagem.value.trim()) {
+                                        erroMensagem.style.display = 'inline';
+                                        valido = false;
+                                    } else {
+                                        erroMensagem.style.display = 'none';
+                                    }
+
+                                    if (!valido) {
+                                        return;
+                                    }
+
+                                    const form = event.target;
+                                    const formData = new FormData(form);
+
+                                    const popup1 = document.getElementById('popup1');
+                                    const popup2 = document.getElementById('popup2');
+                                    const popup3 = document.getElementById('popup3');
+
+                                    fetch(form.action, {
+                                        method: form.method,
+                                        body: formData,
+                                        headers: { 'Accept': 'application/json' }
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            popup1.style.display='flex';
+                                            form.reset();
+                                        } else {
+                                            popup2.style.display='flex';
+                                        }
+                                    })
+                                    .catch(() => {
+                                        popup3.style.display='flex';
+                                    });
+                                });
                                 function copiarTexto(imgElement,texto) {
                                 navigator.clipboard.writeText(texto).then(() => {
                                     const originalSrc = 'assets/icons/Copy.png';
