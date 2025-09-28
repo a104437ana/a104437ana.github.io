@@ -294,6 +294,19 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     background-color: #880732 !important;
   }
 
+  .w3-hover-custom1:hover {
+      background-color: #ffb2b2 !important;
+      color: black !important;
+  }
+  .dark-mode .w3-hover-custom1:hover, .dark-mode .w3-hover-custom1 {
+      background-color: #880732 !important;
+      color: white !important;
+  }
+
+  .dark-mode #home {
+      background-image: radial-gradient(black,black,black,rgb(85, 0, 34)) !important;
+  }
+
   /*
   .final::before {
     content: "──────────────────୨ৎ──────────────────";

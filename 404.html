@@ -59,7 +59,7 @@
                 font-size: 24px;
                 background-color: #e91e63;
                 color: black;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
                 cursor: pointer;
                 z-index: 9999;
             ">
@@ -76,7 +76,7 @@
                 font-size: 24px;
                 background-color: #e91e63;
                 color: black;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
                 cursor: pointer;
                 z-index: 9999;
             ">
@@ -119,25 +119,36 @@
 
         </script>
         <!-- Home -->
-        <div id="home" style="background-color: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
-            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: #ff94bd;'>
-                <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">Go back to Ana's portfolio ♥</a>
+        <div id="home" style="background-image: radial-gradient(white, white,white, rgb(255, 159, 198));min-height: 100vh;display: flex; flex-direction: column;">
+            <!--
+            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: transparent;'>
+                <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">Go back to Ana's portfolio ♥</a>
             </nav>
-            
+            -->
             <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
                 <div class="w3-container w3-content w3-margin">
-                    <div class="w3-xxlarge">
+                    <div class="w3-xxlarge w3-hide-small">
                         <b>
                             <div class="w3-text-pink">
-                                4️⃣0️⃣4️⃣
-                                <br>
+                                404
                                 <span data-pt="Página não encontrada">Page not found</span>
-                                <br>
-                                ☹️
                                 <br>
                                 <br>
                             </div>
-                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-pink w3-hover-pink w3-round-large" style="white-space: normal; text-align: center;">
+                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large" style="background-color: #ffb2b2; white-space: normal; text-align: center;">
+                                Go back to Ana's portfolio ♥
+                            </a>
+                        </b>
+                    </div>
+                    <div class="w3-xlarge w3-hide-medium w3-hide-large">
+                        <b>
+                            <div class="w3-text-pink">
+                                404
+                                <span data-pt="Página não encontrada">Page not found</span>
+                                <br>
+                                <br>
+                            </div>
+                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large" style="background-color: #ffb2b2; white-space: normal; text-align: center;">
                                 Go back to Ana's portfolio ♥
                             </a>
                         </b>
@@ -145,13 +156,15 @@
                 </div>
             </div>
             <!-- Footer -->
-            <footer style='background-color: #ff94bd;'>
+            <!--
+            <footer style='background-color: transparent;'>
                 <address class="w3-bar" style='display: flex; justify-content: center;'>
                     <div class="w3-bar-item">
                         © <span id="year">2025</span> Ana Sá Oliveira
                     </div>
                 </address>
             </footer>
+            -->
             <script>
                 document.getElementById("year").textContent = new Date().getFullYear();
             </script>
