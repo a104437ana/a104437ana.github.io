@@ -42,6 +42,9 @@
             setLanguage(currentLang);
             });
 
+            const slowImage4 = new Image();
+            slowImage4.src = '/assets/gifs/scroll.gif';
+
             const slowImage = new Image();
             slowImage.src = '/assets/icons/flag-ukus.png';
             const slowImage2 = new Image();
@@ -109,7 +112,7 @@
             
             .button-animated {
                 opacity: 0;
-                animation: fade 1s ease 0.6s forwards;
+                animation: fade 0.8s ease 0.1s forwards;
                 animation-play-state: paused;
             }
         </style>
@@ -271,7 +274,7 @@
                 <style>
                     .conteudo-animado {
                         opacity: 0;
-                        animation: fade 1s ease 0.1s forwards;
+                        animation: fade 0.8s ease 0.1s forwards;
                         animation-play-state: paused;
                     }
                 </style>
@@ -281,7 +284,7 @@
                 <style>
                     .scroll {
                         opacity: 0;
-                        animation: fade 1s ease 1.2s forwards;
+                        animation: fade 0.8s ease 0.1s forwards;
                         animation-play-state: paused;
                     }
                 </style>
