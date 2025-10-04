@@ -10,8 +10,7 @@ This is my portfolio website built to showcase my work, skills and projects.
 ## Things I Plan to Do (If I have time)
 - [ ] Add more projects to the portfolio
 - [ ] Update CV
-- [ ] Add FAQ section maybe
-- [ ] Add AI section or add AI assistant maybe
+- [ ] Add a better picture of me
 
 ## Fun facts
 1. I’ll do my best to keep this website updated.

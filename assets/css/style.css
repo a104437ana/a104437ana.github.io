@@ -307,7 +307,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
       background-image: radial-gradient(black,black,black,rgb(85, 0, 34)) !important;
   }
 
-  /*
+  
   .final::before {
     content: "──────────────────୨ৎ──────────────────";
     position: absolute;
@@ -325,4 +325,4 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   .dark-mode .final::before {
     display: none;
   }
-  */
+  

@@ -21,7 +21,9 @@
 
             function setLanguage(lang) {
             document.querySelectorAll("[data-pt]").forEach(el => {
-                if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+                if (el.id == "output") {
+                    el.innerHTML = "";
+                } else if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
                     // Guarda a versão original do placeholder se ainda não tiver
                     if (!el.dataset.en) el.dataset.en = el.placeholder;
                     // Troca apenas o placeholder
@@ -293,7 +295,7 @@
             
         </div>
         <!-- About -->
-        <div class="final" id="about" style="background-color: #fee9f0;display: flex; flex-direction: column; border-top: 5px solid #ff9fc6;">
+        <div id="about" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -977,7 +979,218 @@
                 </div>
             </div>
         </div>
+
         <div style="background-color: white;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
+                        <br>
+                        <div class="w3-xxlarge w3-center">
+                            <b>
+                                <div class="w3-text-pink" data-pt="💻 Terminal">💻 Terminal</div>
+                            </b>
+                        </div>
+                        <h4 class="center" >
+                            
+                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>. Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>. Can you discover it?</span>
+                            <br>
+                            <div id="b">
+                                <div id="terminal" onclick="focusInput(this)">
+                                    <div data-pt id="output"></div>
+                                    <div id="input-line">
+                                      <span id="prompt">$</span>
+                                      <input maxlength="30" type="text" id="command"/>
+                                    </div>
+                                  </div>
+                            </div>
+                        </h4>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            #b {
+    background-color: white;
+    color: rgb(255, 255, 255);
+    font-family: monospace;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .dark-mode #b {
+    background-color: black !important;
+  }
+            #terminal {
+                background-color: rgb(154, 54, 109);
+              width: 100%;
+              height: 300px;
+              padding: 10px;
+              overflow-y: auto;
+              box-sizing: border-box;
+              margin-bottom: 20px;
+            }
+            #input-line {
+              display: flex;
+            }
+            #prompt {
+              margin-right: 5px;
+            }
+            #command {
+              background: transparent;
+              border: none;
+              color: rgb(255, 255, 255);
+              outline: none;
+              flex: 1;
+              font-family: monospace;
+            }
+            .dark-mode #command {
+                background: transparent;
+              border: none;
+              color: rgb(255, 255, 255) !important;
+              outline: none;
+              flex: 1;
+              font-family: monospace;
+              border: 1px solid transparent !important;
+            }
+          </style>
+        <script>
+            const commandInput = document.getElementById('command');
+            const output = document.getElementById('output');
+            const terminal = document.getElementById('terminal');
+            
+            commandInput.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter') {
+                const command = commandInput.value.trim()
+                const commands = command.split(/\s+/);
+                if (command) {
+                    output.innerHTML += `<div>$ ${command}</div>`;
+                    if (commands[0] == "help" && commands.length == 1) {
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat art.txt, cat README.md, clear</div>`;
+                        } else {
+                            output.innerHTML += `<div>Available commands: <br>help, whoami, date, pwd, ls, cat art.txt, cat README.md, clear</div>`;
+                        }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (command=="whoami" && commands.length == 1) {
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>um visitante misterioso</div>`;
+                        } else {
+                            output.innerHTML += `<div>a mysterious internet stranger</div>`;
+                        }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (commands[0] == "date" && commands.length == 1) {
+                        const now = new Date();
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>${now.toLocaleString('pt-BR', {
+                            weekday: 'short',
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                            }).replace(/\bde\b|[.,]/gi, '').trim()}</div>`;
+                        }
+                        else {
+                            output.innerHTML += `<div>${now.toLocaleString('en-UK', {
+                            weekday: 'short',
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                            }).replace(/\bde\b|[.,]/gi, '').trim()}</div>`;
+                        }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (command=="pwd" && commands.length == 1) {
+                        output.innerHTML += `<div>/home/ana</div>`;
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (commands[0] == "ls" && commands.length == 1) {
+                        output.innerHTML += `<div>art.txt README.md</div>`;
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (commands[0]=="cat" && commands.length == 2) {
+                        if (commands[1] == "art.txt") {
+                            if (document.documentElement.lang == "pt") {
+                                output.innerHTML += `<div>
+|\\---/|<br>
+| o_o | < miau<br>
+&nbsp;\\_^_/<br>
+
+</div>`;
+                            }
+                            else {
+                                output.innerHTML += `<div>
+|\\---/|<br>
+| o_o | < meow<br>
+&nbsp;\\_^_/<br>
+
+</div>`;
+                            }
+                            commandInput.value = '';
+                            terminal.scrollTop = terminal.scrollHeight;
+                        }
+                        else if (commands[1]=="README.md") {
+                            if (document.documentElement.lang == "pt") {
+                                output.innerHTML += `<div># Enigma<br>Qual é a coisa, qual é ela, que corre mas não tem pernas, assobia mas não tem boca, ninguém nunca viu e tem muita força?</div>`;
+                            }
+                            else {
+                                output.innerHTML += `<div># Riddle<br>What is something that runs but has no legs, whistles but has no mouth, no one has ever seen it, and it has great power?</div>`;
+                            }
+                            commandInput.value = '';
+                            terminal.scrollTop = terminal.scrollHeight;
+                        }
+                        else {
+                            output.innerHTML += `<div>${command}: command not found</div>`;
+                            commandInput.value = '';
+                            terminal.scrollTop = terminal.scrollHeight;
+                        }
+                    }
+                    else if (commands[0] == "clear" && commands.length == 1) {
+                        output.innerHTML = '';
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if ((commands[0] == "vento" || commands[0] == "wind") && commands.length == 1) {
+                        window.open("/assets/video/video.mp4", "_blank");
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Olha só o que o vento trouxe! hahaha</div>`;
+                        }
+                        else {
+                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Look what the wind blew in! hahaha</div>`;
+                        }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else {
+                        output.innerHTML += `<div>${command}: command not found</div>`;
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                }
+              }
+            });
+
+            function focusInput(linha) {
+                const input = linha.querySelector("input");
+                if (input) {
+                input.focus();
+                }
+            }
+            </script>
+
+        <div class="final" style="background-color: white;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <h4>
