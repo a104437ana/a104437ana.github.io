@@ -304,7 +304,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
 
   .dark-mode #home {
-      background-image: radial-gradient(black,black,black,rgb(85, 0, 34)) !important;
+      background-image: radial-gradient(circle at center bottom ,black,black,black,#6d0a2b) !important;
   }
 
   

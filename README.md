@@ -5,7 +5,7 @@ This is my portfolio website built to showcase my work, skills and projects.
 
 [a104437ana.github.io](https://a104437ana.github.io/)
 
-[![Website](site.png)](https://a104437ana.github.io/)
+[![Website](site.jpg)](https://a104437ana.github.io/)
 
 ## Things I Plan to Do (If I have time)
 - [ ] Add more projects to the portfolio
