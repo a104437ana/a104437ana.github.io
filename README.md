@@ -11,7 +11,6 @@ This is my portfolio website built to showcase my work, skills and projects.
 - [ ] Add more projects to the portfolio
 - [ ] Update CV
 - [ ] Add a better picture of me
-- [ ] Improve animations maybe
 
 ## Fun facts
 1. I’ll do my best to keep this website updated.
