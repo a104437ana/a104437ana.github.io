@@ -1061,10 +1061,11 @@
             
             commandInput.addEventListener('keydown', function(e) {
               if (e.key === 'Enter') {
-                const command = commandInput.value.trim()
+                const command = commandInput.value.trim().toLowerCase();
                 const commands = command.split(/\s+/);
+                const real_command = commandInput.value.trim();
                 if (command) {
-                    output.innerHTML += `<div>$ ${command}</div>`;
+                    output.innerHTML += `<div>$ ${real_command}</div>`;
                     if (commands[0] == "help" && commands.length == 1) {
                         if (document.documentElement.lang == "pt") {
                             output.innerHTML += `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat art.txt, cat README.md, clear</div>`;
@@ -1120,42 +1121,35 @@
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
                     }
-                    else if (commands[0]=="cat" && commands.length == 2) {
-                        if (commands[1] == "art.txt") {
-                            if (document.documentElement.lang == "pt") {
-                                output.innerHTML += `<div>
+                    else if (commands[0]=="cat" && commands[1] == "art.txt" && commands.length == 2) {
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>
 |\\---/|<br>
 | o_o | < miau<br>
 &nbsp;\\_^_/<br>
 
 </div>`;
-                            }
-                            else {
-                                output.innerHTML += `<div>
+                        }
+                        else {
+                            output.innerHTML += `<div>
 |\\---/|<br>
 | o_o | < meow<br>
 &nbsp;\\_^_/<br>
 
 </div>`;
-                            }
-                            commandInput.value = '';
-                            terminal.scrollTop = terminal.scrollHeight;
                         }
-                        else if (commands[1]=="README.md") {
-                            if (document.documentElement.lang == "pt") {
-                                output.innerHTML += `<div># Enigma<br>Qual é a coisa, qual é ela, que corre mas não tem pernas, assobia mas não tem boca, ninguém nunca viu e tem muita força?</div>`;
-                            }
-                            else {
-                                output.innerHTML += `<div># Riddle<br>What is something that runs but has no legs, whistles but has no mouth, no one has ever seen it, and it has great power?</div>`;
-                            }
-                            commandInput.value = '';
-                            terminal.scrollTop = terminal.scrollHeight;
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if (commands[0]=="cat" && commands[1]=="readme.md" && commands.length == 2) {
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div># Enigma<br>Qual é a coisa, qual é ela, que corre mas não tem pernas, assobia mas não tem boca, ninguém nunca viu e tem muita força?</div>`;
                         }
                         else {
-                            output.innerHTML += `<div>${command}: command not found</div>`;
-                            commandInput.value = '';
-                            terminal.scrollTop = terminal.scrollHeight;
+                            output.innerHTML += `<div># Riddle<br>What is something that runs but has no legs, whistles but has no mouth, no one has ever seen it, and it has great power?</div>`;
                         }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
                     }
                     else if (commands[0] == "clear" && commands.length == 1) {
                         output.innerHTML = '';
@@ -1174,12 +1168,16 @@
                         terminal.scrollTop = terminal.scrollHeight;
                     }
                     else {
-                        output.innerHTML += `<div>${command}: command not found</div>`;
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>${real_command}: comando não encontrado</div>`;
+                        } else {
+                            output.innerHTML += `<div>${real_command}: command not found</div>`;
+                        }
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
                     }
                 }
-              }
+            }
             });
 
             function focusInput(linha) {
