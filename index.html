@@ -100,24 +100,11 @@
                 cursor: pointer;
                 z-index: 9999;
             ">
-            <img id="lang-icon" style="height: 1.3em;width: 1.3em; vertical-align: top;">
+            <img class="important" id="lang-icon" style="height: 1.3em;width: 1.3em; vertical-align: top;">
         </button>
-        <style>
-            @keyframes fade {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-            
-            .button-animated {
-                opacity: 0;
-                animation: fade 0.8s ease 0.1s forwards;
-                animation-play-state: paused;
-            }
-        </style>
+        <div id="loader">
+            <div class="w3-spin" style="font-size:48px;">◌</div>
+        </div>
         <script>
             const root = document.documentElement;
             const botao = document.getElementById('theme-toggle');
@@ -194,10 +181,10 @@
                 <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
+                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-col s12 m12 l6">
                         <br class="w3-hide-medium w3-hide-small">
@@ -251,14 +238,14 @@
                         </div>
                         <br class="w3-hide-small">
                         <a class="w3-hide-small" href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                            <img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
+                            <img class="important dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
                         </a>
                         &nbsp;
                         <span data-pt='<a class="w3-hide-small" href="https://www.linkedin.com/in/ana-sá-oliveira/pt"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                            <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
+                            <img class="important" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
                         </a>'>
                             <a class="w3-hide-small" href="https://www.linkedin.com/in/ana-sá-oliveira/en"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                                <img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
+                                <img class="important" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
                             </a>
                         </span>
                         <br class="w3-hide-small">
@@ -273,23 +260,9 @@
                         <br class="w3-hide-small">
                     </div>
                 </div>
-                <style>
-                    .conteudo-animado {
-                        opacity: 0;
-                        animation: fade 0.8s ease 0.1s forwards;
-                        animation-play-state: paused;
-                    }
-                </style>
             </div>
             <div style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                <img class="dark scroll" src="assets/img/scroll.png" style="height: 125px;" alt="Scroll down">
-                <style>
-                    .scroll {
-                        opacity: 0;
-                        animation: fade 0.8s ease 0.1s forwards;
-                        animation-play-state: paused;
-                    }
-                </style>
+                <img class="important dark scroll" src="assets/img/scroll.png" style="height: 125px;" alt="Scroll down">
             </div>
         
             
@@ -1223,14 +1196,35 @@
             document.getElementById("year").textContent = new Date().getFullYear();
         </script>
         <script>
-            
+            const imagens = Array.from(document.images);
+
             window.addEventListener("load", () => {
-            document.querySelector(".conteudo-animado").style.animationPlayState = "running";
-            document.querySelector(".scroll").style.animationPlayState = "running";
-            document.querySelectorAll(".button-animated").forEach(button => {
-                button.style.animationPlayState = "running";
-            });
-            });
+                const imagens = Array.from(document.querySelectorAll("img.important"));
+
+  const promessas = imagens.map(img => {
+    if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
+    return new Promise(resolve => {
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", resolve, { once: true });
+    });
+  });
+
+  Promise.all(promessas).then(() => {
+    // Espera dois frames + um pequeno delay pra garantir pintura real
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const loader = document.getElementById("loader");
+          loader.style.opacity = 0;
+          setTimeout(() => loader.style.display = "none", 600);
+        }, 100);
+      });
+    });
+  });
+});
+
+
+
 </script>
     </body>
 </html>
