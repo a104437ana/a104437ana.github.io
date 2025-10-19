@@ -273,7 +273,7 @@
                     <br>
                     <div class="w3-xxlarge">
                         <b>
-                            <div class="w3-text-pink" data-pt="🌸 Sobre">🌸 About</div>
+                            <div class="w3-text-pink" data-pt="🔎 Sobre">🔎 About</div>
                         </b>
                     </div>
                     <h4>
@@ -837,19 +837,19 @@
                             <div id="popup1">
                             <div class="w3-margin" style="max-width: 400px;">
                                 <p data-pt="A sua mensagem foi enviada com sucesso! ✅">Your message has been sent successfully! ✅</p>
-                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup1.style.display='none'">Ok</button>
+                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup1.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
                             </div>
                             <div id="popup2">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup2.style.display='none'">Ok</button> 
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup2.style.display='none'; desbloquearScroll()">Ok</button> 
                                 </div>
                                 </div>
                             <div id="popup3">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup3.style.display='none'">Ok</button>
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #ffb2b2; border: none;" onclick="popup3.style.display='none'; desbloquearScroll()">Ok</button>
                                 </div>
                                 </div>
                             <style>
@@ -871,6 +871,21 @@
                                 }
                             </style>
                             <script>
+                                function bloquearScroll() {
+                                    const scrollY = window.scrollY;
+                                    document.body.style.position = 'fixed';
+                                    document.body.style.top = `-${scrollY}px`;
+                                    document.body.style.width = '100%';
+                                    document.body.dataset.scrollY = scrollY;
+                                }
+
+                                function desbloquearScroll() {
+                                    const scrollY = document.body.dataset.scrollY;
+                                    document.body.style.position = '';
+                                    document.body.style.top = '';
+                                    window.scrollTo(0, parseInt(scrollY || '0'));
+                                }
+
                                 document.getElementById("meuForm").addEventListener("submit", function(event) {
                                     event.preventDefault();
                                     let valido = true;
@@ -929,12 +944,15 @@
                                         if (response.ok) {
                                             popup1.style.display='flex';
                                             form.reset();
+                                            bloquearScroll();
                                         } else {
                                             popup2.style.display='flex';
+                                            bloquearScroll();
                                         }
                                     })
                                     .catch(() => {
                                         popup3.style.display='flex';
+                                        bloquearScroll();
                                     });
                                 });
                                 function copiarTexto(imgElement,texto) {
