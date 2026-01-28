@@ -347,8 +347,42 @@
                 </div>
             </div>
         </div>
+        <!-- Experience -->
+        <div id="experience" style="background-color: white;display: flex; flex-direction: column;">
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                <div class="w3-container w3-content w3-margin">
+                    <br>
+                    <div class="w3-xxlarge w3-center">
+                        <b>
+                            <div class="w3-text-pink" data-pt="💼 Experiência">💼 Experience</div>
+                        </b>
+                    </div>
+                    <br>
+                    <h4>
+                    <div class="w3-row">
+                        <div class="w3-col" style="width: auto"><img loading="lazy" src="assets/icons/explications.png" style="width: 110px;  border:1px solid rgb(0, 0, 0) !important;" alt="Explicadora privada"></div>
+                        <div class="w3-rest">
+                            <div class="w3-margin-left">
+                                <b><span data-pt='Explicadora privada de Programação Funcional (Engenharia Informática)'>
+                                Private Tutor in Functional Programming (Software Engineering)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b><br>
+                                Braga, Portugal <br>
+                                Nov 2025 – Jan 2026 <span data-pt="(2 meses)">(2 months)</span><br>
+                                <b><span data-pt='Trabalho independente'>
+                                Self-employed</span></b><br>
+                                <span data-pt="Explicadora privada da unidade curricular de Programação Funcional<br>do 1.º ano da Licenciatura em Engenharia Informática da Universidade<br>do Minho">
+                                Private tutor for the Functional Programming course of the 1st year of the<br>Bachelor's degree in Software Engineering at the Universidade<br>do Minho
+                                </span> ✍️
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
         <!-- Education -->
-        <div id="education" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="education" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -406,7 +440,7 @@
             </div>
         </div>
         <!-- Skills -->
-        <div id="skills" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="skills" style="background-color: white;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -538,7 +572,7 @@
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="projects" style="background-color: #fee9f0;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin" style="width: 90%;">
                     <br>
@@ -694,7 +728,7 @@
                         </details>
                     </div>
 
-                    <div class="dark" id="modal01" onclick="this.style.display='none'"
+                    <div class="dark" id="modal01" onclick="this.style.display='none'; desbloquearScroll();"
                         style="
                         display: none;
                         position: fixed;
@@ -721,6 +755,7 @@
 
                     <script>
                         function onClick(element) {
+                            bloquearScroll();
                             const modal = document.getElementById("modal01");
                             const modalImg = document.getElementById("img01");
                             modalImg.src = element.src;
@@ -733,19 +768,27 @@
                             Each project is the outcome of multiple contributions. This represents my <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> contributions over the past year:
                         </h4>
                         <br>
+                <div class="hello">
                         <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;"/>
+                </div>
                         <style>
                             .dark-mode .icone {
                                 filter: invert(1) hue-rotate(560deg);
                             }
+                            .hello {
+                                background-color: white; padding: 10px; border-radius: 10px; margin: auto; border: 2px solid #000000;
+                            }
+                            .dark-mode .hello {
+                                background-color: black; border: 2px solid #ffffff;
+                            }
                         </style>
                         <br class="w3-hide-small w3-hide-medium">
                         <br>
-                        <br>
             </div>
         </div>
+    </div>
         <!-- Contact -->
-        <div id="contact" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="contact" style="background-color: white;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -980,7 +1023,7 @@
             </div>
         </div>
 
-        <div style="background-color: white;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
+        <div style="background-color: #fee9f0;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
                         <br>
@@ -991,7 +1034,7 @@
                         </div>
                         <h4 class="center" >
                             <div style="margin-left:20px; margin-right:20px;">
-                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>. Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>. Can you discover it?</span>
+                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover<br>it?</span>
                             </div>
                             <div id="b">
                                 <div id="terminal" onclick="focusInput(this)">
@@ -1009,7 +1052,7 @@
 
         <style>
             #b {
-    background-color: white;
+    background-color: transparent;
     color: rgb(255, 255, 255);
     font-family: monospace;
     margin: 0;
@@ -1202,7 +1245,6 @@
                     </h4>
                 </div>
             </div>
-        </div>
         <!-- Footer -->
         <footer style='background-color: transparent;'>
             <address class="w3-bar" style='display: flex; justify-content: center;'>
@@ -1245,5 +1287,6 @@
 
 
 </script>
+</div>
     </body>
 </html>

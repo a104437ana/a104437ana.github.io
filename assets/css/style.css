@@ -307,7 +307,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
       background-image: radial-gradient(circle at center bottom ,black,black,black,#6d0a2b) !important;
   }
 
-  
+  /*
   .final::before {
     content: "──────────────────୨ৎ──────────────────";
     position: absolute;
@@ -325,6 +325,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   .dark-mode .final::before {
     display: none;
   }
-
+*/
   #loader { position: fixed; inset: 0; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; }
   .dark-mode #loader { background: black !important; }
