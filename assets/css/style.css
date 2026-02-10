@@ -236,7 +236,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     color: #ffffff !important;
   }
 
-  .dark-mode [style*="background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%)"] {
+  .dark-mode [style*="background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%)"] {
     background: #000000 !important;
     border-top: 2px solid white !important;
   }
