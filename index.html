@@ -142,14 +142,14 @@
 
         </script>
         <!-- Home -->
-        <div id="home" style="background-image: radial-gradient(circle at center bottom,white, white,white, #ffacc7); min-height: 100vh;display: flex; flex-direction: column;">
+        <div id="home" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);; min-height: 100vh;display: flex; flex-direction: column;">
             <!--
-            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: transparent;'>
-                <a href="#about" data-pt="🌸 Sobre" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">🌸 About</a>
-                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">🎓 Education</a>
-                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">🛠️ Skills</a>
-                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">📂 Projects</a>
-                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">📬 Contact</a>
+            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color:  #ff9cbc;'>
+                <a href="#about" data-pt="🔎 Sobre" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
+                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
+                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
+                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
+                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
             </nav>
             -->
             <style>
@@ -181,10 +181,13 @@
                 <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 100%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+                        <br>
+                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 92%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
-                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 100%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
+                        <br>
+                        <br>
+                        <img src="assets/img/Ana.jpg" class="important base-img w3-circle" style="width: 85%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-col s12 m12 l6">
                         <br class="w3-hide-medium w3-hide-small">
@@ -261,16 +264,32 @@
                     </div>
                 </div>
             </div>
-            <div style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10;">
+            
+           <div id="scroll-indicator" style="opacity: 0.8; position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10; transition: opacity 0.4s ease;">
                 <img class="important dark scroll" src="assets/img/scroll.png" style="height: 125px;" alt="Scroll down">
             </div>
-        
+
+            <script>
+            const indicator = document.getElementById("scroll-indicator");
+
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 130) {   // px de scroll
+                indicator.style.opacity = "0";
+                indicator.style.pointerEvents = "none";
+                } else {
+                indicator.style.opacity = "0.8";
+                indicator.style.pointerEvents = "auto";
+                }
+            });
+            </script>
+
             
         </div>
         <!-- About -->
-        <div id="about" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="about" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%); display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br>
                     <br>
                     <div class="w3-xxlarge">
                         <b>
@@ -304,8 +323,8 @@
                         </script>
                         <style>
                             .w3-hover-custom:hover {
-                            background-color: #FC8EAC !important;
-                            color: black !important;
+                            background-color: #e91e63 !important;
+                            color: white !important;
                         }
                         .dark-mode .w3-hover-custom:hover {
                             background-color: #880732 !important;
@@ -328,29 +347,31 @@
                         </span>
                         <br>
                         <br>
-                        <span data-pt='<a href="assets/cv/pt/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #FC8EAC;">
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
                             📄 Ver CV
                         </a>'>
-                            <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #FC8EAC;">
+                            <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white">
                                 📄 View CV
                             </a>
                         </span>
-                        <span data-pt='<a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #FC8EAC;">
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
                             ⬇️ Download CV
                         </a>'>
-                            <a href="assets/cv/en/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #FC8EAC;">
+                            <a href="assets/cv/en/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
                                 ⬇️ Download CV
                             </a>
                         </span>
+                        <br>
                     </h4>
                     <h4><br></h4>
                 </div>
             </div>
         </div>
         <!-- Experience -->
-        <div id="experience" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="experience" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
                         <b>
@@ -377,14 +398,16 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     </h4>
                 </div>
             </div>
         </div>
         <!-- Education -->
-        <div id="education" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="education" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
                         <b>
@@ -441,9 +464,10 @@
             </div>
         </div>
         <!-- Skills -->
-        <div id="skills" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="skills" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br>
                     <br>
                     <div class="w3-xxlarge">
                         <b>
@@ -568,14 +592,16 @@
                             </div>
                         </div>
                         <br>
+                        <br>
                     </h4>
                 </div>
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background-color: #fee9f0;display: flex; flex-direction: column;">
+        <div id="projects" style="background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin" style="width: 90%;">
+                    <br>
                     <br>
                     <div class="w3-xxlarge">
                         <b>
@@ -785,13 +811,15 @@
                         </style>
                         <br class="w3-hide-small w3-hide-medium">
                         <br>
+                        <br>
             </div>
         </div>
     </div>
         <!-- Contact -->
-        <div id="contact" style="background-color: white;display: flex; flex-direction: column;">
+        <div id="contact" style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
+                    <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
                         <b>
@@ -1019,23 +1047,25 @@
                                 }
                             </script>
                             <br>
+                            <br>
                         </h4>
                 </div>
             </div>
         </div>
 
-        <div style="background-color: #fee9f0;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
+        <div style=" background: linear-gradient(to top,rgba(204, 0, 255, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
                         <br>
                         <div class="w3-xxlarge w3-center">
-                            <b>
-                                <div class="w3-text-pink" data-pt="💻 Terminal">💻 Terminal</div>
-                            </b>
-                        </div>
+                                <b>
+                                    <div class="w3-text-pink w3-margin-top" data-pt="&nbsp;&nbsp;Obrigado pela visita! ❤️&nbsp;">Thank you for visiting! ❤️</div>
+                                </b>
+                            </div>
+                            <br>
                         <h4 class="center" >
                             <div style="margin-left:20px; margin-right:20px;">
-                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover<br>it?</span>
+                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux 💻. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal 💻. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover<br>it?</span>
                             </div>
                             <div id="b">
                                 <div id="terminal" onclick="focusInput(this)">
@@ -1046,10 +1076,15 @@
                                     </div>
                                   </div>
                             </div>
+                            <div class="w3-center" style="color: #e91e63;">
+                                <b data-pt="Adeus!">
+                                    Goodbye!
+                                </b>
+                            </div>
+                            <br>
                         </h4>
                 </div>
             </div>
-        </div>
 
         <style>
             #b {
@@ -1072,7 +1107,7 @@
               padding: 10px;
               overflow-y: auto;
               box-sizing: border-box;
-              margin-bottom: 20px;
+              margin-bottom: 5px;
             }
             #input-line {
               display: flex;
@@ -1203,10 +1238,10 @@
                     else if ((commands[0] == "vento" || commands[0] == "wind") && commands.length == 1) {
                         window.open("/assets/video/video.mp4", "_blank");
                         if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Olha só o que o vento trouxe! hahaha</div>`;
+                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Olha só o que o vento trouxe! Acabaste de levar um rickroll! hahaha</div>`;
                         }
                         else {
-                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Look what the wind blew in! hahaha</div>`;
+                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Look what the wind blew in! You just got rickrolled! hahaha</div>`;
                         }
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
@@ -1232,7 +1267,7 @@
             }
             </script>
 
-        <div class="final" style="background-color: white;display: flex; flex-direction: column; border-top: 2px solid rgb(255, 255, 255); position: relative;">
+ <!--
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <h4>
@@ -1241,11 +1276,12 @@
                                     <div class="w3-text-pink w3-margin-top" data-pt="Obrigado pela visita! ❤️&nbsp;&nbsp;&nbsp;">Thank you for visiting! ❤️</div>
                                 </b>
                             </div>
-                            <img loading="lazy" class="dark2" src="assets/gifs/bye.gif" style="width: 100%; filter: grayscale(1) contrast(1000%);">
+                            <img loading="lazy" class="dark2" src="assets/gifs/bye.gif" style="width: 100%;">
                             <br>
                     </h4>
                 </div>
             </div>
+        -->
         <!-- Footer -->
         <footer style='background-color: transparent;'>
             <address class="w3-bar" style='display: flex; justify-content: center;'>
