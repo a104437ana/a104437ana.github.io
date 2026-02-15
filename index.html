@@ -163,25 +163,6 @@
             
             </nav>
         -->
-            <script>
-                
-            function ajustarHome() {
-                const header = document.querySelector('header'); // se tiver header
-                const headerHeight = header ? header.offsetHeight : 0;
-
-                // altura visível da tela no mobile
-                const viewportHeight = window.innerHeight;
-
-                const home = document.getElementById('home');
-                home.style.minHeight = `${viewportHeight - headerHeight}px`;
-            }
-
-            // Inicial
-            ajustarHome();
-
-            // Atualiza ao redimensionar ou mudar orientação
-            window.addEventListener('resize', ajustarHome);
-            </script>
             
             <style>
                 .big {
