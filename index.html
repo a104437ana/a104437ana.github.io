@@ -141,13 +141,6 @@
             });
 
         </script>
-        <style>
-            @media (max-width: 768px) {
-                #home {
-                min-height: calc(100vh - 50px) !important; /* 60px = altura do header no telemóvel */
-                }
-            }
-        </style>
         <!-- Home -->
         <div id="home" style=" background: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <!--
@@ -163,7 +156,23 @@
             
             </nav>
         -->
-            
+            <script>
+            function ajustarAlturaMobile() {
+                // só aplica se a largura for pequena (ex: <= 768px)
+                if (window.innerWidth <= 768) {
+                const header = document.getElementById('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const viewportHeight = window.innerHeight;
+
+                const home = document.getElementById('home');
+                // aplica altura fixa só no mobile
+                home.style.minHeight = `${viewportHeight - headerHeight}px`;
+                }
+            }
+
+            // chama só uma vez ao carregar
+            window.addEventListener('load', ajustarAlturaMobile);
+            </script>
             <style>
                 .big {
                     display: block;
