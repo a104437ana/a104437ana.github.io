@@ -141,13 +141,6 @@
             });
 
         </script>
-        <style>
-            @media (max-width: 768px) {
-                #home {
-                min-height: calc(100vh - 60px); /* 60px = altura do header no telemóvel */
-                }
-            }
-        </style>
         <!-- Home -->
         <div id="home" style=" background: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <!--
@@ -163,7 +156,24 @@
             
             </nav>
         -->
-            
+            <script>
+            function ajustarHome() {
+                const header = document.querySelector('header'); // se tiver header
+                const headerHeight = header ? header.offsetHeight : 0;
+
+                // altura visível da tela no mobile
+                const viewportHeight = window.innerHeight;
+
+                const home = document.getElementById('home');
+                home.style.minHeight = `${viewportHeight - headerHeight}px`;
+            }
+
+            // Inicial
+            ajustarHome();
+
+            // Atualiza ao redimensionar ou mudar orientação
+            window.addEventListener('resize', ajustarHome);
+            </script>
             <style>
                 .big {
                     display: block;
