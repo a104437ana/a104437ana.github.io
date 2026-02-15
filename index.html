@@ -142,16 +142,21 @@
 
         </script>
         <!-- Home -->
-        <div id="home" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);; min-height: 100vh;display: flex; flex-direction: column;">
+        <div id="home" style=" background: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
             <!--
-            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color:  #ff9cbc;'>
-                <a href="#about" data-pt="🔎 Sobre" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🌸 About</a>
-                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🎓 Education</a>
-                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">🛠️ Skills</a>
-                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📂 Projects</a>
-                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item w3-hover-text-white" style="text-decoration: none;">📬 Contact</a>
+            <nav class="w3-bar w3-hide-small w3-hide-medium" style='display: flex; ; background-color:  transparent;'>
+                <div class="w3-bar-item" style="text-decoration: none;"></div>
+                <a href="#about" data-pt="🔎 Sobre" class="w3-bar-item" style="text-decoration: none;">🔎 About</a>
+                <a href="#experience" data-pt="💼 Experiência" class="w3-bar-item" style="text-decoration: none;">💼 Experience</a>
+                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item" style="text-decoration: none;">🎓 Education</a>
+                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item" style="text-decoration: none;">🛠️ Skills</a>
+                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item" style="text-decoration: none;">📂 Projects</a>
+                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item" style="text-decoration: none;">📬 Contact</a>
+                <a href="#end" data-pt="👾 Fim" class="w3-bar-item" style="text-decoration: none;">👾 End</a>
+            
             </nav>
-            -->
+        -->
+            
             <style>
                 .big {
                     display: block;
@@ -263,16 +268,31 @@
                     </div>
                 </div>
             </div>
-            
-           <div id="scroll-indicator" style="opacity: 0.8; position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); z-index: 10; transition: opacity 0.4s ease;">
-                <img class="important dark scroll" src="assets/img/scroll.png" style="height: 125px;" alt="Scroll down">
-            </div>
+            <h3>
+           <div id="scroll-indicator" style="
+    opacity: 0.8;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+">
+    <span class="w3-hide-small" data-pt="Deslize para ver mais">Scroll to see more</span>
+    <svg class="important dark scroll" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+        <path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z"/>
+    </svg>
+</div></h3>
+
 
             <script>
             const indicator = document.getElementById("scroll-indicator");
 
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 130) {   // px de scroll
+                if (window.scrollY > 100) {   // px de scroll
                 indicator.style.opacity = "0";
                 indicator.style.pointerEvents = "none";
                 } else {
@@ -285,7 +305,7 @@
             
         </div>
         <!-- About -->
-        <div id="about" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%); display: flex; flex-direction: column;">
+        <div id="about" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0); display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -367,7 +387,7 @@
             </div>
         </div>
         <!-- Experience -->
-        <div id="experience" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);;display: flex; flex-direction: column;">
+        <div id="experience" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -403,7 +423,7 @@
             </div>
         </div>
         <!-- Education -->
-        <div id="education" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
+        <div id="education" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -463,7 +483,7 @@
             </div>
         </div>
         <!-- Skills -->
-        <div id="skills" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
+        <div id="skills" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -486,7 +506,7 @@
                     <img loading="lazy" src="assets/icons/CSS.svg" alt="CSS" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/PUG.svg" alt="Pug" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/GIT.svg" alt="Git" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/GITHUB.svg" alt="GitHub" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/GITHUB.svg" alt="GitHub" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/GITLAB.svg" alt="GitLab" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/VISUAL STUDIO CODE.svg" alt="Visual Studio Code" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/VISUAL STUDIO.svg" alt="Visual Studio" style="height: 40px;">
@@ -496,10 +516,10 @@
                     <img loading="lazy" src="assets/icons/MATLAB.svg" alt="MATLAB" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/MYSQL.svg" alt="MySQL" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/SQL SERVER.svg" alt="SQL Server" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/MARKDOWN.svg" alt="Markdown" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/MARKDOWN.svg" alt="Markdown" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/KNIME.svg" alt="KNIME" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/FIGMA.svg" alt="FIGMA" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/INTELLIJ IDEA.svg" alt="INTELLIJ IDEA" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/INTELLIJ IDEA.svg" alt="INTELLIJ IDEA" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/CANVA.svg" alt="Canva" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/OPENGL.svg" alt="OPENGL" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/VUE.svg" alt="VUE" style="height: 40px;">
@@ -508,9 +528,9 @@
                     <img loading="lazy" src="assets/icons/POSTMAN.svg" alt="POSTMAN" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/VIM.svg" alt="VIM" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/JQUERY.svg" alt="JQUERY" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/GITHUB PAGES.svg" alt="GITHUB PAGES" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/GITHUB PAGES.svg" alt="GITHUB PAGES" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/GITHUB ACTIONS.svg" alt="GITHUB ACTIONS" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/BASH SCRIPT.svg" alt="Bash script" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/BASH SCRIPT.svg" alt="Bash script" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/MONGODB.svg" alt="MONGODB" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/LATEX.svg" alt="LaTex" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/DOCKER.svg" alt="DOCKER" style="height: 40px;">
@@ -597,7 +617,7 @@
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
+        <div id="projects" style="background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin" style="width: 90%;">
                     <br>
@@ -815,7 +835,7 @@
         </div>
     </div>
         <!-- Contact -->
-        <div id="contact" style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
+        <div id="contact" style="background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -1052,7 +1072,7 @@
             </div>
         </div>
 
-        <div style=" background: linear-gradient(to top,rgba(255, 0, 60, 0.24),#fee9f0 10%);display: flex; flex-direction: column;">
+        <div id="end" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
                         <br>
@@ -1064,7 +1084,7 @@
                             <br>
                         <h4 class="center" >
                             <div style="margin-left:20px; margin-right:20px;">
-                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux 💻. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo?">As a thank‑you for reaching the end, here’s my Linux-style terminal 💻. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover<br>it?</span>
+                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo? 💻👾">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover it? 💻👾</span>
                             </div>
                             <div id="b">
                                 <div id="terminal" onclick="focusInput(this)">
