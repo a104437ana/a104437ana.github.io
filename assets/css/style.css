@@ -249,7 +249,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     background-color: #e91e63 !important;
   }
 
-  .dark-mode [style*="background-color: #ffb2b2"] {
+  .dark-mode [style*="background-color: #F9B7CD"] {
     background-color: #880732 !important;
   }
 
@@ -293,7 +293,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
 
   .w3-hover-custom1:hover {
-      background-color: #ffb2b2 !important;
+      background-color: #F9B7CD !important;
       color: black !important;
   }
   .dark-mode .w3-hover-custom1:hover, .dark-mode .w3-hover-custom1 {
