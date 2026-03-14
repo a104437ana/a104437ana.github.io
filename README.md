@@ -5,10 +5,10 @@ This is my portfolio website built to showcase my work, skills and projects.
 
 [ana.is-a.dev](https://ana.is-a.dev/)
 
-[![Website](site.png)](https://ana.is-a.dev/)
-
 ## Things I Plan to Do (If I have time)
+- [ ] Take a better pic of me xd
 - [ ] Add more projects to the portfolio
+- [ ] Update the skill section
 - [ ] Update CV
 
 ## Fun facts
