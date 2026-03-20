@@ -73,11 +73,10 @@
                 right: 20px;
                 padding: 10px 14px;
                 border-radius: 50%;
-                border: none;
+                border: 2px solid black;
                 font-size: 24px;
-                background-color: #e91e63;
+                background-color: #ffffff;
                 color: black;
-                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
                 cursor: pointer;
                 z-index: 9999;
             ">
@@ -90,11 +89,10 @@
                 right: 20px;
                 padding: 10px 14px;
                 border-radius: 50%;
-                border: none;
+                border: 2px solid black;
                 font-size: 24px;
-                background-color: #e91e63;
+                background-color: #ffffff;
                 color: black;
-                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
                 cursor: pointer;
                 z-index: 9999;
             ">
@@ -113,12 +111,12 @@
             const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
         
             botao.textContent = usarEscuro ? '☀️' : '🌙';
-            botao.style.backgroundColor = usarEscuro ? '#880732' : '#e91e63';
+            botao.style.backgroundColor = usarEscuro ? 'black' : 'white';
         
             botao.addEventListener('click', () => {
             const modoEscuroAtivo = root.classList.toggle('dark-mode');
             botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-            botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
+            botao.style.backgroundColor = modoEscuroAtivo ? 'black' : 'white';
             localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
             });
 
@@ -142,7 +140,7 @@
 
         </script>
         <!-- Home -->
-        <div id="home" style=" background: #fee9f0; min-height: 100vh;display: flex; flex-direction: column;">
+        <div id="home" style=" background: white; min-height: 100vh;display: flex; flex-direction: column;">
             <!--
             <nav class="w3-bar w3-hide-small w3-hide-medium" style='display: flex; ; background-color:  transparent;'>
                 <div class="w3-bar-item" style="text-decoration: none;"></div>
@@ -202,11 +200,11 @@
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
                         <br>
-                        <img src="assets/img/Ana.png" class="important base-img w3-circle" style="width: 92%; max-width: 500px; height: auto;" alt="Ana Sá Oliveira">
+                        <img id="perfil" src="assets/img/Ana.png" class="important base-img w3-circle" style="width: 92%; max-width: 500px; height: auto; border: 2px solid black;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
                         <br>
-                        <img src="assets/img/Ana.png" class="important base-img w3-circle" style="width: 85%; max-width: 400px; height: auto;" alt="Ana Sá Oliveira">
+                        <img id="perfil" src="assets/img/Ana.png" class="important base-img w3-circle" style="width: 85%; max-width: 400px; height: auto; border: 2px solid black;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-col s12 m12 l6">
                         <br class="w3-hide-medium w3-hide-small">
@@ -249,17 +247,35 @@
                                 Software Engineer
                             </b>
                         </div>
-                        <div class="w3-hide-small w3-large" data-pt="<br>Atualmente à procura de um <b>estágio de<br>verão</b> em informática para o <b>verão 2026</b>">
+                        <div data-pt='<h4 class="w3-margin-top">Procuro estágio de verão para 2026</h4>
+                            <a href="#contact" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-right w3-large" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                                Contactar-me
+                            </a>
+                            <a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top  w3-margin-right w3-large" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                                Ver CV
+                            </a>'>
+                            <h4 class="w3-margin-top">Looking for a summer 2026 internship</h4>
+                            <a href="#contact" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-right w3-large" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                                Contact me
+                            </a>
+                            <a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-margin-top w3-round w3-margin-right w3-large" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                                View CV
+                            </a>
+                            <!--
                             <br>
                             Currently looking for a <b>summer internship</b>
                             <br>in software development for <b>summer 2026</b>
+                        -->
                         </div>
+                        <!--
                         <div class="w3-hide-large w3-hide-medium w3-large" data-pt="<br>À procura de um estágio de verão em informática para o verão 2026 ☀️💻">
                             <br>
                             Looking for a software development
                             internship for summer 2026 ☀️💻
                         </div>
+                    -->
                         <br class="w3-hide-small">
+                        <!---
                         <a class="w3-hide-small" href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                             <img class="important dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
                         </a>
@@ -271,6 +287,7 @@
                                 <img class="important" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
                             </a>
                         </span>
+                    -->
                         <br class="w3-hide-small">
                         <br class="w3-hide-small">
                         <br class="w3-hide-small">
@@ -321,7 +338,7 @@
             
         </div>
         <!-- About -->
-        <div id="about" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0); display: flex; flex-direction: column;">
+        <div id="about" style=" background: white; border-top: 2px dashed rgb(0, 0, 0); display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -358,11 +375,11 @@
                         </script>
                         <style>
                             .w3-hover-custom:hover {
-                            background-color: #e91e63 !important;
-                            color: white !important;
+                            background-color: #eeeeee !important;
+                            color: black!important;
                         }
                         .dark-mode .w3-hover-custom:hover {
-                            background-color: #880732 !important;
+                            background-color: #141414 !important;
                             color: white !important;
                         
                         }
@@ -382,17 +399,17 @@
                         </span>
                         <br>
                         <br>
-                        <span data-pt='<a href="assets/cv/pt/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
-                            📄 Ver CV
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                            📋 Ver CV
                         </a>'>
-                            <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white">
-                                📄 View CV
+                            <a href="assets/cv/en/cv.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #eeeeee; color: black; border: 1px solid black;">
+                                📋 View CV
                             </a>
                         </span>
-                        <span data-pt='<a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
+                        <span data-pt='<a href="assets/cv/pt/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #eeeeee; color: black; border: 1px solid black;">
                             ⬇️ Download CV
                         </a>'>
-                            <a href="assets/cv/en/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #e91e63; color: white;">
+                            <a href="assets/cv/en/cv.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge" style="background-color: #eeeeee; color: black; border: 1px solid black;">
                                 ⬇️ Download CV
                             </a>
                         </span>
@@ -403,7 +420,7 @@
             </div>
         </div>
         <!-- Experience -->
-        <div id="experience" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
+        <div id="experience" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -439,7 +456,7 @@
             </div>
         </div>
         <!-- Education -->
-        <div id="education" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
+        <div id="education" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -500,7 +517,7 @@
             </div>
         </div>
         <!-- Languages -->
-        <div id="languages" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
+        <div id="languages" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
 
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
@@ -543,7 +560,7 @@
             </div>
         </div>
         <!-- Skills -->
-        <div id="skills" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
+        <div id="skills" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -656,7 +673,7 @@
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
+        <div id="projects" style="background: white; border-top: 2px dashed rgb(0, 0, 0); border-bottom: 2px dashed rgb(0, 0, 0); ;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin" style="width: 90%;">
                     <br>
@@ -874,7 +891,7 @@
         </div>
     </div>
         <!-- Contact -->
-        <div id="contact" style="background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
+        <div id="contact" style="background: white;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin">
                     <br>
@@ -887,7 +904,7 @@
                     <br>
                         <h4 class="w3-center">
                             <h3><img loading="lazy" src="assets/icons/Email.png" style="width:50px;" alt="Email ícone"><b> Email</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #F9B7CD;">
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #eeeeee;">
                                 <div class="w3-margin">
                                     <img loading="lazy" class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'ana.sa.oliveira7@gmail.com')">
                                     <span style="word-break: break-all;">ana.sa.oliveira7@gmail.com</span>
@@ -898,7 +915,7 @@
                             <br>
                             <br>
                             <h3><img loading="lazy" class="dark" src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b data-pt=" Número de Telemóvel"> Phone Number</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #F9B7CD;">
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #eeeeee;">
                                 <div class="w3-margin">
                                     <img loading="lazy" class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'(+351) 918 983 702')">
                                     <span style="word-break: break-all;">(+351) 918 983 702</span>
@@ -909,7 +926,7 @@
                             <br>
                             <br>
                             <h3><img loading="lazy" class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #F9B7CD;">
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #eeeeee;">
                                 <div class="w3-margin">
                                     <img loading="lazy" class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'github.com/a104437ana')">
                                     <span style="word-break: break-all;">github.com/a104437ana</span>
@@ -920,7 +937,7 @@
                             <br>
                             <br>
                             <h3><img loading="lazy" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #F9B7CD;">
+                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: #eeeeee;">
                                 <div class="w3-margin">
                                     <img loading="lazy" class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'www.linkedin.com/in/ana-sá-oliveira')">
                                     <span style="word-break: break-all;">www.linkedin.com/in/ana-sá-oliveira</span>
@@ -961,26 +978,26 @@
                                 
                                 <span id="erro-mensagem" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira a sua mensagem.">Please enter your message.</b></span>
                                 <br>
-                                <span data-pt='<button class="w3-button w3-hover-custom1 w3-round" type="submit" style="background-color: #F9B7CD; border: 1px solid black ;">Enviar</button>'>
-                                    <button class="w3-button w3-hover-custom1 w3-round" type="submit" style="background-color: #F9B7CD; border: 1px solid black ;">Send</button>
+                                <span data-pt='<button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: #eeeeee; border: 1px solid black ;">Enviar</button>'>
+                                    <button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: #eeeeee; border: 1px solid black ; color: black;">Send</button>
                                 </span>
                             </form>
                             <div id="popup1">
                             <div class="w3-margin" style="max-width: 400px;">
                                 <p data-pt="A sua mensagem foi enviada com sucesso! ✅">Your message has been sent successfully! ✅</p>
-                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #F9B7CD; border: none;" onclick="popup1.style.display='none'; desbloquearScroll()">Ok</button>
+                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #eeeeee; border: 1px solid black;" onclick="popup1.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
                             </div>
                             <div id="popup2">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #F9B7CD; border: none;" onclick="popup2.style.display='none'; desbloquearScroll()">Ok</button> 
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #eeeeee; border: 1px solid black;" onclick="popup2.style.display='none'; desbloquearScroll()">Ok</button> 
                                 </div>
                                 </div>
                             <div id="popup3">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #F9B7CD; border: none;" onclick="popup3.style.display='none'; desbloquearScroll()">Ok</button>
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: #eeeeee; border: 1px solid black;" onclick="popup3.style.display='none'; desbloquearScroll()">Ok</button>
                                 </div>
                                 </div>
                             <style>
@@ -1111,7 +1128,7 @@
             </div>
         </div>
 
-        <div id="end" style=" background: #fee9f0; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
+        <div id="end" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
             <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
                         <br>
