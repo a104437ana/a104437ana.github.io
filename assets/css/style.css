@@ -245,8 +245,8 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     border-top: none !important;
   }
 
-  .dark-mode [style*="background-color: #eeeeee"] {
-    background-color: #141414 !important;
+  .dark-mode [style*="background-color: white"] {
+    background-color: black !important;
     border: 1px solid white !important;
     color: #ffffff !important;
   }
@@ -291,13 +291,13 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
 
   .w3-hover-custom1:hover {
-      background-color: #eeeeee !important;
+      background-color: white !important;
       border: 1px solid black !important;
       color: black !important;
   }
 
     .dark-mode .w3-hover-custom1:hover {
-      background-color: #141414 !important;
+      background-color: black !important;
       border: 1px solid white !important;
       color: rgb(255, 255, 255) !important;
   }
