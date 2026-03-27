@@ -8,9 +8,11 @@ This is my portfolio website built to showcase my work, skills and projects.
 [![Website](image.png)](https://ana.is-a.dev/)
 
 ## Things I Plan to Do (If I have time)
-- [ ] Add more projects to the portfolio
-- [ ] Update the skill section
+- [ ] Update the skills section
 - [ ] Update CV
+- [ ] Update the projects section
+- [ ] Fix some image issues (edge cases)
+- [ ] Clean up the code in general
 
 ## Fun facts
 1. I’ll do my best to keep this website updated.

@@ -601,7 +601,7 @@
                     <img loading="lazy" src="assets/icons/FIGMA.svg" alt="FIGMA" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/INTELLIJ IDEA.svg" alt="INTELLIJ IDEA" style="height: 40px; border: 1px solid white;">
                     <img loading="lazy" src="assets/icons/CANVA.svg" alt="Canva" style="height: 40px;">
-                    <img loading="lazy" src="assets/icons/OPENGL.svg" alt="OPENGL" style="height: 40px;">
+                    <img loading="lazy" src="assets/icons/OPENGL.svg" alt="OPENGL" style="height: 40px; border: 1px solid black;">
                     <img loading="lazy" src="assets/icons/VUE.svg" alt="VUE" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/EXPRESS.svg" alt="EXPRESS" style="height: 40px;">
                     <img loading="lazy" src="assets/icons/NODE.svg" alt="NODE" style="height: 40px;">
@@ -871,14 +871,16 @@
                             modal.style.display = "flex";
                         }
                     </script>
-                    <h6 class="w3-hide-small"><br></h6>
                 </div>
+                <div id="ghchart">
+                        <h6 class="w3-hide-small"><br></h6>
                         <h4 data-pt='Cada projeto é resultado de várias contribuições. Este é o retrato das minhas contribuições no <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> ao longo do último ano:''>
                             Each project is the outcome of multiple contributions. This represents my <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> contributions over the past year:
                         </h4>
                         <br>
                 <div class="hello">
-                        <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;"/>
+                        <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;" onerror="document.getElementById('ghchart').style.display='none';"/>
+                </div>
                 </div>
                         <style>
                             .dark-mode .icone {
@@ -946,7 +948,7 @@
                             <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
                             <br>
                             <br>
-                            <h3 data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' style='text-decoration: none;'><img src='assets/icons/LinkedIn.png' style='width:50px;' alt='LinkedIn ícone'><b> LinkedIn</b></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" style="text-decoration: none;"><img loading="lazy" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></a></h3>
+                            <h3 data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' style='text-decoration: none;'><img src='assets/icons/LinkedIn.png' style='width:50px;' alt='LinkedIn ícone'><b> LinkedIn</b></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" style="text-decoration: none;"><img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></a></h3>
                             <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
                                 <div class="w3-margin">
                                     <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'www.linkedin.com/in/ana-sá-oliveira')">
@@ -1392,7 +1394,14 @@
     });
   });
 
-  Promise.all(promessas).then(() => {
+    const timeoutGlobal = new Promise(resolve => {
+    setTimeout(resolve, 6000);
+  });
+
+  Promise.race([
+    Promise.all(promessas),
+    timeoutGlobal
+  ]).then(() => {
     // Espera dois frames + um pequeno delay pra garantir pintura real
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
