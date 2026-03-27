@@ -7,13 +7,19 @@ This is my portfolio website built to showcase my work, skills and projects.
 
 [![Website](image.png)](https://ana.is-a.dev/)
 
-## Things I Plan to Do (If I have time)
+## Things I Plan to Do (If I have time and motivation)
 - [ ] Update the skills section
 - [ ] Update CV
 - [ ] Update the projects section
-- [ ] Fix some image issues (edge cases)
-- [ ] Clean up the code in general
+- [ ] Fix scroll bug
+- [ ] Fix layout shift issue
+- [ ] Handle image load failures
+- [ ] Clean up the codebase
 
-## Fun facts
+## Notes
 1. I’ll do my best to keep this website updated.
 2. This website is never really finished because it changes as I do. (It’s a portfolio, duh!)
+
+## Support
+1. If you find any bugs or have any suggestions, feel free to reach out!
+2. If you like my website, don’t forget to star this repository! ⭐

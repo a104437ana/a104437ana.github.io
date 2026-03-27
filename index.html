@@ -990,26 +990,26 @@
                                 
                                 <span id="erro-mensagem" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira a sua mensagem.">Please enter your message.</b></span>
                                 <br>
-                                <span data-pt='<button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ;">Enviar</button>'>
-                                    <button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ; color: black;">Send</button>
+                                <span data-pt='<button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ;">Enviar</button><span id="sending" style="display: none;">&nbsp;&nbsp;Enviando...</span>'>
+                                    <button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ; color: black;">Send</button><span id="sending" style="display: none;">&nbsp;&nbsp;Sending...</span>
                                 </span>
                             </form>
                             <div id="popup1">
                             <div class="w3-margin" style="max-width: 400px;">
                                 <p data-pt="A sua mensagem foi enviada com sucesso! ✅">Your message has been sent successfully! ✅</p>
-                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="popup1.style.display='none'; desbloquearScroll()">Ok</button>
+                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none';popup1.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
                             </div>
                             <div id="popup2">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="popup2.style.display='none'; desbloquearScroll()">Ok</button> 
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none'; popup2.style.display='none'; desbloquearScroll()">Ok</button> 
                                 </div>
                                 </div>
                             <div id="popup3">
                                 <div class="w3-margin" style="max-width: 400px;">
                                     <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="popup3.style.display='none'; desbloquearScroll()">Ok</button>
+                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none';popup3.style.display='none'; desbloquearScroll()">Ok</button>
                                 </div>
                                 </div>
                             <style>
@@ -1024,7 +1024,7 @@
                                 }
                                 .dark-mode #popup1 div, .dark-mode #popup2 div, .dark-mode #popup3 div{
                                 color:white;
-                                background:rgb(37, 37, 37);
+                                background:rgb(0, 0, 0);
                                 }
                                 .dark-mode #popup1, .dark-mode #popup2, .dark-mode #popup3{
                                 background:rgba(255, 255, 255, 0.5);
@@ -1088,6 +1088,8 @@
                                         return;
                                     }
 
+                                    const sendingText = document.getElementById('sending');
+                                    sendingText.style.display = 'inline';
                                     const form = event.target;
                                     const formData = new FormData(form);
 
