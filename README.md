@@ -11,6 +11,7 @@ This is my portfolio website built to showcase my work, skills and projects.
 - [ ] Update the skills section
 - [ ] Update CV
 - [ ] Update the projects section
+- [ ] Add CV section maybe
 - [ ] Fix scroll bug
 - [ ] Fix layout shift issue
 - [ ] Handle image load failures
