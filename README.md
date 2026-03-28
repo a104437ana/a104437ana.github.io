@@ -11,7 +11,8 @@ This is my portfolio website built to showcase my work, skills and projects.
 - [ ] Update the skills section
 - [ ] Update CV
 - [ ] Update the projects section
-- [ ] Add CV section maybe
+- [ ] Decide the contact section content
+- [ ] Automatic screenshot of the CV everytime I update it (instead of manually updating the image)
 - [ ] Fix scroll bug
 - [ ] Fix layout shift issue
 - [ ] Handle image load failures
