@@ -543,7 +543,7 @@
                         </div>
                         <br class="w3-hide-small w3-hide-medium">
                     </h4>
-                    <h2><br></h2>
+                    <h5><br></h5>
                 </div>
             </div>
         </div>
@@ -996,6 +996,7 @@
                         <br>
                         <br>
                     -->
+                        <br>
             </div>
         </div>
     </div>
@@ -1450,24 +1451,24 @@
                         terminal.scrollTop = terminal.scrollHeight;
                     }
                     else if (commands[0] == "ls" && commands.length == 1) {
-                        output.innerHTML += `<div>art.txt README.md</div>`;
+                        output.innerHTML += `<div>art.txt&nbsp;&nbsp;&nbsp;README.md</div>`;
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
                     }
                     else if (commands[0]=="cat" && commands[1] == "art.txt" && commands.length == 2) {
                         if (document.documentElement.lang == "pt") {
                             output.innerHTML += `<div>
-|\\---/|<br>
-| o_o | < miau<br>
-&nbsp;\\_^_/<br>
+&nbsp;|\\-----/|<br>
+&nbsp;| o_o | < miau<br>
+&nbsp;&nbsp;\\_^_/<br>
 
 </div>`;
                         }
                         else {
                             output.innerHTML += `<div>
-|\\---/|<br>
-| o_o | < meow<br>
-&nbsp;\\_^_/<br>
+&nbsp;|\\-----/|<br>
+&nbsp;| o_o | < meow<br>
+&nbsp;&nbsp;\\_^_/<br>
 
 </div>`;
                         }
