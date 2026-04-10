@@ -328,33 +328,20 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   #loader { position: fixed; inset: 0; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; }
   .dark-mode #loader { background: black !important; }
 
-  img[alt][style*="height: 40px"] {
-  border-radius: 6px;
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 3px;
-}
-img[alt][style*="height: 40px"]:hover {
-  transform: translateY(-3px) scale(1.1);
-}
-
-button:hover{
-  transform: translateY(-3px) scale(1.1);
+  img[alt][style*="height: 40px"],
+  button,
+  .w3-button {
+    border-radius: 6px;
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 3px;
 }
 
-button{
-  border-radius: 6px;
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 3px;
-}
-
-.w3-button:hover{
-  transform: translateY(-3px) scale(1.1);
-}
-
-.w3-button{
-  border-radius: 6px;
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 3px;
+@media (hover: hover) and (pointer: fine) {
+  img[alt][style*="height: 40px"]:hover,
+  button:hover,
+  .w3-button:hover {
+    transform: translateY(-3px) scale(1.1);
+  }
 }
 
 * {
