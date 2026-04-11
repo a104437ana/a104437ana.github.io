@@ -962,14 +962,16 @@
                         <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;" onerror="document.getElementById('ghchart').style.display='none';"/>
                 -->
                         <div style="overflow-x: auto; width: 100%;"><picture>
-  <source srcset="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" media="(prefers-color-scheme: dark)" />
-  <source srcset="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" media="(prefers-color-scheme: light)"  />
-  <img src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" alt="sakura contributions" style="min-width: 800px; width: 100%;" />
+    <img class="sakura1" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" alt="sakura contributions" style="min-width: 800px; width: 100%;" />
+    <img class="sakura2" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
 </picture></div>
                         
                     </div>
                 </div>
                         <style>
+                            .dark-mode .sakura1 { display: none !important; }
+                            .dark-mode .sakura2 { display: block !important; }
+
                             .dark-mode .icone {
                                 filter: invert(1) hue-rotate(560deg);
                             }
