@@ -252,14 +252,22 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
 
   .w3-card-4 {
-    border: 2px solid #000000 !important;
+    border-top: 2px dashed #000000 !important;
     box-shadow: none !important;
   }
 
   .dark-mode .w3-card-4 {
     background-color: #000000 !important;
-    border: 2px solid white !important;
+    border-top: 1px solid white !important;
     color: #ffffff !important;
+  }
+
+  .ups {
+    border-bottom: 2px dashed black !important;
+  }
+
+  .dark-mode .ups {
+    border-bottom: 1px solid white !important;
   }
 
   .dark-mode .w3-hover-text-white:hover {
