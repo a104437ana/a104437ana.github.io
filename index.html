@@ -199,11 +199,16 @@
                 }
                 </style>
             <div class="hero-flex" style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
+                <div data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a>'><a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a></div>
+                <div data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' rel='noopener noreferrer'><img src='assets/img/4.png' class='sticker stk-react w3-hide-small w3-hide-medium' alt='React Sticker'></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer"><img src="assets/img/4.png" class="sticker stk-react w3-hide-small w3-hide-medium" alt="React Sticker"></a></div>
+                
+                <a href="https://github.com/a104437ana" target="_blank"><img src="assets/img/3.png" class="sticker stk-java w3-hide-small w3-hide-medium" alt="Java Sticker"></a>
+                <img src="assets/img/1.webp" class="sticker stk-cpp w3-hide-small w3-hide-medium" alt="C++ Sticker" style="filter: grayscale(100%) contrast(300%) brightness(1.2);">
                 <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
                         <br>
-                        <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 92%; max-width: 500px; height: auto; border: 2px solid black;" alt="Ana Sá Oliveira">
+                        <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 92%; max-width: 500px; height: auto; border: 3px solid black;" alt="Ana Sá Oliveira">
                     </div>
                     <div class="w3-hide-large w3-col s12 m12 l6">
                         
@@ -1323,7 +1328,7 @@
                             <br>
                         <h4 class="center" >
                             <div style="margin-left:20px; margin-right:20px;">
-                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também um <b class='w3-text-pink'>comando secreto</b>... Consegues descobri-lo? 💻👾">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also a <b class='w3-text-pink'>secret command</b>... Can you discover it? 💻👾</span>
+                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também <b class='w3-text-pink'>dois comandos secretos</b>... Consegues descobri-los? 💻👾">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also <b class='w3-text-pink'>two secret commands</b>... Can you discover them? 💻👾</span>
                             </div>
                             <div id="b">
                                 <div id="terminal" onclick="focusInput(this)">
@@ -1405,9 +1410,9 @@
                     output.innerHTML += `<div>$ ${real_command}</div>`;
                     if (commands[0] == "help" && commands.length == 1) {
                         if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat art.txt, cat README.md, clear</div>`;
+                            output.innerHTML += `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`;
                         } else {
-                            output.innerHTML += `<div>Available commands: <br>help, whoami, date, pwd, ls, cat art.txt, cat README.md, clear</div>`;
+                            output.innerHTML += `<div>Available commands: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`;
                         }
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
@@ -1454,11 +1459,11 @@
                         terminal.scrollTop = terminal.scrollHeight;
                     }
                     else if (commands[0] == "ls" && commands.length == 1) {
-                        output.innerHTML += `<div>art.txt&nbsp;&nbsp;&nbsp;README.md</div>`;
+                        output.innerHTML += `<div>README.md&nbsp;&nbsp;&nbsp;untitled.txt</div>`;
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
                     }
-                    else if (commands[0]=="cat" && commands[1] == "art.txt" && commands.length == 2) {
+                    else if (commands[0]=="cat" && commands[1] == "untitled.txt" && commands.length == 2) {
                         if (document.documentElement.lang == "pt") {
                             output.innerHTML += `<div>
 &nbsp;|\\-----/|<br>
@@ -1500,6 +1505,17 @@
                         }
                         else {
                             output.innerHTML += `<div>༄༄༄༄༄༄<br>Look what the wind blew in! You just got rickrolled! hahaha</div>`;
+                        }
+                        commandInput.value = '';
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    else if ((commands[0] == "miau" || commands[0] == "meow") && commands.length == 1) {
+                        window.open("/assets/video/video2.mp4", "_blank");
+                        if (document.documentElement.lang == "pt") {
+                            output.innerHTML += `<div>^_^</div>`;
+                        }
+                        else {
+                            output.innerHTML += `<div>^_^</div>`;
                         }
                         commandInput.value = '';
                         terminal.scrollTop = terminal.scrollHeight;
