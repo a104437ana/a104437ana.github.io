@@ -382,6 +382,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .stk-cpp     { bottom: 25%; right: 7%; transform: rotate(-20deg);}
 
 /* Esconder em ecrãs muito pequenos para não poluir o conteúdo */
-@media (max-width: 1577px) {
+@media (max-width: 1490px) {
     .sticker {opacity: 0;}
 }
