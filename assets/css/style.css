@@ -376,12 +376,12 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 */
 
 /* Posicionamento Individual (Exemplos) */
-.stk-haskell { top: 15%; left: 7%; transform: rotate(-15deg);}
+.stk-haskell { top: 15%; left: 8%; transform: rotate(-15deg);}
 .stk-react   { bottom: 25%; left: 9%; transform: rotate(12deg);  border: 2px solid black; border-radius: 100%; padding: 10px; background-color: white;}
-.stk-java    { top: 20%; right: 7%; transform: rotate(20deg); border: 2px solid black; border-radius: 100%; }
+.stk-java    { top: 20%; right: 10%; transform: rotate(20deg); border: 2px solid black; border-radius: 100%; }
 .stk-cpp     { bottom: 25%; right: 7%; transform: rotate(-20deg);}
 
 /* Esconder em ecrãs muito pequenos para não poluir o conteúdo */
-@media (max-width: 1332px) {
+@media (max-width: 1577px) {
     .sticker {opacity: 0;}
 }
