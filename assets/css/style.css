@@ -291,7 +291,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   }
 
     .dark-mode [id*=perfil] {
-    border: 3px solid white !important;
+    border: 2px solid rgb(255, 255, 255) !important;
   }
 
   .dark-mode [class*=button-animated] {
@@ -354,34 +354,4 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 
 * {
   font-family: Arial, Helvetica, sans-serif !important;
-}
-
-/* Estilo Base para os Autocolantes */
-.sticker {
-    position: absolute;
-    width: 180px; /* Tamanho estilo sticker */
-    height: auto;
-    z-index: 1;
-    /*pointer-events: none;  Para não bloquear cliques em botões/links */
-    /*filter: drop-shadow(2px 3px 0px rgba(255,255,255,0.9));  Borda branca simulada 
-    transition: transform 0.3s ease, opacity 0.3s ease; */
-  /*  opacity: 0.9; */
-}
-
-/* Modo Escuro: ajusta a "borda" e diminui um pouco o brilho
-.dark-mode .sticker {
-    filter: drop-shadow(2px 3px 0px rgba(50,50,50,0.8)) brightness(0.8);
-    opacity: 1;
-}
-*/
-
-/* Posicionamento Individual (Exemplos) */
-.stk-haskell { top: 15%; left: 8%; transform: rotate(-15deg);}
-.stk-react   { bottom: 25%; left: 9%; transform: rotate(12deg);  border: 2px solid black; border-radius: 100%; padding: 10px; background-color: white;}
-.stk-java    { top: 20%; right: 7%; transform: rotate(20deg); border: 2px solid black; border-radius: 100%; }
-.stk-cpp     { bottom: 25%; right: 7%; transform: rotate(-20deg);}
-
-/* Esconder em ecrãs muito pequenos para não poluir o conteúdo */
-@media (max-width: 1490px) {
-    .sticker {opacity: 0;}
 }

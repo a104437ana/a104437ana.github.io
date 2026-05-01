@@ -3,9 +3,7 @@
 
 This is my portfolio website built to showcase my work, skills and projects.
 
-[ana.is-a.dev](https://ana.is-a.dev/)
-
-[![Website](image.png)](https://ana.is-a.dev/)
+[ana.is-a.dev](https://ana.is-a.dev)
 
 ## Things I Plan to Do (If I have time and motivation)
 - [ ] Update the skills section

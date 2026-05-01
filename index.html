@@ -182,7 +182,7 @@
                     display: none;
                 }
 
-                @media (max-width: 374px) {
+                @media (max-width: 420px) {
                     .big {
                         display: none;
                     }
@@ -192,18 +192,114 @@
                     }
                 }
 
-                @media (max-width: 600px) {
+               /* @media (max-width: 1200px) {
                     .hero-flex {
-                    align-items: initial !important; /* cancela o center */
+                    align-items: initial !important;
                     }
                 }
+                    */
+
+                    .hero-mobile {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .hero-desktop {
+    display: none;
+  }
+
+  .hero-mobile {
+    display: block;
+  }
+}
+.hero-flex {
+  align-items: center; /* mobile default */
+}
+
+/* Desktop */
+@media (min-width: 1201px) {
+  .hero-flex {
+    align-items: center;
+  }
+}
                 </style>
-            <div class="hero-flex" style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
-                <div data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a>'><a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a></div>
+            <div class="hero-flex" style="flex: 1; display: flex; justify-content: center;padding-bottom: 105px;">
+                <div class="hero-mobile w3-content w3-container w3-center">
+                    <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 82%; max-width: 300px; height: auto; border: 2px solid rgb(0, 0, 0);" alt="Ana Sá Oliveira">
+                    <br>
+                    <br>
+                    <div class="big w3-xxxlarge">
+                            <b>
+                                <div class="w3-text-pink">
+                                    Ana Sá Oliveira
+                                </div>
+                            </b>
+                        </div>
+                        <div class="small w3-xxlarge">
+                            <b>
+                                <div class="w3-text-pink">
+                                    Ana Sá Oliveira
+                                </div>
+                            </b>
+                        </div>
+                        <div class="big" style="font-size:29px">
+                            <b data-pt="Engenheira Informática">
+                                Software Engineer
+                            </b>
+                        </div>
+                        <div class="small" style="font-size:24px">
+                            <b data-pt="Engenheira Informática">
+                                Software Engineer
+                            </b>
+                        </div>
+                                <br>
+                                <div style="font-size: 20px;">
+                                    <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
+                                    <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>'>
+                                        <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>
+                                    </span><br>
+                                    <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>'>
+                                    <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>
+                                    </span>
+                                    <a href="#contact" style="margin-left: 20px;" data-pt="Contactos">Contact</a>
+                                </div>
+                </div>
+                <div class="w3-container hero-desktop">
+                    <div class="w3-row">
+                        <div class="w3-col" style="width: auto">
+                            <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 92%; max-width: 400px; height: auto; border: 2px solid rgb(0, 0, 0);" alt="Ana Sá Oliveira">
+                        </div>
+                        <div class="w3-rest w3-center">
+                            <div class="w3-margin-left">
+                                <br>
+                                <br>
+                                <b style="font-size: 75px; color:#e91e63;">Ana Sá Oliveira</b>
+                                <br>
+                                <b data-pt="Engenheira Informática" style="font-size: 45px;">Software Engineer</b>
+                                <br>
+                                <br>
+                                <div style="font-size: 35px;">
+                                    <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
+                                    <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>'>
+                                        <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>
+                                    </span>
+                                    <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>'>
+                                    <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>
+                                    </span>
+                                    <a href="#contact" style="margin-left: 20px;" data-pt="Contactos">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                </div>
+                <!--<div data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a>'><a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank"><img src="assets/img/2.png" class="sticker stk-haskell w3-hide-small w3-hide-medium" alt="Haskell Sticker"></a></div>
                 <div data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' rel='noopener noreferrer'><img src='assets/img/4.png' class='sticker stk-react w3-hide-small w3-hide-medium' alt='React Sticker'></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer"><img src="assets/img/4.png" class="sticker stk-react w3-hide-small w3-hide-medium" alt="React Sticker"></a></div>
                 
                 <a href="https://github.com/a104437ana" target="_blank"><img src="assets/img/3.png" class="sticker stk-java w3-hide-small w3-hide-medium" alt="Java Sticker"></a>
                 <img src="assets/img/1.webp" class="sticker stk-cpp w3-hide-small w3-hide-medium" alt="C++ Sticker" style="filter: grayscale(100%) contrast(300%) brightness(1.2);">
+            -->
+            <!--
                 <div class="conteudo-animado w3-container w3-content w3-margin">
                     <br w3-hide-large w3-hide-medium>
                     <div class="w3-hide-small w3-hide-medium w3-col s12 m12 l6">
@@ -269,21 +365,16 @@
                             <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="w3-button w3-hover-custom w3-margin-top w3-round w3-margin-right w3-large" style="background-color: white; color: black; border: 1px solid black;">
                                 View CV
                             </a>
-                            <!--
                             <br>
                             Currently looking for a <b>summer internship</b>
                             <br>in software development for <b>summer 2026</b>
-                        -->
                         </div>
-                        <!--
                         <div class="w3-hide-large w3-hide-medium w3-large" data-pt="<br>À procura de um estágio de verão em informática para o verão 2026 ☀️💻">
                             <br>
                             Looking for a software development
                             internship for summer 2026 ☀️💻
                         </div>
-                    -->
                         <br class="w3-hide-small">
-                        <!---
                         <a class="w3-hide-small" href="https://github.com/a104437ana"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                             <img class="important dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub" />
                         </a>
@@ -295,7 +386,6 @@
                                 <img class="important" src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn" />
                             </a>
                         </span>
-                    -->
                         <br class="w3-hide-small">
                         <br class="w3-hide-small">
                         <br class="w3-hide-small">
@@ -308,6 +398,7 @@
                         <br class="w3-hide-small">
                     </div>
                 </div>
+            -->
             </div>
             <h3>
            <div id="scroll-indicator" style="
