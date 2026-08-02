@@ -8,6 +8,22 @@
   visibility: hidden;
 }
 
+img,
+svg {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+::selection {
+  background: #e91e63;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #e91e63;
+  color: #fff;
+}
+
 .dark-mode body {
   background-color: #000 !important;
   color: #fff !important;
@@ -229,6 +245,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Experience / education logos */
