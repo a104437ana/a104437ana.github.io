@@ -127,6 +127,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const age = calculateAge("2004-01-05");
   document.getElementById("years").textContent = age;
 
+  const aboutContent = document.querySelector(".about-content");
+  const aboutLaptop = document.querySelector(".about-laptop");
+  if (aboutContent && aboutLaptop) {
+    const mobileQuery = window.matchMedia("(max-width: 700px)");
+    const repositionLaptop = e => {
+      if (e.matches) {
+        aboutContent.appendChild(aboutLaptop);
+      } else {
+        aboutContent.insertBefore(aboutLaptop, aboutContent.firstChild);
+      }
+    };
+    repositionLaptop(mobileQuery);
+    mobileQuery.addEventListener("change", repositionLaptop);
+  }
+
   const indicator = document.getElementById("scroll-indicator");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
