@@ -1,4 +1,4 @@
-@import url("w3.css");
+﻿@import url("w3.css");
 
 * {
   font-family: Arial, Helvetica, sans-serif !important;
@@ -448,8 +448,15 @@
 
 /* CV */
 
+.cv-button {
+  display: inline-flex !important;
+  align-items: center;
+  max-width: 100%;
+}
+
 .cv-thumb {
-  width: 120px;
+  width: clamp(08px, 34.44vw - 68.1px, 120px);
+  flex: 0 0 auto;
   border: 1px solid #000 !important;
 }
 
@@ -544,13 +551,6 @@ button,
   button:not(.fab):hover,
   .w3-button:hover {
     transform: translateY(-3px) scale(1.1);
-  }
-}
-
-@media (max-width: 480px) {
-  .w3-button,
-  .w3-btn {
-    white-space: normal;
   }
 }
 
