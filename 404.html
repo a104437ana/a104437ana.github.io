@@ -11,125 +11,35 @@
         <link rel="icon" sizes="512x512" href="/assets/img/Ana_Sa_Oliveira.png" type="image/x-icon">
         <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
         <meta name="google" content="notranslate">
+        <script src="/assets/js/main.js" defer></script>
         <script>
             window.location.replace("/");
-            // idioma inicial: detecta navegador ou localStorage
-            let currentLang = localStorage.getItem("lang") || navigator.language.slice(0,2) || "en";
 
-            function setLanguage(lang) {
-            document.querySelectorAll("[data-pt]").forEach(el => {
-                if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original (HTML em inglês)
-                el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
-                el.style.visibility = "visible";
-            });
-            document.documentElement.lang = lang;
-            currentLang = lang;
-            localStorage.setItem("lang", lang);
-            }
-
-            document.addEventListener("DOMContentLoaded", () => {
-            setLanguage(currentLang);
-            });
-
-            const slowImage1 = new Image();
-            slowImage1.src = '/assets/icons/flag-ukus.png';
-            const slowImage2 = new Image();
-            slowImage2.src = '/assets/icons/flag-pt.png';
-
-            (function() {
-            const root = document.documentElement;
-            const temaSalvo = localStorage.getItem('theme');
-            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
-        
-            if (usarEscuro) root.classList.add('dark-mode');
+            (function () {
+                const root = document.documentElement;
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme ? savedTheme === 'dark' : prefersDark) root.classList.add('dark-mode');
             })();
         </script>
-        <style>
-            [data-pt] {
-                visibility: hidden; /* não mostra nada até o JS preencher */
-            }
-        </style>
     </head>
     <body>
-        <button id="theme-toggle"
-            style="
-                position: fixed;
-                bottom: 90px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: none;
-                font-size: 24px;
-                background-color: #e91e63;
-                color: black;
-                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            🌙
-        </button>
-        <button id="lang-toggle" onclick="toggleLanguage()"
-            style="
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: none;
-                font-size: 24px;
-                background-color: #e91e63;
-                color: black;
-                box-shadow: 5px 6px 6px rgba(0,0,0,0.2);
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            <img id="lang-icon" style="height: 1.3em;width: 1.3em; vertical-align: top;">
+        <button class="fab fab--theme fab--shadow" id="theme-toggle">🌙</button>
+        <button class="fab fab--lang fab--shadow" id="lang-toggle">
+            <img class="lang-icon" id="lang-icon">
         </button>
         <script>
-            const root = document.documentElement;
-            const botao = document.getElementById('theme-toggle');
-            const temaSalvo = localStorage.getItem('theme');
-            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
-        
-            botao.textContent = usarEscuro ? '☀️' : '🌙';
-            botao.style.backgroundColor = usarEscuro ? '#880732' : '#e91e63';
-        
-            botao.addEventListener('click', () => {
-            const modoEscuroAtivo = root.classList.toggle('dark-mode');
-            botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-            botao.style.backgroundColor = modoEscuroAtivo ? '#880732' : '#e91e63';
-            localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
-            });
-
-            const langButton = document.getElementById('lang-toggle');
-            const langIcon = document.getElementById('lang-icon');
-
-            const langIcons = { en: '/assets/icons/flag-pt.png', pt: '/assets/icons/flag-ukus.png'};
-
-            function updateLangButton(lang) {
-                langIcon.src = langIcons[lang];
-                langIcon.alt = lang === 'en' ? 'English' : 'Portuguese';
-            }
-
-            updateLangButton(currentLang);
-
-            langButton.addEventListener('click', () => {
-                const newLang = currentLang === 'en' ? 'pt' : 'en';
-                setLanguage(newLang);      // apenas textos com data-pt
-                updateLangButton(newLang); // atualiza a imagem do botão
-            });
-
+            (function () {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme ? savedTheme === 'dark' : prefersDark) {
+                    document.getElementById('theme-toggle').textContent = '☀️';
+                }
+            })();
         </script>
         <!-- Home -->
-        <div id="home" style="background-image: radial-gradient(circle at center bottom,white, white,white, #ffacc7);min-height: 100vh;display: flex; flex-direction: column;">
-            <!--
-            <nav class="w3-bar w3-hide-small" style='display: flex; justify-content: center; background-color: transparent;'>
-                <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-bar-item w3-hover-text-pink" style="text-decoration: none;">Go back to Ana's portfolio ♥</a>
-            </nav>
-            -->
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;">
+        <div id="home" class="section section--home section--gradient">
+            <div class="section-inner w3-center">
                 <div class="w3-container w3-content w3-margin">
                     <div class="w3-xxlarge w3-hide-small">
                         <b>
@@ -139,7 +49,7 @@
                                 <br>
                                 <br>
                             </div>
-                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large" style="background-color: #ffb2b2; white-space: normal; text-align: center;">
+                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large btn-back">
                                 Go back to Ana's portfolio ♥
                             </a>
                         </b>
@@ -152,26 +62,13 @@
                                 <br>
                                 <br>
                             </div>
-                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large" style="background-color: #ffb2b2; white-space: normal; text-align: center;">
+                            <a href="/index.html" data-pt="Voltar ao portefólio da Ana ♥" class="w3-button w3-hover-custom1 w3-round-large btn-back">
                                 Go back to Ana's portfolio ♥
                             </a>
                         </b>
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
-            <!--
-            <footer style='background-color: transparent;'>
-                <address class="w3-bar" style='display: flex; justify-content: center;'>
-                    <div class="w3-bar-item">
-                        © <span id="year">2025</span> Ana Sá Oliveira
-                    </div>
-                </address>
-            </footer>
-            -->
-            <script>
-                document.getElementById("year").textContent = new Date().getFullYear();
-            </script>
         </div>
     </body>
 </html>

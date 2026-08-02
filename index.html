@@ -21,328 +21,113 @@
         <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
         <meta name="google" content="notranslate">
         <link rel="canonical" href="https://ana.is-a.dev/">
+        <script src="/assets/js/main.js" defer></script>
+        <script src="/assets/js/home.js" defer></script>
         <script>
-
-            // idioma inicial: detecta navegador ou localStorage
-            let currentLang = localStorage.getItem("lang") || navigator.language.slice(0,2) || "en";
-
-            function setLanguage(lang) {
-            document.querySelectorAll("[data-pt]").forEach(el => {
-                if (el.id == "output") {
-                    el.innerHTML = "";
-                } else if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
-                    // Guarda a versão original do placeholder se ainda não tiver
-                    if (!el.dataset.en) el.dataset.en = el.placeholder;
-                    // Troca apenas o placeholder
-                    el.placeholder = (lang === "pt") ? el.dataset.pt : el.dataset.en;
-                } else {
-                    // Código original para elementos normais
-                    if (!el.dataset.en) el.dataset.en = el.innerHTML; // guarda versão original
-                    el.innerHTML = (lang === "pt") ? el.dataset.pt : el.dataset.en;
-                }
-                el.style.visibility = "visible";
-            });
-            document.documentElement.lang = lang;
-            currentLang = lang;
-            localStorage.setItem("lang", lang);
-            }
-
-            document.addEventListener("DOMContentLoaded", () => {
-            setLanguage(currentLang);
-            });
-
-            const slowImage = new Image();
-            slowImage.src = '/assets/icons/flag-ukus.png';
-            const slowImage2 = new Image();
-            slowImage2.src = '/assets/icons/flag-pt.png';
-
-            (function() {
-            const root = document.documentElement;
-            const temaSalvo = localStorage.getItem('theme');
-            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
-        
-            if (usarEscuro) root.classList.add('dark-mode');
+            (function () {
+                const root = document.documentElement;
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme ? savedTheme === 'dark' : prefersDark) root.classList.add('dark-mode');
             })();
         </script>
-        <style>
-            [data-pt] {
-                visibility: hidden; /* não mostra nada até o JS preencher */
-            }
-        </style>
     </head>
     <body>
-        <button class="button-animated" id="theme-toggle"
-            style="
-                position: fixed;
-                bottom: 90px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: 2px solid black;
-                font-size: 24px;
-                background-color: #ffffff;
-                color: black;
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            🌙
+        <button class="fab fab--theme fab--outline" id="theme-toggle">🌙</button>
+        <button class="fab fab--lang fab--outline" id="lang-toggle">
+            <img class="important lang-icon" id="lang-icon">
         </button>
-        <button class="button-animated" id="lang-toggle" onclick="toggleLanguage()"
-            style="
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 14px;
-                border-radius: 50%;
-                border: 2px solid black;
-                font-size: 24px;
-                background-color: #ffffff;
-                color: black;
-                cursor: pointer;
-                z-index: 9999;
-            ">
-            <img class="important" id="lang-icon" style="height: 1.3em;width: 1.3em; vertical-align: top;">
-        </button>
+        <script>
+            (function () {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme ? savedTheme === 'dark' : prefersDark) {
+                    document.getElementById('theme-toggle').textContent = '☀️';
+                }
+            })();
+        </script>
         <div id="loader">
             <div class="w3-spin">
-                <img class="dark" src="assets/icons/loading.png" style="width: 40px;">
+                <img class="dark loader-icon" src="assets/icons/loading.png">
             </div>
         </div>
-        <script>
-            const root = document.documentElement;
-            const botao = document.getElementById('theme-toggle');
-            const temaSalvo = localStorage.getItem('theme');
-            const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const usarEscuro = temaSalvo ? temaSalvo === 'dark' : prefereEscuro;
-        
-            botao.textContent = usarEscuro ? '☀️' : '🌙';
-            botao.style.backgroundColor = usarEscuro ? 'black' : 'white';
-        
-            botao.addEventListener('click', () => {
-            const modoEscuroAtivo = root.classList.toggle('dark-mode');
-            botao.textContent = modoEscuroAtivo ? '☀️' : '🌙';
-            botao.style.backgroundColor = modoEscuroAtivo ? 'black' : 'white';
-            localStorage.setItem('theme', modoEscuroAtivo ? 'dark' : 'light');
-            });
-
-            const langButton = document.getElementById('lang-toggle');
-            const langIcon = document.getElementById('lang-icon');
-
-            const langIcons = { en: '/assets/icons/flag-pt.png', pt: '/assets/icons/flag-ukus.png'};
-
-            function updateLangButton(lang) {
-                langIcon.src = langIcons[lang];
-                langIcon.alt = lang === 'en' ? 'English' : 'Portuguese';
-            }
-
-            updateLangButton(currentLang);
-
-            langButton.addEventListener('click', () => {
-                const newLang = currentLang === 'en' ? 'pt' : 'en';
-                setLanguage(newLang);      // apenas textos com data-pt
-                updateLangButton(newLang); // atualiza a imagem do botão
-            });
-
-        </script>
         <!-- Home -->
-        <div id="home" style=" background: white; min-height: 100vh;display: flex; flex-direction: column;">
-            <!--
-            <nav class="w3-bar w3-hide-small w3-hide-medium" style='display: flex; ; background-color:  transparent;'>
-                <div class="w3-bar-item" style="text-decoration: none;"></div>
-                <a href="#about" data-pt="🔎 Sobre" class="w3-bar-item" style="text-decoration: none;">🔎 About</a>
-                <a href="#experience" data-pt="💼 Experiência" class="w3-bar-item" style="text-decoration: none;">💼 Experience</a>
-                <a href="#education" data-pt="🎓 Educação" class="w3-bar-item" style="text-decoration: none;">🎓 Education</a>
-                <a href="#skills" data-pt="🛠️ Habilidades" class="w3-bar-item" style="text-decoration: none;">🛠️ Skills</a>
-                <a href="#projects" data-pt="📂 Projetos" class="w3-bar-item" style="text-decoration: none;">📂 Projects</a>
-                <a href="#contact" data-pt="📬 Contactos" class="w3-bar-item" style="text-decoration: none;">📬 Contact</a>
-                <a href="#end" data-pt="👾 Fim" class="w3-bar-item" style="text-decoration: none;">👾 End</a>
-            
-            </nav>
-        -->
-            <script>
-            function ajustarAlturaMobile() {
-                // só aplica se a largura for pequena (ex: <= 768px)
-                if (window.innerWidth <= 768) {
-                const header = document.getElementById('header');
-                const headerHeight = header ? header.offsetHeight : 0;
-                const viewportHeight = window.innerHeight;
-
-                const home = document.getElementById('home');
-                // aplica altura fixa só no mobile
-                home.style.minHeight = `${viewportHeight - headerHeight + 3}px`;
-                }
-            }
-            // chama só uma vez ao carregar
-            window.addEventListener('load', ajustarAlturaMobile);
-            </script>
-            <style>
-                .big {
-                    display: block;
-                }
-
-                .small {
-                    display: none;
-                }
-
-                @media (max-width: 420px) {
-                    .big {
-                        display: none;
-                    }
-
-                    .small {
-                        display: block;
-                    }
-                }
-
-               /* @media (max-width: 1200px) {
-                    .hero-flex {
-                    align-items: initial !important;
-                    }
-                }
-                    */
-
-                    .hero-mobile {
-  display: none;
-}
-
-@media (max-width: 1200px) {
-  .hero-desktop {
-    display: none;
-  }
-
-  .hero-mobile {
-    display: block;
-  }
-}
-.hero-flex {
-  align-items: center; /* mobile default */
-}
-
-/* Desktop */
-@media (min-width: 1201px) {
-  .hero-flex {
-    align-items: center;
-  }
-}
-                </style>
-            <div class="hero-flex" style="flex: 1; display: flex; justify-content: center;padding-bottom: 105px;">
+        <div id="home" class="section section--home">
+            <div class="hero-flex">
                 <div class="hero-mobile w3-content w3-container w3-center">
-                    <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 82%; max-width: 300px; height: auto; border: 2px solid rgb(0, 0, 0);" alt="Ana Sá Oliveira">
+                    <img src="assets/img/Ana_Sa_Oliveira.png" class="important profile-img profile-img--mobile w3-circle" alt="Ana Sá Oliveira">
                     <br>
                     <br>
                     <div class="big w3-xxxlarge">
-                            <b>
-                                <div class="w3-text-pink">
-                                    Ana Sá Oliveira
-                                </div>
-                            </b>
-                        </div>
-                        <div class="small w3-xxlarge">
-                            <b>
-                                <div class="w3-text-pink">
-                                    Ana Sá Oliveira
-                                </div>
-                            </b>
-                        </div>
-                        <div class="big" style="font-size:29px">
-                            <b data-pt="Engenheira Informática">
-                                Software Engineer
-                            </b>
-                        </div>
-                        <div class="small" style="font-size:24px">
-                            <b data-pt="Engenheira Informática">
-                                Software Engineer
-                            </b>
-                        </div>
-                                <br>
-                                <div style="font-size: 20px;">
-                                    <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
-                                    <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>'>
-                                        <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>
-                                    </span><br>
-                                    <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>'>
-                                    <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>
-                                    </span>
-                                    <a href="#contact" style="margin-left: 20px;" data-pt="Contactos">Contact</a>
-                                </div>
+                        <b><div class="w3-text-pink">Ana Sá Oliveira</div></b>
+                    </div>
+                    <div class="small w3-xxlarge">
+                        <b><div class="w3-text-pink">Ana Sá Oliveira</div></b>
+                    </div>
+                    <div class="big hero-role--lg">
+                        <b data-pt="Engenheira Informática">Software Engineer</b>
+                    </div>
+                    <div class="small hero-role--sm">
+                        <b data-pt="Engenheira Informática">Software Engineer</b>
+                    </div>
+                    <br>
+                    <div class="hero-links--mobile">
+                        <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
+                        <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" class="ml-20">LinkedIn</a>'>
+                            <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" class="ml-20">LinkedIn</a>
+                        </span><br>
+                        <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="ml-20">CV</a>'>
+                            <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="ml-20">CV</a>
+                        </span>
+                        <a href="#contact" class="ml-20" data-pt="Contactos">Contact</a>
+                    </div>
                 </div>
                 <div class="w3-container hero-desktop">
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto">
-                            <img id="perfil" src="assets/img/Ana_Sa_Oliveira.png" class="important base-img w3-circle" style="width: 92%; max-width: 400px; height: auto; border: 2px solid rgb(0, 0, 0);" alt="Ana Sá Oliveira">
+                        <div class="w3-col col-auto">
+                            <img src="assets/img/Ana_Sa_Oliveira.png" class="important profile-img profile-img--desktop w3-circle" alt="Ana Sá Oliveira">
                         </div>
                         <div class="w3-rest w3-center">
                             <div class="w3-margin-left">
                                 <br>
                                 <br>
-                                <b style="font-size: 75px; color:#e91e63;">Ana Sá Oliveira</b>
+                                <b class="hero-name--desktop w3-text-pink">Ana Sá Oliveira</b>
                                 <br>
-                                <b data-pt="Engenheira Informática" style="font-size: 45px;">Software Engineer</b>
+                                <b data-pt="Engenheira Informática" class="hero-role--desktop">Software Engineer</b>
                                 <br>
                                 <br>
-                                <div style="font-size: 35px;">
+                                <div class="hero-links--desktop">
                                     <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
-                                    <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>'>
-                                        <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" style="margin-left: 20px;">LinkedIn</a>
+                                    <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer" class="ml-20">LinkedIn</a>'>
+                                        <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer" class="ml-20">LinkedIn</a>
                                     </span>
-                                    <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>'>
-                                    <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" style="margin-left: 20px;">CV</a>
+                                    <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="ml-20">CV</a>'>
+                                        <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="ml-20">CV</a>
                                     </span>
-                                    <a href="#contact" style="margin-left: 20px;" data-pt="Contactos">Contact</a>
+                                    <a href="#contact" class="ml-20" data-pt="Contactos">Contact</a>
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                    
+                    </div>
                 </div>
             </div>
             <h3>
-           <div id="scroll-indicator" style="
-    opacity: 0.8;
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    transition: opacity 0.4s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-">
-    <span class="w3-hide-small" data-pt="Deslize para ver mais">Scroll to see more</span>
-    <svg class="important dark scroll" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-        <path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z"/>
-    </svg>
-</div></h3>
-
-
-            <script>
-            const indicator = document.getElementById("scroll-indicator");
-
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 100) {   // px de scroll
-                indicator.style.opacity = "0";
-                indicator.style.pointerEvents = "none";
-                } else {
-                indicator.style.opacity = "0.8";
-                indicator.style.pointerEvents = "auto";
-                }
-            });
-            </script>
-
-            
+                <div id="scroll-indicator" class="scroll-indicator">
+                    <span class="w3-hide-small" data-pt="Deslize para ver mais">Scroll to see more</span>
+                    <svg class="important dark scroll" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+                        <path d="M446.67-800v513l-240-240L160-480l320 320 320-320-46.67-47-240 240v-513h-66.66Z"/>
+                    </svg>
+                </div>
+            </h3>
         </div>
         <!-- About -->
-        <div id="about" style=" background: white; border-top: 2px dashed rgb(0, 0, 0); display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div id="about" class="section section--border-top">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Sobre">About</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Sobre">About</div></b>
                     </div>
                     <h4>
                         <br>
@@ -350,45 +135,15 @@
                         I’m <b>Ana Sá Oliveira</b>, a
                         </span>
                         <span id="years">21</span><span data-pt=' anos, natural de Braga, Portugal.'>-year-old <b>software engineer</b> from Braga, Portugal.</span>
-                        <script>
-                            function calculateAge(birthDateStr) {
-                                const birthDate = new Date(birthDateStr);
-                                const today = new Date();
-
-                                let age = today.getFullYear() - birthDate.getFullYear();
-
-                                const hasBirthdayPassed =
-                                    today.getMonth() > birthDate.getMonth() ||
-                                    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-
-                                if (!hasBirthdayPassed) {
-                                    age--;
-                                }
-                                return age;
-                            }
-                            const age = calculateAge('2004-01-05');
-                            document.getElementById("years").textContent = age;
-                        </script>
-                        <style>
-                            .w3-hover-custom:hover {
-                            background-color: white !important;
-                            color: black!important;
-                        }
-                        .dark-mode .w3-hover-custom:hover {
-                            background-color: black !important;
-                            color: white !important;
-                        
-                        }
-                        </style>
                         <br>
                         <br>
-                        <span data-pt='Recentemente, concluí o primeiro ano do <b>Mestrado em Engenharia Informática</b> na <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Universidade do Minho</a></b>.'>
-                        I recently completed the first year of my <b>Master’s degree in Software Engineering</b> at the <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Universidade do Minho</a></b>.
+                        <span data-pt='Recentemente, concluí o primeiro ano do <b>Mestrado em Engenharia Informática</b> na <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" class="no-underline">Universidade do Minho</a></b>.'>
+                        I recently completed the first year of my <b>Master’s degree in Software Engineering</b> at the <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" class="no-underline">Universidade do Minho</a></b>.
                         </span>
                         <br>
                         <br>
-                        <span data-pt="Agora, estou a fazer um <b>estágio de verão</b> em <b>desenvolvimento de software</b> na <a href='https://mestreclique.pt' target='_blank' rel='noopener noreferrer' style='text-decoration: none;'></span><b>Mestreclique</b></a>.">
-                            I'm currently doing my first <b>summer internship</b> in <b>software development</b> at <a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><b>Mestreclique</b></a>.</span>
+                        <span data-pt="Agora, estou a fazer um <b>estágio de verão</b> em <b>desenvolvimento de software</b> na <a href='https://mestreclique.pt' target='_blank' rel='noopener noreferrer' class='no-underline'></span><b>Mestreclique</b></a>.">
+                            I'm currently doing my first <b>summer internship</b> in <b>software development</b> at <a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer" class="no-underline"><b>Mestreclique</b></a>.</span>
                         <br>
                         <br>
                         <span data-pt="Estou entusiasmada com o percurso que tenho pela frente e aberta a novas oportunidades!">
@@ -402,21 +157,20 @@
             </div>
         </div>
         <!-- Experience -->
-        <div id="experience" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div id="experience" class="section section--border-top">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Experiência">Experience</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Experiência">Experience</div></b>
                     </div>
                     <br>
                     <h4>
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto"><a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer">
-                            <img   src="assets/icons/mestreclique.png" style="background:black; width: 110px;" alt="Mestreclique">
+                        <div class="w3-col col-auto">
+                            <a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer">
+                                <img src="assets/icons/mestreclique.png" class="logo-110 logo-110--bg-black" alt="Mestreclique">
                             </a>
                         </div>
                         <div class="w3-rest">
@@ -425,7 +179,7 @@
                                 Software Engineering Intern (Summer 2026)</span></b><br>
                                 Braga, Portugal <br>
                                 Jun 2026 – <span data-pt="Ago">Aug</span> 2026 <span data-pt="(2 meses)">(2 months)</span><br>
-                                <a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><b>Mestreclique</b></a><br>
+                                <a href="https://mestreclique.pt" target="_blank" rel="noopener noreferrer" class="no-underline"><b>Mestreclique</b></a><br>
                                 <span data-pt="Estágio de Verão 2026 na área de desenvolvimento de software">
                                 Summer Internship in Software Development (2026)</span>
                                 <br>
@@ -434,7 +188,9 @@
                         </div>
                     </div>
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto"><img   src="assets/icons/explications.png" style="width: 110px;  border:1px solid rgb(0, 0, 0) !important;" alt="Explicadora privada"></div>
+                        <div class="w3-col col-auto">
+                            <img src="assets/icons/explications.png" class="logo-110 logo-110--bordered" alt="Explicadora privada">
+                        </div>
                         <div class="w3-rest">
                             <div class="w3-margin-left">
                                 <b><span data-pt='Explicadora privada de Programação Funcional (Engenharia Informática)'>
@@ -457,39 +213,36 @@
             </div>
         </div>
         <!-- Education -->
-        <div id="education" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div id="education" class="section section--border-top">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Educação">Education</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Educação">Education</div></b>
                     </div>
                     <br>
                     <h4>
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto"><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer"><img   src="assets/icons/UMinho.jpeg" style="width: 110px;" alt="Universidade do Minho"></a></div>
+                        <div class="w3-col col-auto"><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer"><img src="assets/icons/UMinho.jpeg" class="logo-110" alt="Universidade do Minho"></a></div>
                         <div class="w3-rest">
                             <div class="w3-margin-left">
-                                <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Universidade do Minho</a></b> <br>
+                                <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" class="no-underline">Universidade do Minho</a></b> <br>
                                 Braga, Portugal <br>
                                 2025–2027 <span data-pt="(2 anos)">(2 years)</span><br>
                                 <b data-pt='Mestrado em Engenharia Informática'>
                                 Master's degree in Software Engineering</b> <br>
                                 <span data-pt="Especialização em Engenharia de Aplicações e Métodos Formais de Programação">Specialization in Application Engineering and Formal Methods of Programming</span><br>
                                 <span data-pt="Nota final do primeiro ano">First-year final grade</span>: <b>17/20</b><br>
-                                <!--<b><span data-pt="Aluna do primeiro ano">First-year student</span></b>-->
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <br>
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto"><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer"><img   src="assets/icons/UMinho.jpeg" style="width: 110px;" alt="Universidade do Minho"></a></div>
+                        <div class="w3-col col-auto"><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer"><img src="assets/icons/UMinho.jpeg" class="logo-110" alt="Universidade do Minho"></a></div>
                         <div class="w3-rest">
                             <div class="w3-margin-left">
-                                <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Universidade do Minho</a></b> <br>
+                                <b><a href="https://www.uminho.pt" target="_blank" rel="noopener noreferrer" class="no-underline">Universidade do Minho</a></b> <br>
                                 Braga, Portugal <br>
                                 2022–2025 <span data-pt="(3 anos)">(3 years)</span><br>
                                 <b data-pt='Licenciatura em Engenharia Informática'>
@@ -497,21 +250,15 @@
                                 <span data-pt="Nota final">Final grade</span>: <b>16/20</b>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <br>
                     <div class="w3-row">
-                        <div class="w3-col" style="width: auto">
-                            <!--<a href="https://aevaledeste.pt/site/" target="_blank" rel="noopener noreferrer">-->
-                            <img   src="assets/icons/Viatodos.jpg" style="width: 110px;  border:1px solid rgb(0, 0, 0) !important;" alt="Escola Básica e Secundária de Vale D'Este, Viatodos, Barcelos">
-                        <!--</a>-->
-                    </div>
+                        <div class="w3-col col-auto">
+                            <img src="assets/icons/Viatodos.jpg" class="logo-110 logo-110--bordered" alt="Escola Básica e Secundária de Vale D'Este, Viatodos, Barcelos">
+                        </div>
                         <div class="w3-rest">
                             <div class="w3-margin-left">
-                                <b>
-                                    <!--<a href="https://aevaledeste.pt/site/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">-->
-                                        Escola Básica e Secundária de Vale D’Este, Viatodos, Barcelos
-                                    <!--</a>-->
-                                </b> <br>
+                                <b>Escola Básica e Secundária de Vale D’Este, Viatodos, Barcelos</b> <br>
                                 Braga, Portugal <br>
                                 2019–2022 <span data-pt="(3 anos)">(3 years)</span><br>
                                 <span data-pt='Ensino Secundário (Curso Científico-Humanístico de Ciências e Tecnologias)'>
@@ -526,21 +273,18 @@
             </div>
         </div>
         <!-- Languages -->
-        <div id="languages" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);display: flex; flex-direction: column;">
-
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div id="languages" class="section section--border-top">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Línguas">Languages</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Línguas">Languages</div></b>
                     </div>
                     <br>
                     <h4>
                         <div class="w3-row">
-                            <div class="w3-col" style="width: auto"><img   src="assets/icons/flag-ptbr.png" style="width: 150px;" alt="Portuguese"></div>
+                            <div class="w3-col col-auto"><img src="assets/icons/flag-ptbr.png" class="flag-icon" alt="Portuguese"></div>
                             <div class="w3-rest">
                                 <div class="w3-margin-left">
                                     <b data-pt="Português">Portuguese</b><br>
@@ -552,7 +296,7 @@
                         </div>
                         <br>
                         <div class="w3-row">
-                            <div class="w3-col" style="width: auto"><img   src="assets/icons/flag-ukus2.png" style="width: 150px;" alt="English"></div>
+                            <div class="w3-col col-auto"><img src="assets/icons/flag-ukus2.png" class="flag-icon" alt="English"></div>
                             <div class="w3-rest">
                                 <div class="w3-margin-left">
                                     <b data-pt="Inglês">English</b><br>
@@ -569,15 +313,13 @@
             </div>
         </div>
         <!-- Projects -->
-        <div id="projects" style="background: white; border-top: 2px dashed rgb(0, 0, 0); border-bottom: 2px dashed rgb(0, 0, 0); ;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin" style="width: 90%;">
+        <div id="projects" class="section section--border-top section--border-bottom">
+            <div class="section-inner">
+                <div class="w3-container w3-content w3-margin projects-content">
                     <br>
                     <br>
                     <div class="w3-xxlarge">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Projetos">Projects</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Projetos">Projects</div></b>
                     </div>
                     <h4>
                         <span data-pt="Aqui está uma apresentação de alguns projetos em que trabalhei. Para mais projetos e detalhes, consulte o meu">Here’s a showcase of some projects I’ve worked on. For more details and additional projects, check out my</span>
@@ -589,17 +331,17 @@
                             <div class="w3-card-4 w3-white">
                                 <br>
                                 <h2 class="w3-margin-left w3-margin-right">
-                                    <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer"><img   class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" /></a>
+                                    <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer"><img class="dark icon-30" src="assets/icons/GitHub.png" alt="GitHub" /></a>
                                     <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer">
                                         <b>sakura-garden</b>
                                     </a>
                                 </h2>
-                                <h4><b><a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer" style="color:#e91e63;">sakura-garden.vercel.app</a></b></h4>
+                                <h4><b><a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer" class="w3-text-pink">sakura-garden.vercel.app</a></b></h4>
                                 <h4 data-pt="Um jardim de contribuições do GitHub para o seu README">A GitHub contributions garden for your README</h4>
                                 <a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer">
-                                <div style="overflow-x: auto; width: 100%;">
+                                <div class="scroll-x">
                                     <img class="theme-image1" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" alt="a104437ana contributions" width="1000" />
-                                    <img style="display: none;" class="theme-image2" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" alt="a104437ana contributions" width="1000" />
+                                    <img class="theme-image2" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" alt="a104437ana contributions" width="1000" />
                                 </div>
                                 </a>
                             </div>
@@ -607,488 +349,224 @@
                             <div class="w3-card-4 w3-white ups">
                                 <br>
                                 <h2>
-                                    <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer"><img   class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" /></a>
+                                    <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer"><img class="dark icon-30" src="assets/icons/GitHub.png" alt="GitHub" /></a>
                                     <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer">
                                         <b>gitcolors</b>
                                     </a>
                                 </h2>
-                                <h4><b><a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer" style="color:#e91e63;">gitcolors.vercel.app</a></b></h4>
+                                <h4><b><a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer" class="w3-text-pink">gitcolors.vercel.app</a></b></h4>
                                 <h4 data-pt="Um gráfico de contribuições do GitHub, em qualquer cor ou tema, para o seu README">A GitHub contributions graph in any color or theme for your README</h4>
                                 <a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer">
-                                                <div style="overflow-x: auto; width: 100%;">
-                                                    <img class="theme-image1" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=light&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
-                                                    <img style="display: none;" class="theme-image2" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=dark&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
-                                                </div>
-                                                </a>
+                                    <div class="scroll-x">
+                                        <img class="theme-image1" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=light&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
+                                        <img class="theme-image2" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=dark&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
+                                    </div>
+                                </a>
                                 <br>
                             </div>
-                            
-                            <!--<br>
-                            <br>
-                            <details>
-                                <summary data-pt="<b>Mais projetos</b>" style="cursor: pointer;" class="w3-text-pink w3-large"><b>More projects</b></summary>
-                                <br>
-                                <div class="w3-card-4 w3-round-xlarge w3-white">
-                                    <br>
-                                    <h2 class="w3-margin-left w3-margin-right">
-                                        <img class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
-                                        <a href="https://github.com/a104437ana/LI3" target="_blank" rel="noopener noreferrer">
-                                            <b>LI3</b>
-                                        </a>
-                                    </h2>
-                                    <h2 class="w3-margin-left w3-margin-right" data-pt="Aplicação de Voos e Reservas ✈️🏨">Flights & Reservations Application ✈️🏨</h2>
-                                    <h4 class="w3-margin-left w3-margin-right" data-pt="Projeto universitário 🎓,<br> App 📊, Testes ✅, C 💻">College Project 🎓,<br> App 📊, Tests ✅, C 💻</h4>
-                                    <br>
-                                    <img src="assets/img/LI3_1.png" class="w3-margin-bottom w3-margin-left w3-margin-right" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
-                                    <img src="assets/img/LI3_2.png" class="w3-margin-bottom w3-margin-left w3-margin-right" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
-                                    <br>
-                                    <br>
-                                </div>
-                            </details>
-                        -->
                             <br class="w3-hide-medium">
                         </div>
-                    <div class="w3-hide-small w3-hide-medium">
-                        <br>
-                        <div class="w3-display-container">
-                            <div class="w3-card-4 w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
-                            <div class="w3-container w3-margin">
-                                <div class="w3-row">
-                                    <div class="w3-col w3-right w3-margin-top w3-margin-bottom" style="width: 55%">
-                                        <div class="w3-margin-left w3-margin-top w3-margin-bottom">
-                                            <a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer">
-                                            <div style="overflow-x: auto; width: 100%;">
-                                                <img class="theme-image1" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" alt="a104437ana contributions" width="1000" />
-                                                <img style="display: none;" class="theme-image2" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" alt="a104437ana contributions" width="1000" />
-                                            </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w3-rest w3-margin-top">
-                                        <h2>
-                                            <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer"><img   class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" /></a>
-                                            <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer">
-                                                <b>sakura-garden</b>
-                                            </a>
-                                        </h2>
-                                        <h4><b><a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer" style="color:#e91e63;">sakura-garden.vercel.app</a></b></h4>
-                                        <h4 data-pt="Um jardim de contribuições do GitHub para o seu README">A GitHub contributions garden for your README</h4>
-                                    </div>
-                                </div> 
-                            </div>
-                            </div>
-                        </div>
-                        <div class="w3-display-container ">
-                            <div class="w3-card-4 w3-white ups" style="max-width: 90%; width: 900px; margin: 0 auto;">
-                                <div class="w3-container w3-margin">
-                                    <div class="w3-row">
-                                        <div class="w3-col w3-right w3-margin-top w3-margin-bottom" style="width: 55%">
-                                            <div class="w3-margin-left w3-margin-top w3-margin-bottom">
-                                                <a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer">
-                                                <div style="overflow-x: auto; width: 100%;">
-                                                    <img class="theme-image1" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=light&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
-                                                    <img style="display: none;" class="theme-image2" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=dark&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
-                                                </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="w3-rest w3-margin-top">
-                                            <h2>
-                                                <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer"><img   class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" /></a>
-                                                <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer">
-                                                    <b>gitcolors</b>
-                                                </a>
-                                            </h2>
-                                            <h4><b><a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer" style="color:#e91e63;">gitcolors.vercel.app</a></b></h4>
-                                            <h4 data-pt="Um gráfico de contribuições do GitHub, em qualquer cor ou tema, para o seu README">A GitHub contributions graph in any color or theme for your README</h4>
-                                        </div>
-                                    </div> 
-                            </div>
-                            </div>
-                        </div>
-                        
-                        
-                        <!--<br><br>
-                        <details>
-                            <summary data-pt="<b>Mais projetos</b>" style="cursor: pointer;" class="w3-text-pink w3-large"><b>More projects</b></summary>
+                        <div class="w3-hide-small w3-hide-medium">
                             <br>
-                            <div class="w3-display-container ">
-                                <div class="w3-card-4 w3-round-xlarge w3-white" style="max-width: 90%; width: 900px; margin: 0 auto;">
+                            <div class="w3-display-container">
+                                <div class="w3-card-4 w3-white project-card-wide">
                                     <div class="w3-container w3-margin">
                                         <div class="w3-row">
-                                            <div class="w3-col w3-right w3-margin-top w3-margin-bottom" style="width: 55%">
+                                            <div class="w3-col w3-right w3-margin-top w3-margin-bottom col-55">
                                                 <div class="w3-margin-left w3-margin-top w3-margin-bottom">
-                                                    <img src="assets/img/LI3_1.png" class="w3-margin-bottom" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
-                                                    <img src="assets/img/LI3_2.png" class="w3-margin-bottom" style="max-width: 90%; width:700px; cursor: zoom-in;" alt="LI3" onclick="onClick(this)"/>
+                                                    <a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer">
+                                                    <div class="scroll-x">
+                                                        <img class="theme-image1" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=light" alt="a104437ana contributions" width="1000" />
+                                                        <img class="theme-image2" src="https://sakura-garden.vercel.app/api/svg?username=a104437ana&theme=dark" alt="a104437ana contributions" width="1000" />
+                                                    </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="w3-rest w3-margin-top">
                                                 <h2>
-                                                    <img class="dark" src="assets/icons/GitHub.png" style="width:30px;" alt="GitHub" />
-                                                    <a href="https://github.com/a104437ana/LI3" target="_blank" rel="noopener noreferrer">
-                                                        <b>LI3</b>
+                                                    <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer"><img class="dark icon-30" src="assets/icons/GitHub.png" alt="GitHub" /></a>
+                                                    <a href="https://github.com/a104437ana/sakura-garden" target="_blank" rel="noopener noreferrer">
+                                                        <b>sakura-garden</b>
                                                     </a>
                                                 </h2>
-                                                <h2 data-pt="Aplicação de Voos e Reservas ✈️🏨">Flights & Reservations Application ✈️🏨</h2>
-                                                <h4 data-pt="Projeto universitário 🎓, App 📊,<br> Testes ✅, C 💻">College Project 🎓, App 📊,<br> Tests ✅, C 💻</h4>
-                                                <h4 data-pt="Nota final: 19/20 ✅">Final grade: 19/20 ✅</h4>
+                                                <h4><b><a href="https://sakura-garden.vercel.app" target="_blank" rel="noopener noreferrer" class="w3-text-pink">sakura-garden.vercel.app</a></b></h4>
+                                                <h4 data-pt="Um jardim de contribuições do GitHub para o seu README">A GitHub contributions garden for your README</h4>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </details>
-                    -->
+                            <div class="w3-display-container">
+                                <div class="w3-card-4 w3-white ups project-card-wide">
+                                    <div class="w3-container w3-margin">
+                                        <div class="w3-row">
+                                            <div class="w3-col w3-right w3-margin-top w3-margin-bottom col-55">
+                                                <div class="w3-margin-left w3-margin-top w3-margin-bottom">
+                                                    <a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer">
+                                                    <div class="scroll-x">
+                                                        <img class="theme-image1" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=light&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
+                                                        <img class="theme-image2" src="https://gitcolors.vercel.app/api/svg?username=a104437ana&color=ff2d95&theme=dark&mode=mono&preset=rainbow" alt="a104437ana contributions" width="1000" />
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="w3-rest w3-margin-top">
+                                                <h2>
+                                                    <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer"><img class="dark icon-30" src="assets/icons/GitHub.png" alt="GitHub" /></a>
+                                                    <a href="https://github.com/a104437ana/gitcolors" target="_blank" rel="noopener noreferrer">
+                                                        <b>gitcolors</b>
+                                                    </a>
+                                                </h2>
+                                                <h4><b><a href="https://gitcolors.vercel.app" target="_blank" rel="noopener noreferrer" class="w3-text-pink">gitcolors.vercel.app</a></b></h4>
+                                                <h4 data-pt="Um gráfico de contribuições do GitHub, em qualquer cor ou tema, para o seu README">A GitHub contributions graph in any color or theme for your README</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="dark" id="modal01" onclick="this.style.display='none'; desbloquearScroll();"
-                        style="
-                        display: none;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100vw;
-                        height: 100vh;
-                        background-color: rgba(0, 0, 0, 0.9);
-                        z-index: 9999;
-                        overflow: hidden;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: zoom-out;
-                        ">
-                        <img id="img01"
-                            style="
-                            max-width: 90%;
-                            max-height: 90%;
-                            width: auto;
-                            height: auto;
-                            object-fit: contain;
-                        " />
-                    </div>
-
-                    <script>
-                        function onClick(element) {
-                            bloquearScroll();
-                            const modal = document.getElementById("modal01");
-                            const modalImg = document.getElementById("img01");
-                            modalImg.src = element.src;
-                            modal.style.display = "flex";
-                        }
-                    </script>
-                </div>
-                <div id="ghchart">
+                    <div id="ghchart">
                         <h6 class="w3-hide-small"><br></h6>
                         <h4 data-pt='Cada projeto é resultado de várias contribuições. A imagem abaixo mostra as minhas contribuições no <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> ao longo do último ano:'>
                             Each project is the outcome of multiple contributions. The image below shows my <a href="https://github.com/a104437ana" target="_blank" rel="noopener noreferrer">GitHub</a> contributions over the past year:</h4>
-                        <!--
-                        <br>
-                    -->
-                <div class="hello">
-                    <!--
-                        <img src="https://ghchart.rshah.org/ea1e63/a104437ana" class="icone" style="width: 100%;" onerror="document.getElementById('ghchart').style.display='none';"/>
-                -->
-                        <div style="overflow-x: auto; width: 100%;"><picture data-pt='
-    <img class="sakura1" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=pt" alt="sakura contributions" style="min-width: 800px; width: 100%;" />
-    <img class="sakura2" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=pt" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
-    <img  src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=en" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
-    <img  src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=en" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
+                        <div class="contributions">
+                            <div class="scroll-x">
+                                <picture data-pt='
+    <img class="sakura1 contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=pt" alt="sakura contributions" />
+    <img class="sakura2 contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=pt" alt="sakura contributions" style="display:none;" />
+    <img class="contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=en" alt="sakura contributions" style="display:none;" />
+    <img class="contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=en" alt="sakura contributions" style="display:none;" />
     '>
-    <img class="sakura1" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=en" alt="sakura contributions" style="min-width: 800px; width: 100%;" />
-    <img class="sakura2" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=en" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
-    <img  src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=pt" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
-    <img  src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=pt" alt="sakura contributions" style="min-width: 800px; width: 100%; display:none;" />
-
-</picture></div>
-                        
+    <img class="sakura1 contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=en" alt="sakura contributions" />
+    <img class="sakura2 contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=en" alt="sakura contributions" style="display:none;" />
+    <img class="contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=light&lang=pt" alt="sakura contributions" style="display:none;" />
+    <img class="contrib-img" src="https://contributions-inky.vercel.app/api/svg?username=a104437ana&theme=dark&lang=pt" alt="sakura contributions" style="display:none;" />
+</picture>
+                            </div>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                        <style>
-                            .dark-mode .sakura1 { display: none !important; }
-                            .dark-mode .sakura2 { display: block !important; }
-
-                            .dark-mode .icone {
-                                filter: invert(1) hue-rotate(560deg);
-                            }
-                            .hello {
-                                background-color: white; padding: 10px; border-radius: 10px; margin: auto;
-                                /* border: 2px solid #000000; */
-                                
-                            }
-                            .dark-mode .hello {
-                                background-color: black;
-                                /* border: 2px solid #ffffff; */
-                            }
-                            .dark-mode .theme-image1 {
-                                display: none !important;
-                            }
-                            .dark-mode .theme-image2 {
-                                display: inline !important;
-                            }
-                        </style>
-                        <!--
-                        <br class="w3-hide-small w3-hide-medium">
-                        <br>
-                        <br>
-                    -->
-                        <br>
             </div>
         </div>
-    </div>
         <!-- Contact -->
-        <div id="contact" style="background: white;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <div id="contact" class="section">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Contactos">Contact</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Contactos">Contact</div></b>
                     </div>
                     <br>
-                        <h4 class="w3-center">
-                            <h3><img src="assets/icons/Email.png" style="width:50px;" alt="Email ícone"><b> Email</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
-                                <div class="w3-margin">
-                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'ana.sa.oliveira7@gmail.com')">
-                                    <span style="word-break: break-all;">ana.sa.oliveira7@gmail.com</span>
-                                </div>
+                    <h4 class="w3-center">
+                        <h3><img src="assets/icons/Email.png" class="icon-50" alt="Email ícone"><b> Email</b></h3>
+                        <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
+                            <div class="w3-margin">
+                                <img class="dark w3-right w3-margin-left icon-copy" src="assets/icons/Copy.png" alt="Copy ícone" onclick="copiarTexto(this,'ana.sa.oliveira7@gmail.com')">
+                                <span class="break-all">ana.sa.oliveira7@gmail.com</span>
                             </div>
-                            <a href="mailto:ana.sa.oliveira7@gmail.com" rel="noopener noreferrer" data-pt="Enviar email">Send Email</a>
-                            <br>
-                            <br>
-                            <h3><img class="dark" src="assets/icons/Phone.png" style="width:50px;" alt="Phone ícone"><b data-pt=" Número de Telemóvel"> Phone Number</b></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
-                                <div class="w3-margin">
-                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'(+351) 918 983 702')">
-                                    <span style="word-break: break-all;">(+351) 918 983 702</span>
-                                </div>
+                        </div>
+                        <a href="mailto:ana.sa.oliveira7@gmail.com" rel="noopener noreferrer" data-pt="Enviar email">Send Email</a>
+                        <br>
+                        <br>
+                        <h3><img class="dark icon-50" src="assets/icons/Phone.png" alt="Phone ícone"><b data-pt=" Número de Telemóvel"> Phone Number</b></h3>
+                        <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
+                            <div class="w3-margin">
+                                <img class="dark w3-right w3-margin-left icon-copy" src="assets/icons/Copy.png" alt="Copy ícone" onclick="copiarTexto(this,'(+351) 918 983 702')">
+                                <span class="break-all">(+351) 918 983 702</span>
                             </div>
-                            <a href="tel:+351918983702" rel="noopener noreferrer" data-pt="Ligar agora">Call Now</a>
-                            <br>
-                            <br>
-                            <h3><a href="https://github.com/a104437ana" target="_blank" style="text-decoration: none;"><img class="dark" src="assets/icons/GitHub.png" style="width:50px;" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></a></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
-                                <div class="w3-margin">
-                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'github.com/a104437ana')">
-                                    <span style="word-break: break-all;">github.com/a104437ana</span>
-                                </div>
+                        </div>
+                        <a href="tel:+351918983702" rel="noopener noreferrer" data-pt="Ligar agora">Call Now</a>
+                        <br>
+                        <br>
+                        <h3><a href="https://github.com/a104437ana" target="_blank" class="no-underline"><img class="dark icon-50" src="assets/icons/GitHub.png" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></a></h3>
+                        <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
+                            <div class="w3-margin">
+                                <img class="dark w3-right w3-margin-left icon-copy" src="assets/icons/Copy.png" alt="Copy ícone" onclick="copiarTexto(this,'github.com/a104437ana')">
+                                <span class="break-all">github.com/a104437ana</span>
                             </div>
-                            <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
-                            <br>
-                            <br>
-                            <h3 data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' style='text-decoration: none;'><img src='assets/icons/LinkedIn.png' style='width:50px;' alt='LinkedIn ícone'><b> LinkedIn</b></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" style="text-decoration: none;"><img src="assets/icons/LinkedIn.png" style="width:50px;" alt="LinkedIn ícone"><b> LinkedIn</b></a></h3>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
-                                <div class="w3-margin">
-                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'www.linkedin.com/in/ana-sá-oliveira')">
-                                    <span style="word-break: break-all;">www.linkedin.com/in/ana-sá-oliveira</span>
-                                </div>
+                        </div>
+                        <a href="https://github.com/a104437ana" target="_blank">GitHub</a>
+                        <br>
+                        <br>
+                        <h3 data-pt="<a href='https://www.linkedin.com/in/ana-sá-oliveira/pt' target='_blank' class='no-underline'><img src='assets/icons/LinkedIn.png' class='icon-50' alt='LinkedIn ícone'><b> LinkedIn</b></a>"><a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" class="no-underline"><img src="assets/icons/LinkedIn.png" class="icon-50" alt="LinkedIn ícone"><b> LinkedIn</b></a></h3>
+                        <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
+                            <div class="w3-margin">
+                                <img class="dark w3-right w3-margin-left icon-copy" src="assets/icons/Copy.png" alt="Copy ícone" onclick="copiarTexto(this,'www.linkedin.com/in/ana-sá-oliveira')">
+                                <span class="break-all">www.linkedin.com/in/ana-sá-oliveira</span>
                             </div>
-                            <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer">LinkedIn</a>'>
-                                <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </div>
+                        <span data-pt='<a href="https://www.linkedin.com/in/ana-sá-oliveira/pt" target="_blank" rel="noopener noreferrer">LinkedIn</a>'>
+                            <a href="https://www.linkedin.com/in/ana-sá-oliveira/en" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </span>
+                        <br>
+                        <br>
+                        <h3><img src="assets/icons/contact-form.png" class="icon-50" alt="Contact form ícone"><b data-pt=" Formulário de Contacto"> Contact Form</b></h3>
+                        <form id="meuForm" novalidate action="https://formspree.io/f/meolyjkg" method="POST">
+                            <label data-pt="Nome" for="nome">Name</label>
+                            <br>
+                            <input data-pt="Seu nome" id="nome" autocomplete="off" spellcheck="false" class="w3-input w3-round form-field" type="text" name="name" placeholder="Your name" required>
+                            <span id="erro-nome" class="field-error"><b data-pt="Por favor, insira o seu nome.">Please enter your name.</b></span>
+                            <br>
+                            <label for="email">Email</label>
+                            <br>
+                            <input data-pt="Seu email" id="email" autocomplete="off" spellcheck="false" class="w3-input w3-round form-field" type="email" name="email" placeholder="Your email" required>
+                            <span id="erro-email" class="field-error"><b data-pt="Por favor, insira um email válido.">Please enter a valid email.</b></span>
+                            <br>
+                            <label data-pt="Mensagem" for="mensagem">Message</label>
+                            <br>
+                            <textarea data-pt="Sua mensagem" id="mensagem" autocomplete="off" spellcheck="false" class="w3-input w3-round form-field form-textarea" name="message" placeholder="Your message" required></textarea>
+                            <span id="erro-mensagem" class="field-error"><b data-pt="Por favor, insira a sua mensagem.">Please enter your message.</b></span>
+                            <br>
+                            <span data-pt='<button class="w3-button w3-round w3-hover-custom1 outline-box" type="submit">Enviar</button><span id="sending" style="display: none;">&nbsp;&nbsp;Enviando...</span>'>
+                                <button class="w3-button w3-round w3-hover-custom1 outline-box" type="submit">Send</button><span id="sending" style="display: none;">&nbsp;&nbsp;Sending...</span>
                             </span>
-                            <br>
-                            <br>
-                            <h3><img src="assets/icons/contact-form.png" style="width:50px;" alt="Contact form ícone"><b data-pt=" Formulário de Contacto"> Contact Form</b></h3>
-                            <style>
-                            .dark-mode input {
-                                color: white !important;
-                                border: 1px solid white !important;
-                            }
-                            .dark-mode textarea {
-                                color: white !important;
-                                border: 1px solid white !important;
-                            }
-                            </style>
-                            <form id="meuForm" novalidate action="https://formspree.io/f/meolyjkg" method="POST">
-                                <label data-pt="Nome" for="nome">Name</label>
-                                <br>
-                                <input data-pt="Seu nome" id="nome" autocomplete="off" spellcheck="false" class="w3-input  w3-round" style="border: 1px solid black; background-color: transparent; width: 100%;" type="text" name="name" placeholder="Your name" required>
-                                <span id="erro-nome" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira o seu nome.">Please enter your name.</b></span>
-                                <br>
-                                <label for="email">Email</label>
-                                <br>
-                                <input data-pt="Seu email" id="email" autocomplete="off" spellcheck="false" class="w3-input w3-round" style="border: 1px solid black;background-color: transparent;width: 100%;" type="email" name="email" placeholder="Your email" required>
-                                
-                                <span id="erro-email" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira um email válido.">Please enter a valid email.</b></span>
-                                <br>
-                                <label data-pt="Mensagem" for="mensagem">Message</label>
-                                <br>
-                                <textarea data-pt="Sua mensagem" id="mensagem" autocomplete="off" spellcheck="false" class="w3-input w3-round" style="border: 1px solid black;background-color: transparent;min-height: 3em; max-width: 5px; min-width: 100%; width: 100%; height: 9em;" name="message" placeholder="Your message" required></textarea>
-                                
-                                <span id="erro-mensagem" style="color:#ff0088;display:none;"><b data-pt="Por favor, insira a sua mensagem.">Please enter your message.</b></span>
-                                <br>
-                                <span data-pt='<button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ;">Enviar</button><span id="sending" style="display: none;">&nbsp;&nbsp;Enviando...</span>'>
-                                    <button class="w3-button w3-round w3-hover-custom1" type="submit" style="background-color: white; border: 1px solid black ; color: black;">Send</button><span id="sending" style="display: none;">&nbsp;&nbsp;Sending...</span>
-                                </span>
-                            </form>
-                            <div id="popup1">
-                            <div class="w3-margin" style="max-width: 400px;">
+                        </form>
+                        <div id="popup1">
+                            <div class="w3-margin">
                                 <p data-pt="A sua mensagem foi enviada com sucesso! ✅">Your message has been sent successfully! ✅</p>
-                                <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none';popup1.style.display='none'; desbloquearScroll()">Ok</button>
+                                <button class="w3-button w3-hover-custom1 w3-round outline-box" onclick="sending.style.display = 'none';popup1.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
+                        </div>
+                        <div id="popup2">
+                            <div class="w3-margin">
+                                <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
+                                <button class="w3-button w3-hover-custom1 w3-round outline-box" onclick="sending.style.display = 'none'; popup2.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
-                            <div id="popup2">
-                                <div class="w3-margin" style="max-width: 400px;">
-                                    <p data-pt="⚠️ Ocorreu um problema ao enviar a sua mensagem. Por favor, tente outros métodos de contacto, como o email.">⚠️ There was a problem sending your message. Please try another contact method, such as email.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none'; popup2.style.display='none'; desbloquearScroll()">Ok</button> 
-                                </div>
-                                </div>
-                            <div id="popup3">
-                                <div class="w3-margin" style="max-width: 400px;">
-                                    <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
-                                    <button class="w3-button w3-hover-custom1 w3-round" style="background-color: white; border: 1px solid black;" onclick="sending.style.display = 'none';popup3.style.display='none'; desbloquearScroll()">Ok</button>
-                                </div>
-                                </div>
-                            <style>
-                                #popup1, #popup2, #popup3{
-                                position:fixed;top:0;left:0;width:100%;height:100%;
-                                display:none;justify-content:center;align-items:center;
-                                background:rgba(0,0,0,.5);
-                                z-index:9999;
-                                }
-                                #popup1 div, #popup2 div, #popup3 div{
-                                background:#ffffff;padding:20px;border-radius:10px;text-align:center
-                                }
-                                .dark-mode #popup1 div, .dark-mode #popup2 div, .dark-mode #popup3 div{
-                                color:white;
-                                background:rgb(0, 0, 0);
-                                }
-                                .dark-mode #popup1, .dark-mode #popup2, .dark-mode #popup3{
-                                background:rgba(255, 255, 255, 0.5);
-                                }
-                            </style>
-                            <script>
-                                function bloquearScroll() {
-                                    const scrollY = window.scrollY;
-                                    document.body.style.position = 'fixed';
-                                    document.body.style.top = `-${scrollY}px`;
-                                    document.body.style.width = '100%';
-                                    document.body.dataset.scrollY = scrollY;
-                                }
-
-                                function desbloquearScroll() {
-                                    const scrollY = document.body.dataset.scrollY;
-                                    document.body.style.position = '';
-                                    document.body.style.top = '';
-                                    window.scrollTo(0, parseInt(scrollY || '0'));
-                                }
-
-                                document.getElementById("meuForm").addEventListener("submit", function(event) {
-                                    event.preventDefault();
-                                    let valido = true;
-
-                                    // Nome
-                                    const nome = document.getElementById('nome');
-                                    const erroNome = document.getElementById('erro-nome');
-                                    if (!nome.value.trim()) {
-                                        erroNome.style.display = 'inline';
-                                        valido = false;
-                                    } else {
-                                        erroNome.style.display = 'none';
-                                    }
-
-                                    // Email
-                                    const email = document.getElementById('email');
-                                    const erroEmail = document.getElementById('erro-email');
-                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-                                    if (!email.value.trim()) {
-                                        erroEmail.style.display = 'inline';
-                                        valido = false;
-                                    } else if (!emailRegex.test(email.value.trim())) {
-                                        erroEmail.style.display = 'inline';
-                                        valido = false;
-                                    } else {
-                                        erroEmail.style.display = 'none';
-                                    }
-
-                                    // Mensagem
-                                    const mensagem = document.getElementById('mensagem');
-                                    const erroMensagem = document.getElementById('erro-mensagem');
-                                    if (!mensagem.value.trim()) {
-                                        erroMensagem.style.display = 'inline';
-                                        valido = false;
-                                    } else {
-                                        erroMensagem.style.display = 'none';
-                                    }
-
-                                    if (!valido) {
-                                        return;
-                                    }
-
-                                    const sendingText = document.getElementById('sending');
-                                    sendingText.style.display = 'inline';
-                                    const form = event.target;
-                                    const formData = new FormData(form);
-
-                                    const popup1 = document.getElementById('popup1');
-                                    const popup2 = document.getElementById('popup2');
-                                    const popup3 = document.getElementById('popup3');
-
-                                    fetch(form.action, {
-                                        method: form.method,
-                                        body: formData,
-                                        headers: { 'Accept': 'application/json' }
-                                    })
-                                    .then(response => {
-                                        if (response.ok) {
-                                            popup1.style.display='flex';
-                                            form.reset();
-                                            bloquearScroll();
-                                        } else {
-                                            popup2.style.display='flex';
-                                            bloquearScroll();
-                                        }
-                                    })
-                                    .catch(() => {
-                                        popup3.style.display='flex';
-                                        bloquearScroll();
-                                    });
-                                });
-                                function copiarTexto(imgElement,texto) {
-                                navigator.clipboard.writeText(texto).then(() => {
-                                    const originalSrc = 'assets/icons/Copy.png';
-                                    const checkSrc = 'assets/icons/Check.png';
-                                    if (imgElement.dataset.timeoutId) {
-                                        clearTimeout(imgElement.dataset.timeoutId);
-                                    }
-                                    imgElement.src = checkSrc;
-                                    const timeoutId = setTimeout(() => {
-                                        imgElement.src = originalSrc;
-                                        imgElement.dataset.timeoutId = "";
-                                    }, 2000);
-                                    imgElement.dataset.timeoutId = timeoutId;
-                                }).catch(err => {
-                                    console.error('Error copying text: ', err);
-                                });
-                                }
-                            </script>
-                            <br>
-                            <h3><a href="https://ana.is-a.dev/" target="_blank" style="text-decoration: none;"><img src="assets/img/Ana_Sa_Oliveira.png" style="width:50px;" alt="Ana Sá Oliveira ícone" rel="noopener noreferrer"><span data-pt=" <b>Portfólio</b> (este website)"> <b>Portfolio</b> (this website)</span></a></h3>
-                            <span data-pt="Encontra-o fácil ao pesquisar <b>Ana Sá Oliveira</b>">You can easily find it by Googling <b>Ana Sá Oliveira</b></span>
-                            <div class="w3-container w3-margin-top w3-margin-bottom w3-round" style="border: 1px solid #000000; background-color: white;">
-                                <div class="w3-margin">
-                                    <img class="dark w3-right w3-margin-left" src="assets/icons/Copy.png" style="cursor: pointer;" alt="Copy ícone" onclick="copiarTexto(this,'ana.is-a.dev')">
-                                    <span style="word-break: break-all;">ana.is-a.dev</span>
-                                </div>
+                        </div>
+                        <div id="popup3">
+                            <div class="w3-margin">
+                                <p data-pt="❌ Erro de rede.<br>Por favor, tente novamente mais tarde.">❌ Network error. Please try again later.</p>
+                                <button class="w3-button w3-hover-custom1 w3-round outline-box" onclick="sending.style.display = 'none';popup3.style.display='none'; desbloquearScroll()">Ok</button>
                             </div>
-                            <a href="https://ana.is-a.dev/" target="_blank" data-pt="Portfólio">Portfolio</a><span data-pt=" (este website)"> (this website)</span>
-                            <br>
-                            <br>
-                            <br>
-                        </h4>
+                        </div>
+                        <br>
+                        <h3><a href="https://ana.is-a.dev/" target="_blank" class="no-underline"><img src="assets/img/Ana_Sa_Oliveira.png" class="icon-50" alt="Ana Sá Oliveira ícone" rel="noopener noreferrer"><span data-pt=" <b>Portfólio</b> (este website)"> <b>Portfolio</b> (this website)</span></a></h3>
+                        <span data-pt="Encontra-o fácil ao pesquisar <b>Ana Sá Oliveira</b>">You can easily find it by Googling <b>Ana Sá Oliveira</b></span>
+                        <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
+                            <div class="w3-margin">
+                                <img class="dark w3-right w3-margin-left icon-copy" src="assets/icons/Copy.png" alt="Copy ícone" onclick="copiarTexto(this,'ana.is-a.dev')">
+                                <span class="break-all">ana.is-a.dev</span>
+                            </div>
+                        </div>
+                        <a href="https://ana.is-a.dev/" target="_blank" data-pt="Portfólio">Portfolio</a><span data-pt=" (este website)"> (this website)</span>
+                        <br>
+                        <br>
+                        <br>
+                    </h4>
                 </div>
             </div>
         </div>
-        <div id="cv" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <!-- CV -->
+        <div id="cv" class="section section--border-top">
+            <div class="section-inner">
                 <div class="w3-container w3-content w3-margin">
                     <br>
                     <br>
                     <div class="w3-xxlarge w3-center">
-                        <b>
-                            <div class="w3-text-pink" data-pt="Curriculum Vitae / Currículo">Curriculum Vitae / Resume</div>
-                        </b>
+                        <b><div class="w3-text-pink" data-pt="Curriculum Vitae / Currículo">Curriculum Vitae / Resume</div></b>
                     </div>
                     <br>
                     <h4>
@@ -1099,20 +577,20 @@
                         <br>
                         <div class="w3-center">
                             <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
-                            <img   src="assets/img/Ana_Sa_Oliveira_CV.png" style="width: 120px;  border:1px solid rgb(0, 0, 0) !important;" alt="CV">
+                            <img src="assets/img/Ana_Sa_Oliveira_CV.png" class="cv-thumb" alt="CV">
                         &nbsp;&nbsp;Ver CV
                         </a>'>
                             <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" target="_blank" class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
-                                <img   src="assets/img/Ana_Sa_Oliveira_CV.png" style="width: 120px;  border:1px solid rgb(0, 0, 0) !important;" alt="CV">
+                                <img src="assets/img/Ana_Sa_Oliveira_CV.png" class="cv-thumb" alt="CV">
                         &nbsp;&nbsp;View CV
                             </a>
                         </span>
                             <span data-pt='<a href="assets/cv/pt/Ana_Sa_Oliveira_CV.pdf" download class="w3-button w3-hover-custom w3-round w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
-                            <img class="w3-margin-left"   src="assets/img/Ana_Sa_Oliveira_CV.png" style="width: 120px;  border:1px solid rgb(0, 0, 0) !important;" alt="CV">
+                            <img class="w3-margin-left cv-thumb" src="assets/img/Ana_Sa_Oliveira_CV.png" alt="CV">
                    &nbsp;&nbsp;Download CV
                         </a>'>
                             <a href="assets/cv/en/Ana_Sa_Oliveira_CV.pdf" download class="w3-button w3-round w3-hover-custom w3-margin-top w3-margin-bottom w3-margin-right w3-xlarge">
-                                <img class="w3-margin-left"   src="assets/img/Ana_Sa_Oliveira_CV.png" style="width: 120px;  border:1px solid rgb(0, 0, 0) !important;" alt="CV">
+                                <img class="w3-margin-left cv-thumb" src="assets/img/Ana_Sa_Oliveira_CV.png" alt="CV">
                    &nbsp;&nbsp;Download CV
                             </a>
                         </span>
@@ -1122,281 +600,45 @@
                 </div>
             </div>
         </div>
-        <div id="end" style=" background: white; border-top: 2px dashed rgb(0, 0, 0);;display: flex; flex-direction: column;">
-            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top" style="width:900px;">
-                        <br>
-                        <div class="w3-xxlarge w3-center">
-                                <b>
-                                    <div class="w3-text-pink w3-margin-top" data-pt="&nbsp;&nbsp;Obrigado pela visita!">Thank you for visiting!</div>
-                                </b>
-                            </div>
-                            <br>
-                        <h4 class="center" >
-                            <div style="margin-left:20px; margin-right:20px;">
+        <!-- End -->
+        <div id="end" class="section section--border-top">
+            <div class="section-inner">
+                <div class="w3-container w3-content w3-margin-left w3-margin-right w3-margin-top w-900">
+                    <br>
+                    <div class="w3-xxlarge w3-center">
+                        <b><div class="w3-text-pink w3-margin-top" data-pt="&nbsp;&nbsp;Obrigado pela visita!">Thank you for visiting!</div></b>
+                    </div>
+                    <br>
+                    <h4>
+                        <div class="margin-lr-20">
                             <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também <b class='w3-text-pink'>dois comandos secretos</b>... Consegues descobri-los?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also <b class='w3-text-pink'>two secret commands</b>... Can you discover them?</span>
+                        </div>
+                        <div id="b">
+                            <div id="terminal" onclick="focusInput(this)">
+                                <div data-pt id="output"></div>
+                                <div id="input-line">
+                                    <span id="prompt">$</span>
+                                    <input maxlength="30" type="text" spellcheck="false" id="command"/>
+                                </div>
                             </div>
-                            <div id="b">
-                                <div id="terminal" onclick="focusInput(this)">
-                                    <div data-pt id="output"></div>
-                                    <div id="input-line">
-                                      <span id="prompt">$</span>
-                                      <input maxlength="30" type="text" spellcheck="false" id="command"/>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="w3-center" style="color: #e91e63;">
-                                <b data-pt="Adeus!">
-                                    Goodbye!
-                                </b>
-                            </div>
-                            <br>
-                        </h4>
+                        </div>
+                        <div class="w3-center w3-text-pink">
+                            <b data-pt="Adeus!">Goodbye!</b>
+                        </div>
+                        <br>
+                    </h4>
                 </div>
             </div>
-
-        <style>
-            #b {
-    background-color: transparent;
-    color: rgb(255, 255, 255);
-    font-family: monospace;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  .dark-mode #b {
-    background-color: black !important;
-  }
-            #terminal {
-                background-color: rgb(154, 54, 109);
-              width: 100%;
-              height: 300px;
-              padding: 10px;
-              overflow-y: auto;
-              box-sizing: border-box;
-              margin-bottom: 5px;
-            }
-            #input-line {
-              display: flex;
-            }
-            #prompt {
-              margin-right: 5px;
-            }
-            #command {
-              background: transparent;
-              border: none;
-              color: rgb(255, 255, 255);
-              outline: none;
-              flex: 1;
-              font-family: monospace;
-            }
-            .dark-mode #command {
-                background: transparent;
-              border: none;
-              color: rgb(255, 255, 255) !important;
-              outline: none;
-              flex: 1;
-              font-family: monospace;
-              border: 1px solid transparent !important;
-            }
-          </style>
-        <script>
-            const commandInput = document.getElementById('command');
-            const output = document.getElementById('output');
-            const terminal = document.getElementById('terminal');
-            
-            commandInput.addEventListener('keydown', function(e) {
-              if (e.key === 'Enter') {
-                const command = commandInput.value.trim().toLowerCase();
-                const commands = command.split(/\s+/);
-                const real_command = commandInput.value.trim();
-                if (command) {
-                    output.innerHTML += `<div>$ ${real_command}</div>`;
-                    if (commands[0] == "help" && commands.length == 1) {
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`;
-                        } else {
-                            output.innerHTML += `<div>Available commands: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (command=="whoami" && commands.length == 1) {
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>um visitante misterioso</div>`;
-                        } else {
-                            output.innerHTML += `<div>a mysterious internet stranger</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (commands[0] == "date" && commands.length == 1) {
-                        const now = new Date();
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>${now.toLocaleString('pt-BR', {
-                            weekday: 'short',
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit'
-                            }).replace(/\bde\b|[.,]/gi, '').trim()}</div>`;
-                        }
-                        else {
-                            output.innerHTML += `<div>${now.toLocaleString('en-UK', {
-                            weekday: 'short',
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit'
-                            }).replace(/\bde\b|[.,]/gi, '').trim()}</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (command=="pwd" && commands.length == 1) {
-                        output.innerHTML += `<div>/home/ana</div>`;
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (commands[0] == "ls" && commands.length == 1) {
-                        output.innerHTML += `<div>README.md&nbsp;&nbsp;&nbsp;untitled.txt</div>`;
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (commands[0]=="cat" && commands[1] == "untitled.txt" && commands.length == 2) {
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>
-&nbsp;|\\-----/|<br>
-&nbsp;| o_o | < miau<br>
-&nbsp;&nbsp;\\_^_/<br>
-
-</div>`;
-                        }
-                        else {
-                            output.innerHTML += `<div>
-&nbsp;|\\-----/|<br>
-&nbsp;| o_o | < meow<br>
-&nbsp;&nbsp;\\_^_/<br>
-
-</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (commands[0]=="cat" && commands[1]=="readme.md" && commands.length == 2) {
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div># Enigma<br>Qual é a coisa, qual é ela, que corre mas não tem pernas, assobia mas não tem boca, ninguém nunca viu e tem muita força?</div>`;
-                        }
-                        else {
-                            output.innerHTML += `<div># Riddle<br>What is something that runs but has no legs, whistles but has no mouth, no one has ever seen it, and it has great power?</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if (commands[0] == "clear" && commands.length == 1) {
-                        output.innerHTML = '';
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if ((commands[0] == "vento" || commands[0] == "wind") && commands.length == 1) {
-                        window.open("/assets/video/video.mp4", "_blank");
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Olha só o que o vento trouxe! Acabaste de levar um rickroll! hahaha</div>`;
-                        }
-                        else {
-                            output.innerHTML += `<div>༄༄༄༄༄༄<br>Look what the wind blew in! You just got rickrolled! hahaha</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else if ((commands[0] == "miau" || commands[0] == "meow") && commands.length == 1) {
-                        window.open("/assets/video/video2.mp4", "_blank");
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>^_^</div>`;
-                        }
-                        else {
-                            output.innerHTML += `<div>^_^</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                    else {
-                        if (document.documentElement.lang == "pt") {
-                            output.innerHTML += `<div>${real_command}: comando não encontrado</div>`;
-                        } else {
-                            output.innerHTML += `<div>${real_command}: command not found</div>`;
-                        }
-                        commandInput.value = '';
-                        terminal.scrollTop = terminal.scrollHeight;
-                    }
-                }
-            }
-            });
-
-            function focusInput(linha) {
-                const input = linha.querySelector("input");
-                if (input) {
-                input.focus();
-                }
-            }
-            </script>
+        </div>
         <!-- Footer -->
-        <footer style='background-color: transparent;'>
-            <address class="w3-bar" style='display: flex; justify-content: center;'>
+        <footer style="background-color: transparent;">
+            <address class="w3-bar" style="display: flex; justify-content: center;">
                 <div class="w3-bar-item">
                     © <span id="year">2025</span> Ana Sá Oliveira
                 </div>
             </address>
         </footer>
-        <script>
-            document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
-        <script>
-            const imagens = Array.from(document.images);
-
-            window.addEventListener("load", () => {
-                const imagens = Array.from(document.querySelectorAll("img.important"));
-
-  const promessas = imagens.map(img => {
-    if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
-    return new Promise(resolve => {
-      img.addEventListener("load", resolve, { once: true });
-      img.addEventListener("error", resolve, { once: true });
-    });
-  });
-
-    const timeoutGlobal = new Promise(resolve => {
-    setTimeout(resolve, 6000);
-  });
-
-  Promise.race([
-    Promise.all(promessas),
-    timeoutGlobal
-  ]).then(() => {
-    // Espera dois frames + um pequeno delay pra garantir pintura real
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          const loader = document.getElementById("loader");
-          loader.style.opacity = 0;
-          setTimeout(() => loader.style.display = "none", 600);
-        }, 100);
-      });
-    });
-  });
-});
-
-
-
-</script>
-</div>
-<script data-goatcounter="https://ana.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://ana.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
     </body>
 </html>
