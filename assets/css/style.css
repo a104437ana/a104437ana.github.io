@@ -319,14 +319,10 @@ html[lang="en"] .about-laptop {
   width: auto;
 }
 
-.col-55 {
-  width: 55%;
-}
-
-.project-card-wide {
-  max-width: 90%;
-  width: 900px;
-  margin: 0 auto;
+.theme-image1,
+.theme-image2 {
+  min-width: 800px;
+  width: 100%;
 }
 
 .theme-image2 {
