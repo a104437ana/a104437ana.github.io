@@ -559,6 +559,8 @@ html[lang="en"] .about-laptop {
   outline: none;
   flex: 1;
   font-family: monospace;
+  padding: 0;
+  margin: 0;
 }
 
 .dark-mode #command {
