@@ -65,7 +65,7 @@ function focusInput(linha) {
   }
 }
 
-function runTerminalCommand(real_command, output, commandInput) {
+function runTerminalCommand(real_command, output, terminal, commandInput) {
   const command = real_command.trim().toLowerCase();
   const commands = command.split(/\s+/);
   const isPt = document.documentElement.lang === "pt";
@@ -120,7 +120,7 @@ function runTerminalCommand(real_command, output, commandInput) {
   }
 
   commandInput.value = "";
-  output.scrollTop = output.scrollHeight;
+  terminal.scrollTop = terminal.scrollHeight;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -225,12 +225,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const commandInput = document.getElementById("command");
   const output = document.getElementById("output");
+  const terminal = document.getElementById("terminal");
 
   commandInput.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
       const real_command = commandInput.value.trim();
       if (real_command) {
-        runTerminalCommand(real_command, output, commandInput);
+        runTerminalCommand(real_command, output, terminal, commandInput);
       }
     }
   });
