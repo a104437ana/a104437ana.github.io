@@ -323,6 +323,7 @@ html[lang="en"] .about-laptop {
 .theme-image2 {
   min-width: 800px;
   width: 100%;
+  height: auto;
 }
 
 .theme-image2 {
@@ -370,6 +371,7 @@ html[lang="en"] .about-laptop {
 .contrib-img {
   min-width: 800px;
   width: 100%;
+  height: auto;
 }
 
 .dark-mode .sakura1 {

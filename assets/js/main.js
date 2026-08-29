@@ -16,6 +16,7 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   currentLang = lang;
   localStorage.setItem("lang", lang);
+  refreshGraphFit();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const darkModeActive = root.classList.toggle("dark-mode");
     themeButton.textContent = darkModeActive ? "☀️" : "🌙";
     localStorage.setItem("theme", darkModeActive ? "dark" : "light");
+    refreshGraphFit();
   });
 
   const langButton = document.getElementById("lang-toggle");
