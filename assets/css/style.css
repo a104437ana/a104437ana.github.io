@@ -39,6 +39,7 @@ svg {
 
 .section--home {
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 .section--border-top {
@@ -314,7 +315,7 @@ svg {
 
 .dark-mode .w3-card-4 {
   background-color: #000 !important;
-  border-top: 1px solid #fff !important;
+  border-top: 2px solid #fff !important;
   color: #fff !important;
 }
 
@@ -323,7 +324,7 @@ svg {
 }
 
 .dark-mode .ups {
-  border-bottom: 1px solid #fff !important;
+  border-bottom: 2px solid #fff !important;
 }
 
 .contributions {

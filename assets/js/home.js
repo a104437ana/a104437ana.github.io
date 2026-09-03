@@ -14,17 +14,6 @@ function calculateAge(birthDateStr) {
   return age;
 }
 
-function ajustarAlturaMobile() {
-  if (window.innerWidth <= 768) {
-    const header = document.getElementById("header");
-    const headerHeight = header ? header.offsetHeight : 0;
-    const viewportHeight = window.innerHeight;
-
-    const home = document.getElementById("home");
-    home.style.minHeight = `${viewportHeight - headerHeight + 3}px`;
-  }
-}
-
 function bloquearScroll() {
   const scrollY = window.scrollY;
   document.body.style.position = "fixed";
@@ -267,29 +256,23 @@ document.addEventListener("DOMContentLoaded", () => {
   refreshGraphFit();
   window.addEventListener("resize", refreshGraphFit);
 
-  window.addEventListener("load", () => {
-    ajustarAlturaMobile();
-
-    const imagens = Array.from(document.querySelectorAll("img.important"));
-    const promessas = imagens.map(img => {
-      if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
-      return new Promise(resolve => {
-        img.addEventListener("load", resolve, { once: true });
-        img.addEventListener("error", resolve, { once: true });
-      });
+  const imagens = Array.from(document.querySelectorAll("img.important"));
+  const promessas = imagens.map(img => {
+    if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
+    return new Promise(resolve => {
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", resolve, { once: true });
     });
+  });
 
-    const timeoutGlobal = new Promise(resolve => setTimeout(resolve, 6000));
+  const timeoutGlobal = new Promise(resolve => setTimeout(resolve, 3000));
 
-    Promise.race([Promise.all(promessas), timeoutGlobal]).then(() => {
+  Promise.race([Promise.all(promessas), timeoutGlobal]).then(() => {
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            const loader = document.getElementById("loader");
-            loader.style.opacity = 0;
-            setTimeout(() => (loader.style.display = "none"), 600);
-          }, 100);
-        });
+        const loader = document.getElementById("loader");
+        loader.style.opacity = 0;
+        setTimeout(() => (loader.style.display = "none"), 600);
       });
     });
   });
