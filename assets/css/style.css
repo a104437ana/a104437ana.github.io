@@ -164,6 +164,15 @@ svg {
   display: none;
 }
 
+.hero-mobile .hero-polaroid {
+  margin-bottom: 28px;
+}
+
+.hero-mobile .big.w3-xxxlarge,
+.hero-mobile .small.w3-xxlarge {
+  margin-bottom: 8px;
+}
+
 .big {
   display: block;
 }
@@ -194,22 +203,38 @@ svg {
 
 .hero-role--lg {
   font-size: 29px;
+  margin-bottom: 24px;
 }
 
 .hero-role--sm {
   font-size: 24px;
+  margin-bottom: 24px;
 }
 
 .hero-links--mobile {
   font-size: 20px;
 }
 
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.hero-row .hero-polaroid {
+  flex-shrink: 0;
+}
+
 .hero-name--desktop {
+  display: block;
   font-size: 75px;
+  margin-bottom: 0.2em;
 }
 
 .hero-role--desktop {
+  display: block;
   font-size: 45px;
+  margin-bottom: 0.7em;
 }
 
 .hero-links--desktop {
@@ -218,21 +243,40 @@ svg {
 
 .profile-img {
   height: auto;
+  display: block;
   border: 2px solid #000;
 }
 
 .profile-img--mobile {
-  width: 82%;
-  max-width: 300px;
+  width: 250px;
+  max-width: 82vw;
 }
 
 .profile-img--desktop {
-  width: 92%;
-  max-width: 400px;
+  width: 320px;
+  max-width: 92vw;
 }
 
-.dark-mode .profile-img {
-  border-color: #fff !important;
+.hero-polaroid {
+  display: inline-block;
+  background-color: #e0e0e0;
+  background-clip: padding-box;
+  padding: 5px;
+  border: 10px solid #fff;
+  border-bottom-width: 42px;
+  box-shadow:
+    0 0 0 2px #000,
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    0 14px 24px -6px rgba(0, 0, 0, 0.28);
+  transform: rotate(-4deg);
+}
+
+.dark-mode .hero-polaroid,
+.dark-mode .about-polaroid {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.4),
+    0 1px 2px rgba(255, 255, 255, 0.08),
+    0 14px 24px -6px rgba(255, 255, 255, 0.18);
 }
 
 .scroll-indicator {
@@ -251,6 +295,42 @@ svg {
 }
 
 /* About */
+
+.about-polaroid {
+  float: right;
+  background-color: #e0e0e0;
+  background-clip: padding-box;
+  padding: 5px;
+  border: 10px solid #fff;
+  border-bottom-width: 42px;
+  box-shadow:
+    0 0 0 2px #000,
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    0 14px 24px -6px rgba(0, 0, 0, 0.28);
+  transform: rotate(-4deg);
+  margin: -3.5em 0.8rem 2rem 2rem;
+}
+
+.about-photo {
+  display: block;
+  height: 240px;
+  width: 240px;
+  object-fit: cover;
+  border: 2px solid #000;
+}
+
+@media (max-width: 700px) {
+  .about-polaroid {
+    float: none;
+    display: table;
+    margin: 0 auto 1.5rem;
+  }
+
+  .about-photo {
+    height: 200px;
+    width: 200px;
+  }
+}
 
 /* Experience / education logos */
 
