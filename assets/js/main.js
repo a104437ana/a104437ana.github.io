@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLangButton(newLang);
   });
 
-  const CHAT_API_URL = "https://SUBSTITUI-PELO-TEU-URL-VERCEL.vercel.app/api/chat";
+  const CHAT_API_URL = "https://a104437ana-github-io.vercel.app/api/chat";
 
   const chatButton = document.getElementById("chat-toggle");
   const chatPanel = document.getElementById("chat-panel");
