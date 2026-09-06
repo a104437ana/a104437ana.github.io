@@ -103,7 +103,8 @@ export default async function handler(req) {
     });
 
     if (!upstream.ok) {
-      return new Response(JSON.stringify({ error: 'upstream error' }), {
+      const errBody = await upstream.text();
+      return new Response(JSON.stringify({ error: 'upstream error', status: upstream.status, body: errBody }), {
         status: 502,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
