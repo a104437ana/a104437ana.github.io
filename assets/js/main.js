@@ -51,13 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateLangButton(currentLang);
 
-  langButton.addEventListener("click", () => {
-    const newLang = currentLang === "en" ? "pt" : "en";
-    setLanguage(newLang);
-    updateLangButton(newLang);
-  });
-
   const CHAT_API_URL = "https://a104437ana-github-io.vercel.app/api/chat";
+  const CHAT_GREETINGS = {
+    en: "Hi! 👋 Ask me anything about Ana.",
+    pt: "Olá! 👋 Pergunta-me o que quiseres sobre a Ana."
+  };
 
   const chatButton = document.getElementById("chat-toggle");
   const chatPanel = document.getElementById("chat-panel");
@@ -86,6 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
     chatBody.scrollTop = chatBody.scrollHeight;
     return bubble;
   }
+
+  function resetChat(lang) {
+    chatBody.innerHTML = "";
+    chatHistory.length = 0;
+    chatSending = false;
+    chatInput.disabled = false;
+    chatInput.value = "";
+    addMessage("bot", CHAT_GREETINGS[lang] || CHAT_GREETINGS.en);
+  }
+
+  resetChat(currentLang);
+
+  langButton.addEventListener("click", () => {
+    const newLang = currentLang === "en" ? "pt" : "en";
+    setLanguage(newLang);
+    updateLangButton(newLang);
+    resetChat(newLang);
+  });
 
   chatInput.addEventListener("keydown", async e => {
     if (e.key !== "Enter" || chatSending) return;
