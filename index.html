@@ -33,10 +33,24 @@
         </script>
     </head>
     <body>
+        <button class="fab fab--chat fab--outline" id="chat-toggle">💬</button>
         <button class="fab fab--theme fab--outline" id="theme-toggle">🌙</button>
         <button class="fab fab--lang fab--outline" id="lang-toggle">
             <img class="important lang-icon" id="lang-icon">
         </button>
+
+        <div class="chat-panel" id="chat-panel">
+            <div class="chat-panel-header">
+                <span>Chat</span>
+                <span class="chat-panel-close" id="chat-close">&times;</span>
+            </div>
+            <div class="chat-panel-body" id="chat-body">
+                <div class="chat-row chat-row--bot"><div class="chat-panel-message">Olá! 👋 Em breve vais poder conversar comigo por aqui.</div></div>
+            </div>
+            <div class="chat-panel-input">
+                <input type="text" placeholder="Escreve uma mensagem..." id="chat-input">
+            </div>
+        </div>
         <script>
             (function () {
                 const savedTheme = localStorage.getItem('theme');
@@ -475,6 +489,7 @@
                         <a href="mailto:ana.sa.oliveira7@gmail.com" rel="noopener noreferrer" data-pt="Enviar email">Send Email</a>
                         <br>
                         <br>
+                        <!--
                         <h3><img class="dark icon-50" src="assets/icons/Phone.png" alt="Phone ícone"><b data-pt=" Número de Telemóvel"> Phone Number</b></h3>
                         <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
                             <div class="w3-margin">
@@ -485,6 +500,7 @@
                         <a href="tel:+351918983702" rel="noopener noreferrer" data-pt="Ligar agora">Call Now</a>
                         <br>
                         <br>
+                        -->
                         <h3><a href="https://github.com/a104437ana" target="_blank" class="no-underline"><img class="dark icon-50" src="assets/icons/GitHub.png" alt="GitHub ícone" rel="noopener noreferrer"><b> GitHub</b></a></h3>
                         <div class="w3-container w3-margin-top w3-margin-bottom w3-round outline-box">
                             <div class="w3-margin">

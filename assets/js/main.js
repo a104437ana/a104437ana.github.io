@@ -56,4 +56,70 @@ document.addEventListener("DOMContentLoaded", () => {
     setLanguage(newLang);
     updateLangButton(newLang);
   });
+
+  const CHAT_API_URL = "https://SUBSTITUI-PELO-TEU-URL-VERCEL.vercel.app/api/chat";
+
+  const chatButton = document.getElementById("chat-toggle");
+  const chatPanel = document.getElementById("chat-panel");
+  const chatClose = document.getElementById("chat-close");
+  const chatBody = document.getElementById("chat-body");
+  const chatInput = document.getElementById("chat-input");
+  const chatHistory = [];
+  let chatSending = false;
+
+  chatButton.addEventListener("click", () => {
+    chatPanel.classList.toggle("open");
+  });
+
+  chatClose.addEventListener("click", () => {
+    chatPanel.classList.remove("open");
+  });
+
+  function addMessage(role, text) {
+    const row = document.createElement("div");
+    row.className = role === "user" ? "chat-row chat-row--user" : "chat-row chat-row--bot";
+    const bubble = document.createElement("div");
+    bubble.className = "chat-panel-message";
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    chatBody.appendChild(row);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return bubble;
+  }
+
+  chatInput.addEventListener("keydown", async e => {
+    if (e.key !== "Enter" || chatSending) return;
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    chatSending = true;
+    chatInput.value = "";
+    chatInput.disabled = true;
+
+    addMessage("user", text);
+    const typingBubble = addMessage("bot", "...");
+
+    try {
+      const response = await fetch(CHAT_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history: chatHistory })
+      });
+
+      if (!response.ok) throw new Error("bad response");
+
+      const data = await response.json();
+      typingBubble.textContent = data.reply;
+
+      chatHistory.push({ role: "user", content: text });
+      chatHistory.push({ role: "assistant", content: data.reply });
+    } catch {
+      typingBubble.textContent = "Não consegui responder agora, tenta outra vez daqui a pouco.";
+    } finally {
+      chatSending = false;
+      chatInput.disabled = false;
+      chatInput.focus();
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  });
 });

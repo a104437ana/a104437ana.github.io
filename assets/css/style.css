@@ -109,6 +109,10 @@ svg {
   z-index: 9999;
 }
 
+.fab--chat {
+  bottom: 160px;
+}
+
 .fab--theme {
   bottom: 90px;
 }
@@ -138,7 +142,8 @@ svg {
   border-color: #fff !important;
 }
 
-.dark-mode #theme-toggle.fab--outline {
+.dark-mode #theme-toggle.fab--outline,
+.dark-mode #chat-toggle.fab--outline {
   background-color: #000 !important;
 }
 
@@ -148,6 +153,109 @@ svg {
 
 .dark-mode #lang-toggle {
   background-color: #000 !important;
+}
+
+.chat-panel {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 230px;
+  width: 300px;
+  max-width: calc(100vw - 40px);
+  height: 380px;
+  max-height: calc(100vh - 250px);
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9998;
+}
+
+.chat-panel.open {
+  display: flex;
+}
+
+.dark-mode .chat-panel {
+  background: #000;
+  border-color: #fff;
+}
+
+.chat-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 2px dashed #000;
+  font-weight: bold;
+}
+
+.dark-mode .chat-panel-header {
+  border-bottom-color: #fff;
+}
+
+.chat-panel-close {
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.chat-panel-body {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.chat-row {
+  margin-bottom: 10px;
+}
+
+.chat-row--user {
+  text-align: right;
+}
+
+.chat-panel-message {
+  background: #f0f0f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: inline-block;
+  max-width: 85%;
+  text-align: left;
+}
+
+.dark-mode .chat-panel-message {
+  background: #222;
+}
+
+.chat-row--user .chat-panel-message {
+  background: #ffd9e6;
+}
+
+.dark-mode .chat-row--user .chat-panel-message {
+  background: #5c1f37;
+  color: #fff;
+}
+
+.chat-panel-input {
+  border-top: 2px dashed #000;
+  padding: 10px;
+}
+
+.dark-mode .chat-panel-input {
+  border-top-color: #fff;
+}
+
+.chat-panel-input input {
+  width: 100%;
+  border: 1px solid #000;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.dark-mode .chat-panel-input input {
+  border-color: #fff;
+  color: #fff;
 }
 
 /* Hero */
@@ -620,6 +728,14 @@ button,
     padding: 8px 10px;
     font-size: 20px;
     right: 12px;
+  }
+
+  .fab--chat {
+    bottom: 136px;
+  }
+
+  .chat-panel {
+    bottom: 196px;
   }
 
   .fab--theme {
