@@ -96,6 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   resetChat(currentLang);
 
+  fetch(CHAT_API_URL.replace('/chat', '/chat-status'))
+    .then(r => r.json())
+    .then(data => {
+      if (!data.available) chatButton.style.display = "none";
+    })
+    .catch(() => {});
+
   langButton.addEventListener("click", () => {
     const newLang = currentLang === "en" ? "pt" : "en";
     setLanguage(newLang);
