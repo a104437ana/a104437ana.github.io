@@ -113,7 +113,11 @@ export default async function handler(req) {
     }
 
     const data = await upstream.json();
-    const reply = data?.choices?.[0]?.message?.content?.trim();
+    const rawReply = data?.choices?.[0]?.message?.content?.trim();
+    const reply = rawReply
+      ?.replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/`(.*?)`/g, '$1')
+      .replace(/^#+\s*/gm, '');
 
     if (!reply) {
       return new Response(JSON.stringify({ error: 'empty reply' }), {
