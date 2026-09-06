@@ -39,7 +39,7 @@ export default async function handler(req) {
     const remaining = data?.data?.limit_remaining;
     const available = typeof remaining === 'number' ? remaining > 0 : true;
 
-    return new Response(JSON.stringify({ available }), {
+    return new Response(JSON.stringify({ available, debug: data }), {
       status: 200,
       headers: { ...headers, 'Content-Type': 'application/json' },
     });
