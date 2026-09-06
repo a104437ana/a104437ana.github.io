@@ -105,6 +105,13 @@ export default async function handler(req) {
       }),
     });
 
+    if (upstream.status === 429) {
+      return new Response(JSON.stringify({ error: 'rate_limited' }), {
+        status: 429,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+      });
+    }
+
     if (!upstream.ok) {
       return new Response(JSON.stringify({ error: 'upstream error' }), {
         status: 502,

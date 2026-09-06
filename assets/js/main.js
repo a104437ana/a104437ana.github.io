@@ -65,6 +65,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatHistory = [];
   let chatSending = false;
 
+  const CHAT_LIMIT_KEY = "chatLimitReachedUntil";
+  const limitUntil = Number(localStorage.getItem(CHAT_LIMIT_KEY) || 0);
+  if (limitUntil > Date.now()) {
+    chatButton.style.display = "none";
+  }
+
+  function hideChatForToday() {
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    localStorage.setItem(CHAT_LIMIT_KEY, String(midnight.getTime()));
+    chatButton.style.display = "none";
+    chatPanel.classList.remove("open");
+  }
+
   chatButton.addEventListener("click", () => {
     chatPanel.classList.toggle("open");
   });
@@ -96,13 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   resetChat(currentLang);
 
-  fetch(CHAT_API_URL.replace('/chat', '/chat-status'))
-    .then(r => r.json())
-    .then(data => {
-      if (!data.available) chatButton.style.display = "none";
-    })
-    .catch(() => {});
-
   langButton.addEventListener("click", () => {
     const newLang = currentLang === "en" ? "pt" : "en";
     setLanguage(newLang);
@@ -128,6 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text, history: chatHistory })
       });
+
+      if (response.status === 429) {
+        typingBubble.textContent = "Chegámos ao limite de perguntas gratuitas por hoje, volta amanhã! 🙏";
+        hideChatForToday();
+        return;
+      }
 
       if (!response.ok) throw new Error("bad response");
 
