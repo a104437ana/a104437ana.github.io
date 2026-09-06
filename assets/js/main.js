@@ -65,16 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatHistory = [];
   let chatSending = false;
 
-  const CHAT_LIMIT_KEY = "chatLimitReachedUntil";
-  const limitUntil = Number(localStorage.getItem(CHAT_LIMIT_KEY) || 0);
-  if (limitUntil > Date.now()) {
-    chatButton.style.display = "none";
-  }
+  fetch(CHAT_API_URL.replace("/chat", "/chat-status"))
+    .then(r => r.json())
+    .then(data => {
+      if (!data.available) chatButton.style.display = "none";
+    })
+    .catch(() => {});
 
   function hideChatForToday() {
-    const midnight = new Date();
-    midnight.setHours(24, 0, 0, 0);
-    localStorage.setItem(CHAT_LIMIT_KEY, String(midnight.getTime()));
     chatButton.style.display = "none";
     chatPanel.classList.remove("open");
   }

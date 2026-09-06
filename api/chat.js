@@ -1,3 +1,5 @@
+import { markChatLimitReached } from '../lib/redis.js';
+
 export const config = {
   runtime: 'edge',
 };
@@ -106,6 +108,7 @@ export default async function handler(req) {
     });
 
     if (upstream.status === 429) {
+      await markChatLimitReached();
       return new Response(JSON.stringify({ error: 'rate_limited' }), {
         status: 429,
         headers: { ...headers, 'Content-Type': 'application/json' },
