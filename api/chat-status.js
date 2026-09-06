@@ -1,4 +1,4 @@
-import { isChatLimitReached, markChatLimitReached } from '../lib/redis.js';
+import { isChatLimitReached, clearChatLimitReached } from '../lib/redis.js';
 
 export const config = {
   runtime: 'edge',
@@ -26,8 +26,8 @@ export default async function handler(req) {
   }
 
   const url = new URL(req.url);
-  if (url.searchParams.get('debug_set') === '1') {
-    await markChatLimitReached();
+  if (url.searchParams.get('debug_clear') === '1') {
+    await clearChatLimitReached();
   }
 
   const limitReached = await isChatLimitReached();
