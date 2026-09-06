@@ -58,6 +58,8 @@ function fitScrollGraphs() {
       img.style.marginBottom = "";
     });
     wrapper.style.overflowX = "";
+    wrapper.style.overflowY = "";
+    wrapper.style.height = "";
 
     const visibleImg = images.find(img => getComputedStyle(img).display !== "none");
     if (!visibleImg) return;
@@ -71,9 +73,10 @@ function fitScrollGraphs() {
       images.forEach(img => {
         img.style.transform = `scale(${scale})`;
         img.style.transformOrigin = "top left";
-        img.style.marginBottom = `${naturalHeight * scale - naturalHeight}px`;
       });
+      wrapper.style.height = `${naturalHeight * scale}px`;
       wrapper.style.overflowX = "hidden";
+      wrapper.style.overflowY = "hidden";
     }
   });
 }
