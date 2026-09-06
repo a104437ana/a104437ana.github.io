@@ -98,7 +98,7 @@ export default async function handler(req) {
       body: JSON.stringify({
         models: MODELS,
         messages,
-        max_tokens: 300,
+        max_tokens: 600,
       }),
     });
 
