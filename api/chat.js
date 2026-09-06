@@ -26,7 +26,6 @@ const MODELS = [
   'z-ai/glm-5.2:free',
   'google/gemma-4-31b-it:free',
   'minimax/minimax-m3:free',
-  'nvidia/nemotron-3-super-120b-a12b:free',
 ];
 
 const ALLOWED_ORIGINS = new Set([
@@ -104,8 +103,7 @@ export default async function handler(req) {
     });
 
     if (!upstream.ok) {
-      const errBody = await upstream.text();
-      return new Response(JSON.stringify({ error: 'upstream error', status: upstream.status, body: errBody }), {
+      return new Response(JSON.stringify({ error: 'upstream error' }), {
         status: 502,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
