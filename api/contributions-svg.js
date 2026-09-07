@@ -26,7 +26,7 @@ function generateSVG(weeks, theme, lang) {
   const DAYS   = lang === 'pt' ? DAYS_PT   : DAYS_EN;
 
   const activeColor = `#${PINK_HEX}`;
-  const emptyStroke = isDark ? 'rgba(255,255,255,0.28)' : 'rgba(0,0,0,0.28)';
+  const emptyFill   = isDark ? '#2d2d2d' : '#ebedf0';
   const labelColor  = isDark ? '#ffffff' : '#000000';
 
   const cellSize = 11, gap = 2, step = cellSize + gap;
@@ -61,7 +61,7 @@ function generateSVG(weeks, theme, lang) {
       if (level > 0) {
         cells += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="${activeColor}" />`;
       } else {
-        cells += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="none" stroke="${emptyStroke}" stroke-width="1" />`;
+        cells += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="${emptyFill}" />`;
       }
     });
   });
