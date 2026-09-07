@@ -268,9 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const timeoutGlobal = new Promise(resolve => setTimeout(resolve, 3000));
-
-  Promise.race([Promise.all(promessas), timeoutGlobal]).then(() => {
+  Promise.all(promessas).then(() => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         const loader = document.getElementById("loader");
