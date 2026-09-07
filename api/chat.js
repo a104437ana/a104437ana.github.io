@@ -15,7 +15,8 @@ Factos sobre a Ana:
 - Ensino secundário (Curso Científico-Humanístico de Ciências e Tecnologias), Escola Básica e Secundária de Vale D'Este, Viatodos, Barcelos, 2019-2022, média final: 18/20.
 - Experiência 1: Estagiária de Engenharia Informática, na empresa Mestreclique, Braga, Jun 2026 - Ago 2026 (2 meses), estágio de Verão na área de desenvolvimento de software.
 - Experiência 2: Explicadora privada de Programação Funcional (trabalho independente/self-employed), Braga, Nov 2025 - Jan 2026 (2 meses), explicações da unidade curricular de Programação Funcional do 1.º ano da Licenciatura em Engenharia Informática da Universidade do Minho.
-- Projetos: gitcolors (gitcolors.vercel.app) e sakura-garden (sakura-garden.vercel.app) - geradores de gráficos/jardins de contribuições do GitHub para README, em qualquer cor/tema.
+- Projeto gitcolors (gitcolors.vercel.app): gerador de gráfico de contribuições do GitHub para README, em qualquer cor ou tema.
+- Projeto sakura-garden (sakura-garden.vercel.app): gerador de um "jardim" de contribuições do GitHub para README (visual diferente de um gráfico normal, não tem opção de qualquer cor).
 - Hackathon: BugsByte 2025, Braga, 28-30 março 2025, participante na equipa BUGBUSTERS, desafio da MC SONAE (ferramenta de otimização de preços).
 - Línguas: português (nativa), inglês (B2, intermédio superior).
 - Contacto: email ana.sa.oliveira7@gmail.com, GitHub github.com/a104437ana, LinkedIn (link disponível no site).
