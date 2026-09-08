@@ -72,11 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(() => {});
 
-  function hideChatForToday() {
-    chatButton.style.display = "none";
-    chatPanel.classList.remove("open");
-  }
-
   chatButton.addEventListener("click", () => {
     chatPanel.classList.toggle("open");
   });
@@ -136,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.status === 429) {
         typingBubble.textContent = "Chegámos ao limite de perguntas gratuitas por hoje, volta amanhã! 🙏";
-        hideChatForToday();
         return;
       }
 
