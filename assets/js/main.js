@@ -65,12 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatHistory = [];
   let chatSending = false;
 
+  function revealChatButton() {
+    chatButton.style.display = "inline-block";
+    setTimeout(() => {
+      chatButton.style.opacity = "1";
+    }, 20);
+  }
+
   fetch(CHAT_API_URL.replace("/chat", "/chat-status"))
     .then(r => r.json())
     .then(data => {
-      if (!data.available) chatButton.style.display = "none";
+      if (data.available) revealChatButton();
     })
-    .catch(() => {});
+    .catch(revealChatButton);
 
   chatButton.addEventListener("click", () => {
     chatPanel.classList.toggle("open");
