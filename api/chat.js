@@ -95,30 +95,42 @@ export default async function handler(req) {
   ];
 
   try {
-    const upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        models: MODELS,
-        messages,
-        max_tokens: 600,
-      }),
-    });
+    const forceGroq = new URL(req.url).searchParams.get('debug_force_groq') === '1';
+    let upstream = forceGroq
+      ? { ok: false, status: 599 }
+      : await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            models: MODELS,
+            messages,
+            max_tokens: 600,
+          }),
+        });
 
-    if (upstream.status === 429) {
-      await markChatLimitReached();
-      return new Response(JSON.stringify({ error: 'rate_limited' }), {
-        status: 429,
-        headers: { ...headers, 'Content-Type': 'application/json' },
+    if (!upstream.ok) {
+      upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-oss-120b',
+          messages,
+          max_tokens: 600,
+        }),
       });
     }
 
     if (!upstream.ok) {
-      return new Response(JSON.stringify({ error: 'upstream error' }), {
-        status: 502,
+      if (!forceGroq) await markChatLimitReached();
+      const errBody = await upstream.text?.().catch(() => '');
+      return new Response(JSON.stringify({ error: 'rate_limited', debugStatus: upstream.status, debugBody: errBody }), {
+        status: 429,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
     }
