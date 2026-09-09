@@ -56,6 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
     en: "Hi! 👋 Ask me anything about Ana.",
     pt: "Olá! 👋 Pergunta-me o que quiseres sobre a Ana."
   };
+  const CHAT_RATE_LIMIT_MSG = {
+    en: "We've hit today's free question limit, come back tomorrow! 🙏",
+    pt: "Chegámos ao limite de perguntas gratuitas por hoje, volta amanhã! 🙏"
+  };
+  const CHAT_ERROR_MSG = {
+    en: "I couldn't reply right now, try again in a bit.",
+    pt: "Não consegui responder agora, tenta outra vez daqui a pouco."
+  };
 
   const chatButton = document.getElementById("chat-toggle");
   const chatPanel = document.getElementById("chat-panel");
@@ -137,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (response.status === 429) {
-        typingBubble.textContent = "Chegámos ao limite de perguntas gratuitas por hoje, volta amanhã! 🙏";
+        typingBubble.textContent = CHAT_RATE_LIMIT_MSG[currentLang] || CHAT_RATE_LIMIT_MSG.en;
         return;
       }
 
@@ -149,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chatHistory.push({ role: "user", content: text });
       chatHistory.push({ role: "assistant", content: data.reply });
     } catch {
-      typingBubble.textContent = "Não consegui responder agora, tenta outra vez daqui a pouco.";
+      typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
     } finally {
       chatSending = false;
       chatInput.disabled = false;
