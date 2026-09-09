@@ -95,21 +95,18 @@ export default async function handler(req) {
   ];
 
   try {
-    const forceGroq = new URL(req.url).searchParams.get('debug_force_groq') === '1';
-    let upstream = forceGroq
-      ? { ok: false, status: 599 }
-      : await fetch('https://openrouter.ai/api/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            models: MODELS,
-            messages,
-            max_tokens: 600,
-          }),
-        });
+    let upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        models: MODELS,
+        messages,
+        max_tokens: 600,
+      }),
+    });
 
     if (!upstream.ok) {
       upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -127,9 +124,8 @@ export default async function handler(req) {
     }
 
     if (!upstream.ok) {
-      if (!forceGroq) await markChatLimitReached();
-      const errBody = await upstream.text?.().catch(() => '');
-      return new Response(JSON.stringify({ error: 'rate_limited', debugStatus: upstream.status, debugBody: errBody }), {
+      await markChatLimitReached();
+      return new Response(JSON.stringify({ error: 'rate_limited' }), {
         status: 429,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
