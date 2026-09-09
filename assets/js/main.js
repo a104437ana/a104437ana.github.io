@@ -103,7 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
     bubble.textContent = text;
     row.appendChild(bubble);
     chatBody.appendChild(row);
-    chatBody.scrollTop = chatBody.scrollHeight;
+
+    if (role === "user") {
+      row.scrollIntoView({ block: "start" });
+    }
+
     return bubble;
   }
 
@@ -162,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
       chatSending = false;
       chatInput.disabled = false;
       chatInput.focus();
-      chatBody.scrollTop = chatBody.scrollHeight;
     }
   });
 });
