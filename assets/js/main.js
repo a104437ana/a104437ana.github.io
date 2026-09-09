@@ -118,8 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       chatSpacer.style.height = `${chatBody.clientHeight}px`;
 
+      const topGap = 12;
       const offset = row.getBoundingClientRect().top - chatBody.getBoundingClientRect().top;
-      chatBody.scrollTop += offset;
+      chatBody.scrollTop += offset - topGap;
     }
 
     return bubble;
