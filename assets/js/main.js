@@ -95,6 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
     chatPanel.classList.remove("open");
   });
 
+  let chatSpacer = null;
+
   function addMessage(role, text) {
     const row = document.createElement("div");
     row.className = role === "user" ? "chat-row chat-row--user" : "chat-row chat-row--bot";
@@ -102,10 +104,22 @@ document.addEventListener("DOMContentLoaded", () => {
     bubble.className = "chat-panel-message";
     bubble.textContent = text;
     row.appendChild(bubble);
-    chatBody.appendChild(row);
+
+    if (chatSpacer) {
+      chatBody.insertBefore(row, chatSpacer);
+    } else {
+      chatBody.appendChild(row);
+    }
 
     if (role === "user") {
-      row.scrollIntoView({ block: "start" });
+      if (!chatSpacer) {
+        chatSpacer = document.createElement("div");
+        chatBody.appendChild(chatSpacer);
+      }
+      chatSpacer.style.height = `${chatBody.clientHeight}px`;
+
+      const offset = row.getBoundingClientRect().top - chatBody.getBoundingClientRect().top;
+      chatBody.scrollTop += offset;
     }
 
     return bubble;
@@ -113,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resetChat(lang) {
     chatBody.innerHTML = "";
+    chatSpacer = null;
     chatHistory.length = 0;
     chatSending = false;
     chatInput.disabled = false;
