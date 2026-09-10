@@ -126,6 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return bubble;
   }
 
+  function shrinkSpacerToFit() {
+    if (!chatSpacer) return;
+    const spacerHeight = chatSpacer.offsetHeight;
+    const contentHeight = chatBody.scrollHeight - spacerHeight;
+    const neededSpacer = Math.max(0, chatBody.scrollTop + chatBody.clientHeight - contentHeight);
+    chatSpacer.style.height = `${neededSpacer}px`;
+  }
+
   function resetChat(lang) {
     chatBody.innerHTML = "";
     chatSpacer = null;
@@ -182,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chatSending = false;
       chatInput.disabled = false;
       chatInput.focus();
+      shrinkSpacerToFit();
     }
   });
 });
