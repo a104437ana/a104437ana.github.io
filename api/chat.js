@@ -69,9 +69,9 @@ function heuristicLanguage(text) {
 }
 
 const MODELS = [
-  'z-ai/glm-5.2:free',
-  'google/gemma-4-31b-it:free',
-  'minimax/minimax-m3:free',
+  'qwen/qwen3.8-27b:free',
+  'nvidia/nemotron-3-super-120b-a12b:free',
+  'thinkingmachines/inkling:free',
 ];
 
 const ALLOWED_ORIGINS = new Set([
@@ -89,28 +89,28 @@ function corsHeaders(origin) {
 }
 
 async function callModel(messages, maxTokens) {
-  let upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  let upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      models: MODELS,
+      model: 'openai/gpt-oss-120b',
       messages,
       max_tokens: maxTokens,
     }),
   });
 
   if (!upstream.ok) {
-    upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-oss-120b',
+        models: MODELS,
         messages,
         max_tokens: maxTokens,
       }),
