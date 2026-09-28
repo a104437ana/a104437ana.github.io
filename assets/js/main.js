@@ -31,11 +31,36 @@ slowImage2.src = "/assets/icons/flag-pt.png";
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
 
+  const navToggle = document.getElementById("navbar-toggle");
+  const navDrawer = document.getElementById("navbar-drawer");
+  const navOverlay = document.getElementById("navbar-overlay");
+
+  function closeNavDrawer() {
+    navToggle.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navDrawer.classList.remove("open");
+    navOverlay.classList.remove("open");
+  }
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = navDrawer.classList.toggle("open");
+    navToggle.classList.toggle("open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navOverlay.classList.toggle("open", isOpen);
+  });
+
+  navOverlay.addEventListener("click", closeNavDrawer);
+  navDrawer.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeNavDrawer);
+  });
+
   const themeButton = document.getElementById("theme-toggle");
+
+  const themeIcon = document.getElementById("theme-icon");
 
   themeButton.addEventListener("click", () => {
     const darkModeActive = root.classList.toggle("dark-mode");
-    themeButton.textContent = darkModeActive ? "☀️" : "🌙";
+    themeIcon.src = darkModeActive ? "assets/icons/emoji-sun.png" : "assets/icons/emoji-moon.png";
     localStorage.setItem("theme", darkModeActive ? "dark" : "light");
     refreshGraphFit();
   });
@@ -53,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const CHAT_API_URL = "https://a104437ana-github-io.vercel.app/api/chat";
   const CHAT_GREETINGS = {
-    en: "Hi! 👋 Ask me anything about Ana.",
-    pt: "Olá! 👋 Pergunta-me o que quiseres sobre a Ana."
+    en: "Hi! Ask me anything about Ana.",
+    pt: "Olá! Pergunta-me o que quiseres sobre a Ana."
   };
   const CHAT_RATE_LIMIT_MSG = {
     en: "We've hit today's free question limit, come back tomorrow! 🙏",

@@ -1,7 +1,15 @@
 ﻿@import url("w3.css");
 
+:root {
+  --navbar-h: 64px;
+}
+
 * {
   font-family: Arial, Helvetica, sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 [data-pt] {
@@ -31,15 +39,21 @@ svg {
 
 /* Layout sections */
 
+body {
+  padding-top: var(--navbar-h);
+}
+
 .section {
   background: white;
   display: flex;
   flex-direction: column;
+  scroll-margin-top: calc(var(--navbar-h) - 20px);
 }
 
 .section--home {
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: calc(100vh - var(--navbar-h));
+  min-height: calc(100svh - var(--navbar-h));
+  scroll-margin-top: var(--navbar-h);
 }
 
 .section--border-top {
@@ -96,6 +110,196 @@ svg {
   width: 40px;
 }
 
+/* Navbar */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-h);
+  background: #fff;
+  border-bottom: 1px solid #000;
+  z-index: 9990;
+}
+
+.dark-mode .navbar {
+  background: #000 !important;
+  border-bottom: 1px solid #fff !important;
+}
+
+.navbar-inner {
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dark-mode .navbar-brand {
+  color: #fff;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: nowrap;
+}
+
+.navbar-links a {
+  color: #000;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.dark-mode .navbar-links a {
+  color: #fff;
+}
+
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: #e91e63;
+  transition: right 0.25s ease;
+}
+
+.navbar-links a:hover::after {
+  right: 0;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #000;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.dark-mode .navbar-toggle span {
+  background: #fff;
+}
+
+.navbar-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.navbar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 10000;
+}
+
+.navbar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navbar-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px;
+  max-width: 80vw;
+  height: 100%;
+  background: #fff;
+  border-left: 1px solid #000;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: calc(var(--navbar-h) + 16px) 24px 24px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.navbar-drawer.open {
+  transform: translateX(0);
+}
+
+.dark-mode .navbar-drawer {
+  background: #000 !important;
+  border-left: 1px solid #fff !important;
+}
+
+.navbar-drawer a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+.navbar-drawer a:last-child {
+  border-bottom: none;
+}
+
+.dark-mode .navbar-drawer a {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 900px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-brand {
+    font-size: 18px;
+  }
+}
+
 /* Floating buttons (theme / language toggle) */
 
 .fab {
@@ -139,6 +343,13 @@ svg {
   height: 1.3em;
   width: 1.3em;
   vertical-align: top;
+}
+
+.fab-emoji {
+  height: 27px;
+  width: 30px;
+  vertical-align: top;
+  margin-top: 4px;
 }
 
 .dark-mode .fab--outline {

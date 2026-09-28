@@ -33,8 +33,37 @@
         </script>
     </head>
     <body>
-        <button class="fab fab--chat fab--outline" id="chat-toggle">💬</button>
-        <button class="fab fab--theme fab--outline" id="theme-toggle">🌙</button>
+        <nav class="navbar" id="navbar">
+            <div class="navbar-inner">
+                <a href="#home" class="navbar-brand"><span class="w3-text-pink">Ana Sá Oliveira</span></a>
+                <div class="navbar-links">
+                    <a href="#about" data-pt="Sobre">About</a>
+                    <a href="#experience" data-pt="Experiência">Experience</a>
+                    <a href="#education" data-pt="Educação">Education</a>
+                    <a href="#projects" data-pt="Projetos">Projects</a>
+                    <a href="#languages" data-pt="Línguas">Languages</a>
+                    <a href="#hackathons" data-pt="Hackathons">Hackathons</a>
+                    <a href="#cv" data-pt="CV">CV</a>
+                    <a href="#contact" data-pt="Contactos">Contact</a>
+                </div>
+                <button class="navbar-toggle" id="navbar-toggle" aria-label="Menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+        <div class="navbar-overlay" id="navbar-overlay"></div>
+        <div class="navbar-drawer" id="navbar-drawer">
+            <a href="#about" data-pt="Sobre">About</a>
+            <a href="#experience" data-pt="Experiência">Experience</a>
+            <a href="#education" data-pt="Educação">Education</a>
+            <a href="#projects" data-pt="Projetos">Projects</a>
+            <a href="#languages" data-pt="Línguas">Languages</a>
+            <a href="#hackathons" data-pt="Hackathons">Hackathons</a>
+            <a href="#cv" data-pt="CV">CV</a>
+            <a href="#contact" data-pt="Contactos">Contact</a>
+        </div>
+        <button class="fab fab--chat fab--outline" id="chat-toggle"><img class="fab-emoji dark" src="assets/icons/emoji-chat.png" alt="Chat"></button>
+        <button class="fab fab--theme fab--outline" id="theme-toggle"><img class="fab-emoji" id="theme-icon" src="assets/icons/emoji-moon.png" alt="Toggle theme"></button>
         <button class="fab fab--lang fab--outline" id="lang-toggle">
             <img class="important lang-icon" id="lang-icon">
         </button>
@@ -54,7 +83,7 @@
                 const savedTheme = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 if (savedTheme ? savedTheme === 'dark' : prefersDark) {
-                    document.getElementById('theme-toggle').textContent = '☀️';
+                    document.getElementById('theme-icon').src = 'assets/icons/emoji-sun.png';
                 }
             })();
         </script>
