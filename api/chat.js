@@ -32,6 +32,42 @@ const LANGUAGE_CLASSIFIER_PROMPT = `Classify the dominant language of the user's
 
 const OTHER_LANGUAGE_REPLY = 'This assistant only speaks English and Portuguese right now. Feel free to write in one of those languages, or contact Ana directly at ana.sa.oliveira7@gmail.com.';
 
+const PT_WORDS = new Set([
+  'o', 'as', 'os', 'um', 'uma', 'uns', 'umas', 'e', 'é', 'és', 'sou', 'somos', 'são',
+  'foi', 'ser', 'estar', 'está', 'estás', 'estou', 'não', 'sim', 'que', 'quem', 'qual',
+  'quando', 'onde', 'porque', 'porquê', 'como', 'com', 'para', 'por', 'isso', 'isto',
+  'aquilo', 'ela', 'ele', 'eles', 'elas', 'você', 'vocês', 'tu', 'eu', 'nós', 'te',
+  'se', 'lhe', 'nos', 'vos', 'lhes', 'meu', 'minha', 'teu', 'tua', 'seu', 'sua', 'nosso',
+  'nossa', 'tem', 'tens', 'têm', 'há', 'também', 'muito', 'muita', 'muitos', 'muitas',
+  'bem', 'mal', 'bom', 'boa', 'gira', 'giro', 'bonita', 'bonito', 'obrigado', 'obrigada',
+  'olá', 'oi', 'tudo', 'nada', 'idade', 'anos', 'ano', 'qual', 'quantos', 'quantas',
+]);
+
+const EN_WORDS = new Set([
+  'the', 'is', 'are', 'am', 'was', 'were', 'be', 'been', 'being', 'an', 'and', 'or',
+  'not', 'what', 'who', 'which', 'when', 'where', 'why', 'how', 'you', 'your', 'yours',
+  'we', 'they', 'he', 'she', 'it', 'this', 'that', 'these', 'those', 'do', 'does', 'did',
+  'have', 'has', 'had', 'can', 'could', 'will', 'would', 'should', 'please', 'thanks',
+  'thank', 'hello', 'hi', 'hey', 'pretty', 'age', 'old', 'years', 'about', 'anything',
+  'ask', 'me', 'her',
+]);
+
+function heuristicLanguage(text) {
+  if (/[ãõç]/i.test(text)) return 'portuguese';
+
+  const words = text.toLowerCase().match(/[\p{L}]+/gu) || [];
+  let pt = 0;
+  let en = 0;
+  for (const word of words) {
+    if (PT_WORDS.has(word)) pt++;
+    if (EN_WORDS.has(word)) en++;
+  }
+
+  if (pt > 0 && en === 0) return 'portuguese';
+  if (en > 0 && pt === 0) return 'english';
+  return null;
+}
+
 const MODELS = [
   'z-ai/glm-5.2:free',
   'google/gemma-4-31b-it:free',
@@ -128,25 +164,34 @@ export default async function handler(req) {
     .map(m => ({ role: m.role, content: m.content.slice(0, 500) }));
 
   try {
-    const languageRaw = await callModel(
-      [
-        { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
-        { role: 'user', content: message },
-      ],
-      20,
-    );
+    const heuristic = heuristicLanguage(message);
+    let isPortuguese;
+    let isEnglish;
 
-    if (languageRaw === null) {
-      await markChatLimitReached();
-      return new Response(JSON.stringify({ error: 'rate_limited' }), {
-        status: 429,
-        headers: { ...headers, 'Content-Type': 'application/json' },
-      });
+    if (heuristic) {
+      isPortuguese = heuristic === 'portuguese';
+      isEnglish = heuristic === 'english';
+    } else {
+      const languageRaw = await callModel(
+        [
+          { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
+          { role: 'user', content: message },
+        ],
+        20,
+      );
+
+      if (languageRaw === null) {
+        await markChatLimitReached();
+        return new Response(JSON.stringify({ error: 'rate_limited' }), {
+          status: 429,
+          headers: { ...headers, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const language = languageRaw.toLowerCase();
+      isPortuguese = language.includes('portuguese');
+      isEnglish = language.includes('english');
     }
-
-    const language = languageRaw.toLowerCase();
-    const isPortuguese = language.includes('portuguese');
-    const isEnglish = language.includes('english');
 
     if (!isPortuguese && !isEnglish) {
       return new Response(JSON.stringify({ reply: OTHER_LANGUAGE_REPLY }), {
