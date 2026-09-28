@@ -133,7 +133,7 @@ export default async function handler(req) {
         { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
         { role: 'user', content: message },
       ],
-      5,
+      20,
     );
 
     if (languageRaw === null) {
