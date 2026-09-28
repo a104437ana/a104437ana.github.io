@@ -6,7 +6,7 @@ export const config = {
 
 const SYSTEM_PROMPT = `You are the virtual assistant for Ana Sá Oliveira's personal website. ALWAYS answer based on the facts below, briefly, kindly, and directly.
 
-LANGUAGE RULE (the most important one, applies to EVERYTHING, including refusals and warnings): if the visitor writes in Portuguese, reply in Portuguese. If they write in English, reply in English. If they write in any other language, reply in English and say that this assistant only speaks English and Portuguese. This applies even when refusing a request or applying one of the rules below.
+LANGUAGE RULE (the most important one, applies to EVERYTHING, including refusals and warnings): you will be given a separate instruction telling you whether to reply in English or Portuguese. Follow it exactly for the entire reply.
 
 Facts about Ana:
 - Ana Sá Oliveira, software engineer, born in Braga, Portugal.
@@ -28,6 +28,10 @@ Rules:
 - Never make up facts that aren't in the list above. If you don't know, say you don't have that information (following the language rule above) and suggest contacting Ana.
 - Keep answers short (2-4 sentences). Never use HTML or markdown.`;
 
+const LANGUAGE_CLASSIFIER_PROMPT = `Classify the dominant language of the user's message. Reply with exactly one word, nothing else: "portuguese" if it's written in Portuguese, "english" if it's written in English, or "other" if it's written in any other language.`;
+
+const OTHER_LANGUAGE_REPLY = 'This assistant only speaks English and Portuguese right now. Feel free to write in one of those languages, or contact Ana directly at ana.sa.oliveira7@gmail.com.';
+
 const MODELS = [
   'z-ai/glm-5.2:free',
   'google/gemma-4-31b-it:free',
@@ -46,6 +50,41 @@ function corsHeaders(origin) {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
+}
+
+async function callModel(messages, maxTokens) {
+  let upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      models: MODELS,
+      messages,
+      max_tokens: maxTokens,
+    }),
+  });
+
+  if (!upstream.ok) {
+    upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-oss-120b',
+        messages,
+        max_tokens: maxTokens,
+      }),
+    });
+  }
+
+  if (!upstream.ok) return null;
+
+  const data = await upstream.json();
+  return data?.choices?.[0]?.message?.content?.trim() ?? null;
 }
 
 export default async function handler(req) {
@@ -88,42 +127,16 @@ export default async function handler(req) {
     .slice(-10)
     .map(m => ({ role: m.role, content: m.content.slice(0, 500) }));
 
-  const messages = [
-    { role: 'system', content: SYSTEM_PROMPT },
-    ...trimmedHistory,
-    { role: 'user', content: message },
-  ];
-
   try {
-    let upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        models: MODELS,
-        messages,
-        max_tokens: 600,
-      }),
-    });
+    const languageRaw = await callModel(
+      [
+        { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
+        { role: 'user', content: message },
+      ],
+      5,
+    );
 
-    if (!upstream.ok) {
-      upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'openai/gpt-oss-120b',
-          messages,
-          max_tokens: 600,
-        }),
-      });
-    }
-
-    if (!upstream.ok) {
+    if (languageRaw === null) {
       await markChatLimitReached();
       return new Response(JSON.stringify({ error: 'rate_limited' }), {
         status: 429,
@@ -131,10 +144,38 @@ export default async function handler(req) {
       });
     }
 
-    const data = await upstream.json();
-    const rawReply = data?.choices?.[0]?.message?.content?.trim();
+    const language = languageRaw.toLowerCase();
+    const isPortuguese = language.includes('portuguese');
+    const isEnglish = language.includes('english');
+
+    if (!isPortuguese && !isEnglish) {
+      return new Response(JSON.stringify({ reply: OTHER_LANGUAGE_REPLY }), {
+        status: 200,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const languageInstruction = isPortuguese ? 'Reply in Portuguese.' : 'Reply in English.';
+
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'system', content: languageInstruction },
+      ...trimmedHistory,
+      { role: 'user', content: message },
+    ];
+
+    const rawReply = await callModel(messages, 600);
+
+    if (rawReply === null) {
+      await markChatLimitReached();
+      return new Response(JSON.stringify({ error: 'rate_limited' }), {
+        status: 429,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+      });
+    }
+
     const reply = rawReply
-      ?.replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/\*\*(.*?)\*\*/g, '$1')
       .replace(/`(.*?)`/g, '$1')
       .replace(/^#+\s*/gm, '');
 
