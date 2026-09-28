@@ -28,19 +28,23 @@ Rules:
 - Never make up facts that aren't in the list above. If you don't know, say you don't have that information (following the language rule above) and suggest contacting Ana.
 - Keep answers short (2-4 sentences). Never use HTML or markdown.`;
 
-const LANGUAGE_CLASSIFIER_PROMPT = `Classify the dominant language of the user's message. Reply with exactly one word, nothing else: "portuguese" if it's written in Portuguese, "english" if it's written in English, or "other" if it's written in any other language.`;
-
-const OTHER_LANGUAGE_REPLY = 'This assistant only speaks English and Portuguese right now. Feel free to write in one of those languages, or contact Ana directly at ana.sa.oliveira7@gmail.com.';
+const LANGUAGE_CLASSIFIER_PROMPT = `Is the user's message written in Portuguese? Reply with exactly one word, nothing else: "yes" or "no".`;
 
 const PT_WORDS = new Set([
   'o', 'as', 'os', 'um', 'uma', 'uns', 'umas', 'e', 'é', 'és', 'sou', 'somos', 'são',
   'foi', 'ser', 'estar', 'está', 'estás', 'estou', 'não', 'sim', 'que', 'quem', 'qual',
-  'quando', 'onde', 'porque', 'porquê', 'como', 'com', 'para', 'por', 'isso', 'isto',
-  'aquilo', 'ela', 'ele', 'eles', 'elas', 'você', 'vocês', 'tu', 'eu', 'nós', 'te',
-  'se', 'lhe', 'nos', 'vos', 'lhes', 'meu', 'minha', 'teu', 'tua', 'seu', 'sua', 'nosso',
-  'nossa', 'tem', 'tens', 'têm', 'há', 'também', 'muito', 'muita', 'muitos', 'muitas',
-  'bem', 'mal', 'bom', 'boa', 'gira', 'giro', 'bonita', 'bonito', 'obrigado', 'obrigada',
-  'olá', 'oi', 'tudo', 'nada', 'idade', 'anos', 'ano', 'qual', 'quantos', 'quantas',
+  'quais', 'quando', 'onde', 'porque', 'porquê', 'como', 'com', 'para', 'por', 'isso',
+  'isto', 'aquilo', 'ela', 'ele', 'eles', 'elas', 'você', 'vocês', 'tu', 'eu', 'nós',
+  'te', 'se', 'lhe', 'nos', 'vos', 'lhes', 'meu', 'minha', 'teu', 'tua', 'seu', 'sua',
+  'nosso', 'nossa', 'tem', 'tens', 'têm', 'há', 'também', 'muito', 'muita', 'muitos',
+  'muitas', 'bem', 'mal', 'bom', 'boa', 'gira', 'giro', 'bonita', 'bonito', 'obrigado',
+  'obrigada', 'olá', 'oi', 'tudo', 'nada', 'idade', 'anos', 'ano', 'quantos', 'quantas',
+  'língua', 'línguas', 'linguas', 'fala', 'falas', 'falam', 'falou', 'sabe', 'sabes',
+  'sabem', 'trabalha', 'trabalhou', 'trabalhas', 'estuda', 'estudou', 'estudas',
+  'estágio', 'estagio', 'projeto', 'projetos', 'curso', 'licenciatura', 'mestrado',
+  'média', 'notas', 'nota', 'contacto', 'contato', 'universidade', 'currículo',
+  'curriculo', 'formação', 'formacao', 'experiência', 'experiencia', 'braga', 'minho',
+  'site', 'faz', 'fazes', 'fez', 'gosta', 'gostas', 'gostam', 'mora', 'nasceu',
 ]);
 
 const EN_WORDS = new Set([
@@ -166,11 +170,9 @@ export default async function handler(req) {
   try {
     const heuristic = heuristicLanguage(message);
     let isPortuguese;
-    let isEnglish;
 
     if (heuristic) {
       isPortuguese = heuristic === 'portuguese';
-      isEnglish = heuristic === 'english';
     } else {
       const languageRaw = await callModel(
         [
@@ -180,24 +182,9 @@ export default async function handler(req) {
         20,
       );
 
-      if (languageRaw === null) {
-        await markChatLimitReached();
-        return new Response(JSON.stringify({ error: 'rate_limited' }), {
-          status: 429,
-          headers: { ...headers, 'Content-Type': 'application/json' },
-        });
-      }
-
-      const language = languageRaw.toLowerCase();
-      isPortuguese = language.includes('portuguese');
-      isEnglish = language.includes('english');
-    }
-
-    if (!isPortuguese && !isEnglish) {
-      return new Response(JSON.stringify({ reply: OTHER_LANGUAGE_REPLY }), {
-        status: 200,
-        headers: { ...headers, 'Content-Type': 'application/json' },
-      });
+      // If the classifier call itself fails, default to English and let the
+      // main call below be the real test of whether the API is reachable.
+      isPortuguese = languageRaw !== null && languageRaw.toLowerCase().includes('yes');
     }
 
     const languageInstruction = isPortuguese ? 'Reply in Portuguese.' : 'Reply in English.';
