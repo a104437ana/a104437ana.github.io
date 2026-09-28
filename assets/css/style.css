@@ -535,16 +535,16 @@ body {
 
 .hero-role--lg {
   font-size: 29px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .hero-role--sm {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .hero-links--mobile {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .hero-row {
@@ -637,7 +637,7 @@ body {
 
 @media (max-width: 480px) {
   .profile-img--mobile {
-    width: 170px;
+    width: 210px;
   }
 
   .hero-polaroid {
