@@ -492,7 +492,17 @@ body {
 
 .hero-mobile .big.w3-xxxlarge,
 .hero-mobile .small.w3-xxlarge {
+  margin-bottom: 4px;
+}
+
+.hero-greeting {
+  font-size: 22px;
   margin-bottom: 8px;
+}
+
+.hero-greeting--desktop {
+  font-size: 29px;
+  margin-bottom: 4px;
 }
 
 .big {
@@ -525,21 +535,21 @@ body {
 
 .hero-role--lg {
   font-size: 29px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .hero-role--sm {
   font-size: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .hero-links--mobile {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .hero-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 56px;
 }
 
@@ -547,20 +557,48 @@ body {
   flex-shrink: 0;
 }
 
+.hero-row .w3-center {
+  padding-top: 30px;
+}
+
 .hero-name--desktop {
   display: block;
   font-size: 75px;
-  margin-bottom: 0.2em;
+  margin-bottom: 4px;
 }
 
 .hero-role--desktop {
   display: block;
   font-size: 45px;
-  margin-bottom: 0.7em;
+  margin-bottom: 26px;
 }
 
 .hero-links--desktop {
-  font-size: 35px;
+  font-size: 29px;
+}
+
+.hero-links--mobile a,
+.hero-links--desktop a {
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.hero-links--mobile a::after,
+.hero-links--desktop a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: #e91e63;
+  transition: right 0.25s ease;
+}
+
+.hero-links--mobile a:hover::after,
+.hero-links--desktop a:hover::after {
+  right: 0;
 }
 
 .profile-img {
@@ -595,6 +633,20 @@ body {
 .dark-mode .hero-polaroid {
   border-color: #fff;
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+  .profile-img--mobile {
+    width: 170px;
+  }
+
+  .hero-polaroid {
+    padding: 10px 10px 26px;
+  }
+
+  .hero-mobile .hero-polaroid {
+    margin-bottom: 32px;
+  }
 }
 
 .scroll-indicator {
