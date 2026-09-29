@@ -177,7 +177,7 @@ export default async function handler(req) {
       });
     }
 
-    return new Response(JSON.stringify({ reply }), {
+    return new Response(JSON.stringify({ reply, _debug: { languageRaw, isPortuguese } }), {
       status: 200,
       headers: { ...headers, 'Content-Type': 'application/json' },
     });
