@@ -138,10 +138,14 @@ export default async function handler(req) {
 
     // If the classifier call itself fails, default to English and let the
     // main call below be the real test of whether the API is reachable.
-    // The classifier is asked to answer in English ("yes"/"no"), but small
-    // models sometimes mirror the input language instead (e.g. "sim" for a
-    // Portuguese message), so both forms are accepted here.
-    const isPortuguese = languageRaw !== null && /\b(yes|sim)\b/i.test(languageRaw);
+    // Small models don't always answer with a bare "yes"/"no" as asked —
+    // they may mirror the input language ("sim") or just name the language
+    // directly ("Portuguese.") — so this checks for any positive signal
+    // that isn't cancelled out by a negation in the same reply.
+    const normalizedLanguage = (languageRaw || '').toLowerCase();
+    const negated = /\b(no|não|nao|not)\b/.test(normalizedLanguage);
+    const positive = /\b(yes|sim)\b/.test(normalizedLanguage) || /portugu/.test(normalizedLanguage);
+    const isPortuguese = languageRaw !== null && positive && !negated;
     const languageInstruction = isPortuguese ? 'Reply in Portuguese.' : 'Reply in English.';
 
     const messages = [
