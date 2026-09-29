@@ -133,7 +133,7 @@ export default async function handler(req) {
         { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
         { role: 'user', content: message },
       ],
-      20,
+      150,
     );
 
     // If the classifier call itself fails, default to English and let the
