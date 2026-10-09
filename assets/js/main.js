@@ -28,6 +28,11 @@ slowImage.src = "/assets/icons/flag-ukus.png";
 const slowImage2 = new Image();
 slowImage2.src = "/assets/icons/flag-pt.png";
 
+const themeImage1 = new Image();
+themeImage1.src = "/assets/icons/emoji-sun.png";
+const themeImage2 = new Image();
+themeImage2.src = "/assets/icons/emoji-moon.png";
+
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
 
