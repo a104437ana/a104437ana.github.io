@@ -6,7 +6,7 @@ export const config = {
 
 const SYSTEM_PROMPT = `You are the virtual assistant for Ana Sá Oliveira's personal website. ALWAYS answer based on the facts below, briefly, kindly, and directly.
 
-LANGUAGE RULE (the most important one, applies to EVERYTHING, including refusals and warnings): you will be given a separate instruction telling you whether to reply in English or Portuguese. Follow it exactly for the entire reply.
+LANGUAGE RULE (the most important one, applies to EVERYTHING, including refusals and warnings): always reply in the same language the visitor just wrote in (Portuguese or English).
 
 Facts about Ana:
 - Ana Sá Oliveira, software engineer, born in Braga, Portugal.
@@ -29,14 +29,6 @@ Rules:
 // Projects section is temporarily hidden on the site — keeping these facts commented out for now:
 // - Project gitcolors (gitcolors.vercel.app): GitHub contributions graph generator for READMEs, in any color or theme.
 // - Project sakura-garden (sakura-garden.vercel.app): GitHub contributions "garden" generator for READMEs.
-
-// Cheap local heuristic instead of a separate LLM call to classify
-// language — one less network round trip (and one less place to hang).
-const PORTUGUESE_WORDS = /\b(não|nao|você|voce|está|esta|são|sao|também|tambem|porque|obrigad[oa]|olá|ola|isso|aqui|muito|então|entao|quero|gosto|fazer|pode|preciso|ajuda|qual|quem|quando|onde|como)\b/i;
-
-function isPortugueseMessage(text) {
-  return /[ãõáàâéêíóôúçÁÀÂÉÊÍÓÔÚÃÕÇ]/.test(text) || PORTUGUESE_WORDS.test(text);
-}
 
 const MODELS = [
   'qwen/qwen3.8-27b:free',
@@ -193,11 +185,8 @@ export default async function handler(req) {
     .map(m => ({ role: m.role, content: m.content.slice(0, 500) }));
 
   try {
-    const languageInstruction = isPortugueseMessage(message) ? 'Reply in Portuguese.' : 'Reply in English.';
-
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
-      { role: 'system', content: languageInstruction },
       ...trimmedHistory,
       { role: 'user', content: message },
     ];
