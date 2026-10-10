@@ -184,31 +184,48 @@ export default async function handler(req) {
     .slice(-10)
     .map(m => ({ role: m.role, content: m.content.slice(0, 500) }));
 
-  try {
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...trimmedHistory,
-      { role: 'user', content: message },
-    ];
+  const work = (async () => {
+    try {
+      const messages = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...trimmedHistory,
+        { role: 'user', content: message },
+      ];
 
-    const upstream = await callModelStream(messages, 600);
+      const upstream = await callModelStream(messages, 600);
 
-    if (upstream === null) {
-      await markChatLimitReached();
-      return new Response(JSON.stringify({ error: 'rate_limited' }), {
-        status: 429,
+      if (upstream === null) {
+        await markChatLimitReached();
+        return new Response(JSON.stringify({ error: 'rate_limited' }), {
+          status: 429,
+          headers: { ...headers, 'Content-Type': 'application/json' },
+        });
+      }
+
+      return new Response(textDeltaStream(upstream), {
+        status: 200,
+        headers: { ...headers, 'Content-Type': 'text/plain; charset=utf-8' },
+      });
+    } catch {
+      return new Response(JSON.stringify({ error: 'request failed' }), {
+        status: 502,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
     }
+  })();
 
-    return new Response(textDeltaStream(upstream), {
-      status: 200,
-      headers: { ...headers, 'Content-Type': 'text/plain; charset=utf-8' },
-    });
-  } catch {
-    return new Response(JSON.stringify({ error: 'request failed' }), {
-      status: 502,
-      headers: { ...headers, 'Content-Type': 'application/json' },
-    });
-  }
+  // Hard backstop: whatever gets stuck upstream (a provider that accepts
+  // the connection but never replies, a timeout that doesn't fire the way
+  // the runtime promises), the visitor must never be left staring at a
+  // spinner forever.
+  const deadline = new Promise(resolve => {
+    setTimeout(() => {
+      resolve(new Response(JSON.stringify({ error: 'timeout' }), {
+        status: 504,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+      }));
+    }, 20000);
+  });
+
+  return Promise.race([work, deadline]);
 }
