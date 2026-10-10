@@ -156,6 +156,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return bubble;
   }
 
+  function typeOutText(bubble, text) {
+    return new Promise(resolve => {
+      let shown = 0;
+      const interval = setInterval(() => {
+        shown += 2;
+        bubble.textContent = text.slice(0, shown);
+        shrinkSpacerToFit();
+        if (shown >= text.length) {
+          clearInterval(interval);
+          bubble.textContent = text;
+          resolve();
+        }
+      }, 20);
+    });
+  }
+
   function shrinkSpacerToFit() {
     if (!chatSpacer) return;
     const spacerHeight = chatSpacer.offsetHeight;
@@ -193,10 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
     chatInput.disabled = true;
 
     addMessage("user", text);
-    const typingBubble = addMessage("bot", "...");
+    const typingBubble = addMessage("bot", "");
+    typingBubble.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
 
     const abortController = new AbortController();
-    const abortTimer = setTimeout(() => abortController.abort(), 45000);
+    const abortTimer = setTimeout(() => abortController.abort(), 25000);
 
     try {
       const response = await fetch(CHAT_API_URL, {
@@ -211,34 +228,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!response.ok || !response.body) throw new Error("bad response");
+      if (!response.ok) throw new Error("bad response");
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let fullText = "";
-      let firstChunk = true;
+      const data = await response.json();
+      if (!data.reply) throw new Error("empty reply");
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        if (!chunk) continue;
-
-        if (firstChunk) {
-          typingBubble.textContent = "";
-          firstChunk = false;
-        }
-
-        fullText += chunk;
-        typingBubble.textContent = fullText;
-        shrinkSpacerToFit();
-      }
-
-      if (!fullText) throw new Error("empty reply");
+      await typeOutText(typingBubble, data.reply);
 
       chatHistory.push({ role: "user", content: text });
-      chatHistory.push({ role: "assistant", content: fullText });
+      chatHistory.push({ role: "assistant", content: data.reply });
     } catch {
       typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
     } finally {
