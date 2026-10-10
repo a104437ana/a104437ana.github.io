@@ -207,13 +207,34 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!response.ok) throw new Error("bad response");
+      if (!response.ok || !response.body) throw new Error("bad response");
 
-      const data = await response.json();
-      typingBubble.textContent = data.reply;
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = "";
+      let firstChunk = true;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+
+        if (firstChunk) {
+          typingBubble.textContent = "";
+          firstChunk = false;
+        }
+
+        fullText += chunk;
+        typingBubble.textContent = fullText;
+        shrinkSpacerToFit();
+      }
+
+      if (!fullText) throw new Error("empty reply");
 
       chatHistory.push({ role: "user", content: text });
-      chatHistory.push({ role: "assistant", content: data.reply });
+      chatHistory.push({ role: "assistant", content: fullText });
     } catch {
       typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
     } finally {

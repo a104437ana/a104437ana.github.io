@@ -87,6 +87,81 @@ async function callModel(messages, maxTokens) {
   return data?.choices?.[0]?.message?.content?.trim() ?? null;
 }
 
+async function callModelStream(messages, maxTokens) {
+  let upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-oss-120b',
+      messages,
+      max_tokens: maxTokens,
+      stream: true,
+    }),
+  });
+
+  if (!upstream.ok) {
+    upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        models: MODELS,
+        messages,
+        max_tokens: maxTokens,
+        stream: true,
+      }),
+    });
+  }
+
+  return upstream.ok ? upstream : null;
+}
+
+// Re-packages the provider's OpenAI-style SSE stream (lines like
+// `data: {"choices":[{"delta":{"content":"..."}}]}`) into a plain text
+// stream of just the content deltas, which the frontend reads directly.
+function textDeltaStream(upstream) {
+  const reader = upstream.body.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let buffer = '';
+
+  return new ReadableStream({
+    async pull(controller) {
+      const { done, value } = await reader.read();
+      if (done) {
+        controller.close();
+        return;
+      }
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) continue;
+        const payload = trimmed.slice(5).trim();
+        if (payload === '[DONE]') continue;
+
+        try {
+          const delta = JSON.parse(payload)?.choices?.[0]?.delta?.content;
+          if (delta) controller.enqueue(encoder.encode(delta));
+        } catch {
+          // skip malformed chunk
+        }
+      }
+    },
+    cancel() {
+      reader.cancel();
+    },
+  });
+}
+
 export default async function handler(req) {
   const origin = req.headers.get('origin') || '';
   const headers = corsHeaders(origin);
@@ -155,9 +230,9 @@ export default async function handler(req) {
       { role: 'user', content: message },
     ];
 
-    const rawReply = await callModel(messages, 600);
+    const upstream = await callModelStream(messages, 600);
 
-    if (rawReply === null) {
+    if (upstream === null) {
       await markChatLimitReached();
       return new Response(JSON.stringify({ error: 'rate_limited' }), {
         status: 429,
@@ -165,21 +240,9 @@ export default async function handler(req) {
       });
     }
 
-    const reply = rawReply
-      .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/`(.*?)`/g, '$1')
-      .replace(/^#+\s*/gm, '');
-
-    if (!reply) {
-      return new Response(JSON.stringify({ error: 'empty reply' }), {
-        status: 502,
-        headers: { ...headers, 'Content-Type': 'application/json' },
-      });
-    }
-
-    return new Response(JSON.stringify({ reply }), {
+    return new Response(textDeltaStream(upstream), {
       status: 200,
-      headers: { ...headers, 'Content-Type': 'application/json' },
+      headers: { ...headers, 'Content-Type': 'text/plain; charset=utf-8' },
     });
   } catch {
     return new Response(JSON.stringify({ error: 'request failed' }), {
