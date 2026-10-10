@@ -30,7 +30,13 @@ Rules:
 // - Project gitcolors (gitcolors.vercel.app): GitHub contributions graph generator for READMEs, in any color or theme.
 // - Project sakura-garden (sakura-garden.vercel.app): GitHub contributions "garden" generator for READMEs.
 
-const LANGUAGE_CLASSIFIER_PROMPT = `Is the user's message written in Portuguese? Reply with exactly one word, nothing else: "yes" or "no".`;
+// Cheap local heuristic instead of a separate LLM call to classify
+// language — one less network round trip (and one less place to hang).
+const PORTUGUESE_WORDS = /\b(não|nao|você|voce|está|esta|são|sao|também|tambem|porque|obrigad[oa]|olá|ola|isso|aqui|muito|então|entao|quero|gosto|fazer|pode|preciso|ajuda|qual|quem|quando|onde|como)\b/i;
+
+function isPortugueseMessage(text) {
+  return /[ãõáàâéêíóôúçÁÀÂÉÊÍÓÔÚÃÕÇ]/.test(text) || PORTUGUESE_WORDS.test(text);
+}
 
 const MODELS = [
   'qwen/qwen3.8-27b:free',
@@ -69,41 +75,6 @@ async function fetchWithTimeout(url, options) {
   } finally {
     clearTimeout(timer);
   }
-}
-
-async function callModel(messages, maxTokens) {
-  let upstream = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'openai/gpt-oss-120b',
-      messages,
-      max_tokens: maxTokens,
-    }),
-  });
-
-  if (!upstream || !upstream.ok) {
-    upstream = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        models: MODELS,
-        messages,
-        max_tokens: maxTokens,
-      }),
-    });
-  }
-
-  if (!upstream || !upstream.ok) return null;
-
-  const data = await upstream.json();
-  return data?.choices?.[0]?.message?.content?.trim() ?? null;
 }
 
 async function callModelStream(messages, maxTokens) {
@@ -222,25 +193,7 @@ export default async function handler(req) {
     .map(m => ({ role: m.role, content: m.content.slice(0, 500) }));
 
   try {
-    const languageRaw = await callModel(
-      [
-        { role: 'system', content: LANGUAGE_CLASSIFIER_PROMPT },
-        { role: 'user', content: message },
-      ],
-      150,
-    );
-
-    // If the classifier call itself fails, default to English and let the
-    // main call below be the real test of whether the API is reachable.
-    // Small models don't always answer with a bare "yes"/"no" as asked —
-    // they may mirror the input language ("sim") or just name the language
-    // directly ("Portuguese.") — so this checks for any positive signal
-    // that isn't cancelled out by a negation in the same reply.
-    const normalizedLanguage = (languageRaw || '').toLowerCase();
-    const negated = /\b(no|não|nao|not)\b/.test(normalizedLanguage);
-    const positive = /\b(yes|sim)\b/.test(normalizedLanguage) || /portugu/.test(normalizedLanguage);
-    const isPortuguese = languageRaw !== null && positive && !negated;
-    const languageInstruction = isPortuguese ? 'Reply in Portuguese.' : 'Reply in English.';
+    const languageInstruction = isPortugueseMessage(message) ? 'Reply in Portuguese.' : 'Reply in English.';
 
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
