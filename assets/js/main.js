@@ -195,11 +195,15 @@ document.addEventListener("DOMContentLoaded", () => {
     addMessage("user", text);
     const typingBubble = addMessage("bot", "...");
 
+    const abortController = new AbortController();
+    const abortTimer = setTimeout(() => abortController.abort(), 45000);
+
     try {
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: chatHistory })
+        body: JSON.stringify({ message: text, history: chatHistory }),
+        signal: abortController.signal
       });
 
       if (response.status === 429) {
@@ -238,6 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {
       typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
     } finally {
+      clearTimeout(abortTimer);
       chatSending = false;
       chatInput.disabled = false;
       chatInput.focus();

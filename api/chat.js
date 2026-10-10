@@ -52,8 +52,27 @@ function corsHeaders(origin) {
   };
 }
 
+const UPSTREAM_TIMEOUT_MS = 10000;
+
+// Providers occasionally accept the TCP connection but never send a
+// response at all (no headers, no error) when overloaded, which leaves a
+// bare `fetch` pending forever. Bound every attempt so a stuck provider
+// gets treated as a failure and triggers the fallback/error path instead
+// of hanging the whole request indefinitely.
+async function fetchWithTimeout(url, options) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function callModel(messages, maxTokens) {
-  let upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  let upstream = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
@@ -66,8 +85,8 @@ async function callModel(messages, maxTokens) {
     }),
   });
 
-  if (!upstream.ok) {
-    upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  if (!upstream || !upstream.ok) {
+    upstream = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
@@ -81,14 +100,14 @@ async function callModel(messages, maxTokens) {
     });
   }
 
-  if (!upstream.ok) return null;
+  if (!upstream || !upstream.ok) return null;
 
   const data = await upstream.json();
   return data?.choices?.[0]?.message?.content?.trim() ?? null;
 }
 
 async function callModelStream(messages, maxTokens) {
-  let upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  let upstream = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
@@ -102,8 +121,8 @@ async function callModelStream(messages, maxTokens) {
     }),
   });
 
-  if (!upstream.ok) {
-    upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  if (!upstream || !upstream.ok) {
+    upstream = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
@@ -118,7 +137,7 @@ async function callModelStream(messages, maxTokens) {
     });
   }
 
-  return upstream.ok ? upstream : null;
+  return upstream && upstream.ok ? upstream : null;
 }
 
 // Re-packages the provider's OpenAI-style SSE stream (lines like
