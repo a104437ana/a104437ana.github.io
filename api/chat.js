@@ -148,8 +148,10 @@ export default async function handler(req) {
 
   const work = (async () => {
     try {
+      const today = new Date().toISOString().slice(0, 10);
       const messages = [
         { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: `Today's date is ${today}. Use it to judge which facts in <facts> are past, current, or upcoming when asked about "now" or "currently".` },
         ...trimmedHistory,
         { role: 'user', content: message },
       ];
