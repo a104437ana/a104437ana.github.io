@@ -47,6 +47,7 @@
         </script>
         <script src="/assets/js/main.js" defer></script>
         <script src="/assets/js/home.js" defer></script>
+        <script src="/assets/js/dino-game.js" defer></script>
         <script>
             (function () {
                 const root = document.documentElement;
@@ -669,7 +670,7 @@
                     <br>
                     <h4>
                         <div class="margin-lr-20">
-                            <span data-pt="Como agradecimento por chegares até ao fim, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também <b class='w3-text-pink'>dois comandos secretos</b>... Consegues descobri-los?">As a thank‑you for reaching the end, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also <b class='w3-text-pink'>two secret commands</b>... Can you discover them?</span>
+                            <span data-pt="Como agradecimento por chegares até ao fim, tenho duas coisas para ti. Primeiro, aqui está o meu terminal em estilo Linux. Escreve <b class='w3-text-pink'>help</b> para veres os comandos disponíveis... mas atenção: há também <b class='w3-text-pink'>um comando secreto</b>... Consegues descobri-lo?">As a thank‑you for reaching the end, I have two things for you. First, here’s my Linux-style terminal. Type <b class='w3-text-pink'>help</b> to see the available commands... but be warned: there’s also <b class='w3-text-pink'>a secret command</b>... Can you discover it?</span>
                         </div>
                         <div id="b">
                             <div id="terminal" onclick="focusInput(this)">
@@ -680,10 +681,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="margin-lr-20">
+                            <span data-pt="Se não tens paciência para procurar comandos secretos, aqui fica o meu jogo do dinossauro. Totalmente original, não copiei de lado nenhum. Toca ou carrega em espaço para saltar. O recorde é partilhado por todos os visitantes do site, por isso boa sorte a tentar batê-lo. Diverte-te!">If you don't have the patience to look for secret commands, here's my dino game instead. Totally original, definitely didn't copy it from anywhere. Tap or press space to jump. The record is shared across every visitor to the site, so good luck beating it. Have fun!</span>
+                        </div>
+                        <div class="dino-game-wrap">
+                            <canvas id="dino-canvas" tabindex="0"></canvas>
+                        </div>
+                        <br>
+                        <br>
                         <div class="w3-center w3-text-pink">
                             <b data-pt="Adeus!">Goodbye!</b>
                         </div>
-                        <br>
                     </h4>
                 </div>
             </div>

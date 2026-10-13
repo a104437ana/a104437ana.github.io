@@ -107,8 +107,8 @@ function runTerminalCommand(real_command, output, terminal, commandInput) {
 
   if (commands[0] === "help" && commands.length === 1) {
     output.innerHTML += isPt
-      ? `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`
-      : `<div>Available commands: <br>help, whoami, date, pwd, ls, cat README.md, cat untitled.txt, clear</div>`;
+      ? `<div>Comandos disponíveis: <br>help, whoami, date, pwd, ls, cat README.md, cat art.txt, clear</div>`
+      : `<div>Available commands: <br>help, whoami, date, pwd, ls, cat README.md, cat art.txt, clear</div>`;
   } else if (command === "whoami" && commands.length === 1) {
     output.innerHTML += isPt ? `<div>um visitante misterioso</div>` : `<div>a mysterious internet stranger</div>`;
   } else if (commands[0] === "date" && commands.length === 1) {
@@ -129,8 +129,8 @@ function runTerminalCommand(real_command, output, terminal, commandInput) {
   } else if (command === "pwd" && commands.length === 1) {
     output.innerHTML += `<div>/home/ana</div>`;
   } else if (commands[0] === "ls" && commands.length === 1) {
-    output.innerHTML += `<div>README.md&nbsp;&nbsp;&nbsp;untitled.txt</div>`;
-  } else if (commands[0] === "cat" && commands[1] === "untitled.txt" && commands.length === 2) {
+    output.innerHTML += `<div>art.txt&nbsp;&nbsp;&nbsp;README.md</div>`;
+  } else if (commands[0] === "cat" && commands[1] === "art.txt" && commands.length === 2) {
     output.innerHTML += isPt
       ? `<div>&nbsp;|\\-----/|<br>&nbsp;| o_o | < miau<br>&nbsp;&nbsp;\\_^_/<br></div>`
       : `<div>&nbsp;|\\-----/|<br>&nbsp;| o_o | < meow<br>&nbsp;&nbsp;\\_^_/<br></div>`;
@@ -145,9 +145,6 @@ function runTerminalCommand(real_command, output, terminal, commandInput) {
     output.innerHTML += isPt
       ? `<div>༄༄༄༄༄༄<br>Olha só o que o vento trouxe! Acabaste de levar um rickroll! hahaha</div>`
       : `<div>༄༄༄༄༄༄<br>Look what the wind blew in! You just got rickrolled! hahaha</div>`;
-  } else if ((commands[0] === "miau" || commands[0] === "meow") && commands.length === 1) {
-    window.open("/assets/video/video2.mp4", "_blank");
-    output.innerHTML += `<div>^_^</div>`;
   } else {
     output.innerHTML += isPt ? `<div>${real_command}: comando não encontrado</div>` : `<div>${real_command}: command not found</div>`;
   }
@@ -244,6 +241,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const commandInput = document.getElementById("command");
   const output = document.getElementById("output");
   const terminal = document.getElementById("terminal");
+
+  // Prefetch the rickroll video (triggered by the hidden "vento"/"wind"
+  // command) as soon as someone actually clicks or types in the terminal,
+  // so it's likely already cached by the time anyone finds the secret
+  // command. Visitors who never interact with the terminal never trigger
+  // this.
+  let videoPrefetched = false;
+  function prefetchVideoOnce() {
+    if (videoPrefetched) return;
+    videoPrefetched = true;
+    const startPrefetch = () => {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = "/assets/video/video.mp4";
+      link.as = "video";
+      document.head.appendChild(link);
+    };
+    // Wait for the browser to be truly idle before fetching, so a 30MB
+    // background download never competes with the dino game's frame loop.
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(startPrefetch, { timeout: 5000 });
+    } else {
+      setTimeout(startPrefetch, 2000);
+    }
+  }
+
+  if (terminal) {
+    terminal.addEventListener("click", prefetchVideoOnce, { once: true });
+  }
+  if (commandInput) {
+    commandInput.addEventListener("keydown", prefetchVideoOnce, { once: true });
+  }
 
   commandInput.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
