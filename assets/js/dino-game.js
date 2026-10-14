@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = canvas.getContext("2d");
   const statusEl = document.getElementById("dino-status");
   const scoreEl = document.getElementById("dino-score");
+  const headerEl = document.getElementById("dino-header");
 
   // No point mentioning the space bar on a touch device — there isn't one.
   const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // right as it happens — the rest of the header stays theme-colored
       // black/white, including the "continue" hint once it shows up.
       const lostText = isPt ? "Perdeste e levaste rickroll haha" : "You lost and got rickrolled haha";
-      if (Date.now() - rickrollStartTime >= MIN_RICKROLL_WATCH_MS) {
+      if (Date.now() - rickrollStartTime >= currentRickrollWatchMs) {
         const continueText = !isTouchDevice && canvasFocused
           ? (isPt ? "Toca ou carrega em espaço para continuar" : "Tap or press space to continue")
           : (isPt ? "Toca para continuar" : "Tap to continue");
@@ -48,6 +49,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!scoreEl) return;
     const shown = Math.floor(score / 5) % 100000;
     scoreEl.textContent = String(shown).padStart(5, "0");
+  }
+
+  // Only the rickroll's own two texts (lost-only vs. lost + continue hint)
+  // need to match heights — that's the one transition that happens while
+  // someone's actually watching, mid-video. Idle/playing text is short and
+  // changes at moments nobody's staring at the header, so there's no need
+  // to inflate the header for them too (that just leaves it looking mostly
+  // empty for most of the game).
+  const RICKROLL_STATUS_TEXTS = [
+    "Perdeste e levaste rickroll haha",
+    "Perdeste e levaste rickroll haha Toca ou carrega em espaço para continuar",
+    "You lost and got rickrolled haha",
+    "You lost and got rickrolled haha Tap or press space to continue",
+  ];
+
+  function stabilizeHeaderHeight() {
+    if (!statusEl || !headerEl) return;
+    const originalHTML = statusEl.innerHTML;
+    let maxHeight = 0;
+    for (const text of RICKROLL_STATUS_TEXTS) {
+      statusEl.textContent = text;
+      maxHeight = Math.max(maxHeight, statusEl.offsetHeight);
+    }
+    statusEl.innerHTML = originalHTML;
+    const verticalPadding = 12; // 6px top + 6px bottom, from #dino-header's CSS padding
+    headerEl.dataset.rickrollMinHeight = `${maxHeight + verticalPadding}px`;
   }
 
   function currentColor() {
@@ -73,6 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateRecordText() {
     const el = document.getElementById("dino-record-count");
     if (el) el.textContent = String(highScore);
+  }
+
+  // Same deal: desktop mentions both tap and space, touch devices only
+  // mention tap (there's no space bar).
+  function updateIntroControlsText() {
+    const el = document.getElementById("dino-intro-controls");
+    if (!el) return;
+    const isPt = document.documentElement.lang === "pt";
+    el.textContent = isTouchDevice
+      ? (isPt ? "Toca para saltar" : "Tap to jump")
+      : (isPt ? "Toca ou carrega em espaço para saltar" : "Tap or press space to jump");
   }
 
   fetch(HIGH_SCORE_API_URL)
@@ -120,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const DINO_RUN_A = { sx: 938, sy: 4, sw: 40, sh: 43 };
   const DINO_RUN_B = { sx: 982, sy: 4, sw: 40, sh: 43 };
   const CACTUS_FRAME = { sx: 229, sy: 3, sw: 15, sh: 33 };
-
   const CACTUS_WIDTH = 27;
   const CACTUS_HEIGHT = 60;
 
@@ -149,16 +186,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Minimum time the rickroll must play before a tap/space can skip it —
   // otherwise mashing space right after losing would skip it instantly.
-  const MIN_RICKROLL_WATCH_MS = 5000;
+  // Full length only the first time per session; shorter on repeat losses
+  // so trying again to beat the record doesn't mean re-sitting through
+  // the whole bit every single time.
+  const FIRST_RICKROLL_WATCH_MS = 5000;
+  const REPEAT_RICKROLL_WATCH_MS = 2000;
   let rickrollStartTime = 0;
+  let rickrollCount = 0;
+  let currentRickrollWatchMs = FIRST_RICKROLL_WATCH_MS;
 
   function startRickroll() {
     rickrolling = true;
     running = false;
     if (rafId) cancelAnimationFrame(rafId);
+    rickrollCount++;
+    currentRickrollWatchMs = rickrollCount === 1 ? FIRST_RICKROLL_WATCH_MS : REPEAT_RICKROLL_WATCH_MS;
     rickrollStartTime = Date.now();
     rickrollVideo.currentTime = 0;
     rickrollVideo.play().catch(() => {});
+    // Reserve enough header height for the "+ continue" text that appears
+    // partway through, so it doesn't pop and resize the header mid-watch.
+    if (headerEl && headerEl.dataset.rickrollMinHeight) {
+      headerEl.style.minHeight = headerEl.dataset.rickrollMinHeight;
+    }
     rickrollLoop();
   }
 
@@ -166,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
     rickrolling = false;
     rickrollVideo.pause();
     started = false;
+    if (headerEl) headerEl.style.minHeight = "";
     resetGame();
     draw();
   }
@@ -183,10 +234,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const sx = rickrollVideo.videoWidth * (159 / 1280);
       const sw = rickrollVideo.videoWidth * ((1120 - 159) / 1280);
       const sh = rickrollVideo.videoHeight;
-      const scale = Math.min(width / sw, height / sh);
+      // Inset a bit instead of touching the canvas edges top-to-bottom —
+      // leaves a visible margin so it doesn't feel like it's filling the
+      // whole scoreboard.
+      const scale = Math.min(width / sw, height / sh) * 0.85;
       const vw = sw * scale;
       const vh = sh * scale;
-      ctx.drawImage(rickrollVideo, sx, 0, sw, sh, (width - vw) / 2, (height - vh) / 2, vw, vh);
+      // Repeat side by side to fill the width, if more than one copy fits —
+      // same video element, same current frame, just drawn more than once.
+      const tileGap = 12;
+      const tileCount = Math.max(1, Math.floor((width + tileGap) / (vw + tileGap)));
+      const rowWidth = tileCount * vw + (tileCount - 1) * tileGap;
+      const startX = (width - rowWidth) / 2;
+      for (let i = 0; i < tileCount; i++) {
+        ctx.drawImage(rickrollVideo, sx, 0, sw, sh, startX + i * (vw + tileGap), (height - vh) / 2, vw, vh);
+      }
     }
     updateStatusText();
 
@@ -240,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function jump() {
     if (rickrolling) {
-      if (Date.now() - rickrollStartTime >= MIN_RICKROLL_WATCH_MS) stopRickroll();
+      if (Date.now() - rickrollStartTime >= currentRickrollWatchMs) stopRickroll();
       return;
     }
     if (!started) {
@@ -360,6 +422,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   resize();
   resetGame();
+  stabilizeHeaderHeight();
+  updateIntroControlsText();
   draw();
 
   // Redraw immediately on theme or language toggle, so an idle canvas (not
@@ -367,6 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // or language.
   new MutationObserver(() => {
     updateRecordText();
+    updateIntroControlsText();
     if (!running && !rickrolling) draw();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["class", "lang"] });
 
@@ -401,7 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Tapping the header (instructions or score) jumps/starts/continues
   // too, not just the canvas itself. Also focus the canvas so the space
   // bar keeps working afterward, same as tapping the canvas directly.
-  const headerEl = document.getElementById("dino-header");
   if (headerEl) {
     headerEl.addEventListener("mousedown", e => {
       if (e.button !== 0) return;
@@ -417,6 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("resize", () => {
     resize();
+    stabilizeHeaderHeight();
     if (!rickrolling) draw();
   });
 });
