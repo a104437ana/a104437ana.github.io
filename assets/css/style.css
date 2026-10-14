@@ -933,6 +933,19 @@ body {
   margin-right: 20px;
 }
 
+.end-gif-wrap {
+  margin-top: 36px;
+}
+
+.end-gif {
+  max-width: 420px;
+  width: 100%;
+}
+
+.end-goodbye {
+  margin-top: 36px;
+}
+
 /* Generic utilities */
 
 .no-underline {
@@ -991,8 +1004,4 @@ button,
   .fab--lang {
     bottom: 12px;
   }
-}
-
-#end-video-play {
-  border-left: 26px solid #fff;
 }
