@@ -993,64 +993,6 @@ button,
   }
 }
 
-/* Dino game */
-
-.dino-game-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  margin-top: 20px;
-  margin-bottom: 40px;
+#end-video-play {
+  border-left: 26px solid #fff;
 }
-
-#dino-header {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  max-width: 900px;
-  border: 2px solid #000;
-  border-bottom: none;
-  border-radius: 12px 12px 0 0;
-  padding: 6px 10px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 20px;
-  color: #000;
-  cursor: pointer;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-#dino-score {
-  flex-shrink: 0;
-}
-
-.dark-mode #dino-header {
-  border-color: #fff;
-  color: #fff;
-}
-
-#dino-canvas {
-  display: block;
-  width: 100%;
-  max-width: 900px;
-  height: 220px;
-  border: 2px solid #000;
-  border-top: none;
-  border-radius: 0 0 12px 12px;
-  overflow: hidden;
-  background: transparent;
-  touch-action: manipulation;
-  outline: none;
-  cursor: pointer;
-}
-
-.dark-mode #dino-canvas {
-  border-color: #fff;
-}
-

@@ -95,6 +95,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const age = calculateAge("2004-01-05");
   document.getElementById("years").textContent = age;
 
+  const endVideo = document.getElementById("end-video");
+  const endVideoPlay = document.getElementById("end-video-play");
+  if (endVideo) {
+    // No native controls — clicking just toggles play/pause, nothing else.
+    endVideo.addEventListener("click", () => {
+      if (endVideo.paused) endVideo.play();
+      else endVideo.pause();
+    });
+    if (endVideoPlay) {
+      endVideo.addEventListener("play", () => {
+        endVideoPlay.style.display = "none";
+      });
+      endVideo.addEventListener("pause", () => {
+        endVideoPlay.style.display = "block";
+      });
+    }
+
+    // Start fetching the video once it's about to scroll into view, so
+    // it's already loaded (or well on its way) by the time someone taps
+    // play — instead of only starting the download at that tap. Warm the
+    // browser's HTTP cache with a plain fetch() rather than flipping the
+    // video element's own preload attribute — the latter makes the video
+    // start rendering its own (black) surface as soon as it has data,
+    // covering up the preview background before anyone's even pressed play.
+    const endVideoObserver = new IntersectionObserver(
+      entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          fetch(endVideo.currentSrc || endVideo.querySelector("source").src);
+          endVideoObserver.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    endVideoObserver.observe(endVideo);
+  }
+
   const indicator = document.getElementById("scroll-indicator");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {

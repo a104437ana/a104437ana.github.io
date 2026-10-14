@@ -47,7 +47,6 @@
         </script>
         <script src="/assets/js/main.js" defer></script>
         <script src="/assets/js/home.js" defer></script>
-        <script src="/assets/js/dino-game.js" defer></script>
         <script>
             (function () {
                 const root = document.documentElement;
@@ -672,19 +671,17 @@
                     <br>
                     <h4>
                         <div class="margin-lr-20">
-                            <span data-pt='Como agradecimento por chegares ao fim, aqui fica a minha versão do jogo do dinossauro do Chrome. <span id="dino-intro-controls">Toca ou carrega em espaço para saltar</span>. O recorde atual é <span id="dino-record-count">0</span>. Consegues ultrapassá-lo? Diverte-te!'>As a thank‑you for reaching the end, here's my version of Chrome's dino game. <span id="dino-intro-controls">Tap or press space to jump</span>. The current record is <span id="dino-record-count">0</span>. Can you beat it? Have fun!</span>
+                            <span data-pt="Este é o meu website, o meu cantinho na internet. Espero que tenhas gostado dele. Como agradecimento por chegares até ao fim, deixo-te um pequeno vídeo com uma última mensagem:">This is my website, my little corner of the internet. I hope you enjoyed it. As a thank‑you for reaching the end, here's a short video with one last message:</span>
                         </div>
-                        <div class="dino-game-wrap margin-lr-20">
-                            <div id="dino-header">
-                                <span id="dino-status">Tap to start</span>
-                                <span id="dino-score">00000</span>
+                        <div class="w3-center w3-margin-top">
+                            <div id="end-video-wrap" style="position:relative;display:inline-block;width:100%;max-width:480px;">
+                                <video id="end-video" playsinline preload="none" disablePictureInPicture style="width:100%;aspect-ratio:4/3;background:#000;border:2px solid #fff;box-sizing:border-box;cursor:pointer;display:block;">
+                                    <source src="/assets/video/video.mp4" type="video/mp4">
+                                </video>
+                                <div id="end-video-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:0;height:0;border-top:16px solid transparent;border-bottom:16px solid transparent;pointer-events:none;"></div>
                             </div>
-                            <canvas id="dino-canvas" tabindex="0"></canvas>
                         </div>
-                        <div class="margin-lr-20 w3-margin-top">
-                            <span data-pt="Este é o meu website, o meu cantinho na internet. Espero que tenhas gostado. Volta sempre que quiseres :)">This is my website, my little corner of the internet. I hope you enjoyed it. Come back whenever you want :)</span>
-                        </div>
-                        <div class="w3-center w3-text-pink">
+                        <div class="w3-center w3-text-pink w3-margin-top">
                             <b data-pt="Adeus!">Goodbye!</b>
                         </div>
                         <br>
