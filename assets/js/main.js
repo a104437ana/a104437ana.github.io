@@ -102,149 +102,154 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatInput = document.getElementById("chat-input");
   const chatHistory = [];
   let chatSending = false;
+  let resetChat = null;
 
-  function revealChatButton() {
-    chatButton.style.display = "inline-block";
-    setTimeout(() => {
-      chatButton.style.opacity = "1";
-    }, 20);
-  }
-
-  fetch(CHAT_API_URL.replace("/chat", "/chat-status"))
-    .then(r => r.json())
-    .then(data => {
-      if (data.available) revealChatButton();
-    })
-    .catch(revealChatButton);
-
-  chatButton.addEventListener("click", () => {
-    chatPanel.classList.toggle("open");
-  });
-
-  chatClose.addEventListener("click", () => {
-    chatPanel.classList.remove("open");
-  });
-
-  let chatSpacer = null;
-
-  function addMessage(role, text) {
-    const row = document.createElement("div");
-    row.className = role === "user" ? "chat-row chat-row--user" : "chat-row chat-row--bot";
-    const bubble = document.createElement("div");
-    bubble.className = "chat-panel-message";
-    bubble.textContent = text;
-    row.appendChild(bubble);
-
-    if (chatSpacer) {
-      chatBody.insertBefore(row, chatSpacer);
-    } else {
-      chatBody.appendChild(row);
-    }
-
-    if (role === "user") {
-      if (!chatSpacer) {
-        chatSpacer = document.createElement("div");
-        chatBody.appendChild(chatSpacer);
-      }
-      chatSpacer.style.height = `${chatBody.clientHeight}px`;
-
-      const topGap = 12;
-      const offset = row.getBoundingClientRect().top - chatBody.getBoundingClientRect().top;
-      chatBody.scrollTop += offset - topGap;
-    }
-
-    return bubble;
-  }
-
-  function typeOutText(bubble, text) {
-    return new Promise(resolve => {
-      let shown = 0;
-      const interval = setInterval(() => {
-        shown += 2;
-        bubble.textContent = text.slice(0, shown);
-        shrinkSpacerToFit();
-        if (shown >= text.length) {
-          clearInterval(interval);
-          bubble.textContent = text;
-          resolve();
-        }
+  // Chat UI is commented out in index.html for now (not in use, kept for later).
+  // This guard means nothing here runs until that markup comes back.
+  if (chatButton && chatPanel) {
+    function revealChatButton() {
+      chatButton.style.display = "inline-block";
+      setTimeout(() => {
+        chatButton.style.opacity = "1";
       }, 20);
+    }
+
+    fetch(CHAT_API_URL.replace("/chat", "/chat-status"))
+      .then(r => r.json())
+      .then(data => {
+        if (data.available) revealChatButton();
+      })
+      .catch(revealChatButton);
+
+    chatButton.addEventListener("click", () => {
+      chatPanel.classList.toggle("open");
+    });
+
+    chatClose.addEventListener("click", () => {
+      chatPanel.classList.remove("open");
+    });
+
+    let chatSpacer = null;
+
+    const addMessage = (role, text) => {
+      const row = document.createElement("div");
+      row.className = role === "user" ? "chat-row chat-row--user" : "chat-row chat-row--bot";
+      const bubble = document.createElement("div");
+      bubble.className = "chat-panel-message";
+      bubble.textContent = text;
+      row.appendChild(bubble);
+
+      if (chatSpacer) {
+        chatBody.insertBefore(row, chatSpacer);
+      } else {
+        chatBody.appendChild(row);
+      }
+
+      if (role === "user") {
+        if (!chatSpacer) {
+          chatSpacer = document.createElement("div");
+          chatBody.appendChild(chatSpacer);
+        }
+        chatSpacer.style.height = `${chatBody.clientHeight}px`;
+
+        const topGap = 12;
+        const offset = row.getBoundingClientRect().top - chatBody.getBoundingClientRect().top;
+        chatBody.scrollTop += offset - topGap;
+      }
+
+      return bubble;
+    };
+
+    const shrinkSpacerToFit = () => {
+      if (!chatSpacer) return;
+      const spacerHeight = chatSpacer.offsetHeight;
+      const contentHeight = chatBody.scrollHeight - spacerHeight;
+      const neededSpacer = Math.max(0, chatBody.scrollTop + chatBody.clientHeight - contentHeight);
+      chatSpacer.style.height = `${neededSpacer}px`;
+    };
+
+    const typeOutText = (bubble, text) => {
+      return new Promise(resolve => {
+        let shown = 0;
+        const interval = setInterval(() => {
+          shown += 2;
+          bubble.textContent = text.slice(0, shown);
+          shrinkSpacerToFit();
+          if (shown >= text.length) {
+            clearInterval(interval);
+            bubble.textContent = text;
+            resolve();
+          }
+        }, 20);
+      });
+    };
+
+    resetChat = lang => {
+      chatBody.innerHTML = "";
+      chatSpacer = null;
+      chatHistory.length = 0;
+      chatSending = false;
+      chatInput.disabled = false;
+      chatInput.value = "";
+      addMessage("bot", CHAT_GREETINGS[lang] || CHAT_GREETINGS.en);
+    };
+
+    resetChat(currentLang);
+
+    chatInput.addEventListener("keydown", async e => {
+      if (e.key !== "Enter" || chatSending) return;
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      chatSending = true;
+      chatInput.value = "";
+      chatInput.disabled = true;
+
+      addMessage("user", text);
+      const typingBubble = addMessage("bot", "");
+      typingBubble.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
+
+      const abortController = new AbortController();
+      const abortTimer = setTimeout(() => abortController.abort(), 25000);
+
+      try {
+        const response = await fetch(CHAT_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history: chatHistory }),
+          signal: abortController.signal
+        });
+
+        if (response.status === 429) {
+          typingBubble.textContent = CHAT_RATE_LIMIT_MSG[currentLang] || CHAT_RATE_LIMIT_MSG.en;
+          return;
+        }
+
+        if (!response.ok) throw new Error("bad response");
+
+        const data = await response.json();
+        if (!data.reply) throw new Error("empty reply");
+
+        await typeOutText(typingBubble, data.reply);
+
+        chatHistory.push({ role: "user", content: text });
+        chatHistory.push({ role: "assistant", content: data.reply });
+      } catch {
+        typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
+      } finally {
+        clearTimeout(abortTimer);
+        chatSending = false;
+        chatInput.disabled = false;
+        chatInput.focus();
+        shrinkSpacerToFit();
+      }
     });
   }
-
-  function shrinkSpacerToFit() {
-    if (!chatSpacer) return;
-    const spacerHeight = chatSpacer.offsetHeight;
-    const contentHeight = chatBody.scrollHeight - spacerHeight;
-    const neededSpacer = Math.max(0, chatBody.scrollTop + chatBody.clientHeight - contentHeight);
-    chatSpacer.style.height = `${neededSpacer}px`;
-  }
-
-  function resetChat(lang) {
-    chatBody.innerHTML = "";
-    chatSpacer = null;
-    chatHistory.length = 0;
-    chatSending = false;
-    chatInput.disabled = false;
-    chatInput.value = "";
-    addMessage("bot", CHAT_GREETINGS[lang] || CHAT_GREETINGS.en);
-  }
-
-  resetChat(currentLang);
 
   langButton.addEventListener("click", () => {
     const newLang = currentLang === "en" ? "pt" : "en";
     setLanguage(newLang);
     updateLangButton(newLang);
-    resetChat(newLang);
-  });
-
-  chatInput.addEventListener("keydown", async e => {
-    if (e.key !== "Enter" || chatSending) return;
-    const text = chatInput.value.trim();
-    if (!text) return;
-
-    chatSending = true;
-    chatInput.value = "";
-    chatInput.disabled = true;
-
-    addMessage("user", text);
-    const typingBubble = addMessage("bot", "");
-    typingBubble.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
-
-    const abortController = new AbortController();
-    const abortTimer = setTimeout(() => abortController.abort(), 25000);
-
-    try {
-      const response = await fetch(CHAT_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: chatHistory }),
-        signal: abortController.signal
-      });
-
-      if (response.status === 429) {
-        typingBubble.textContent = CHAT_RATE_LIMIT_MSG[currentLang] || CHAT_RATE_LIMIT_MSG.en;
-        return;
-      }
-
-      if (!response.ok) throw new Error("bad response");
-
-      const data = await response.json();
-      if (!data.reply) throw new Error("empty reply");
-
-      await typeOutText(typingBubble, data.reply);
-
-      chatHistory.push({ role: "user", content: text });
-      chatHistory.push({ role: "assistant", content: data.reply });
-    } catch {
-      typingBubble.textContent = CHAT_ERROR_MSG[currentLang] || CHAT_ERROR_MSG.en;
-    } finally {
-      clearTimeout(abortTimer);
-      chatSending = false;
-      chatInput.disabled = false;
-      chatInput.focus();
-      shrinkSpacerToFit();
-    }
+    if (resetChat) resetChat(newLang);
   });
 });

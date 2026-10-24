@@ -95,14 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const age = calculateAge("2004-01-05");
   document.getElementById("years").textContent = age;
 
-
   const indicator = document.getElementById("scroll-indicator");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
       indicator.style.opacity = "0";
       indicator.style.pointerEvents = "none";
     } else {
-      indicator.style.opacity = "0.8";
+      indicator.style.opacity = "1";
       indicator.style.pointerEvents = "auto";
     }
   });
