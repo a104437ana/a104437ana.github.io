@@ -135,7 +135,7 @@ body {
   padding: 0 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 22px;
 }
 
 .navbar-brand {
@@ -151,11 +151,49 @@ body {
   color: #fff;
 }
 
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+}
+
 .navbar-links {
   display: flex;
   align-items: center;
   gap: 22px;
   flex-wrap: nowrap;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.navbar-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.navbar-icon-btn .fab-emoji {
+  height: 22px;
+  width: 24px;
+  margin-top: 0;
+}
+
+.navbar-icon-btn .lang-icon {
+  height: 22px;
+  width: auto;
 }
 
 .navbar-links a {
@@ -300,7 +338,7 @@ body {
   }
 }
 
-/* Floating buttons (theme / language toggle) */
+/* Floating chat button */
 
 .fab {
   position: fixed;
@@ -317,8 +355,10 @@ body {
   display: none;
   opacity: 0;
   transition: opacity 0.4s ease;
-  bottom: 160px;
+  bottom: 20px;
 }
+
+/* Standalone theme/lang toggles used on 404.html (no navbar there) */
 
 .fab--theme {
   bottom: 90px;
@@ -328,15 +368,23 @@ body {
   bottom: 20px;
 }
 
-.fab--outline {
-  border: 2px solid #000;
-  background-color: #fff;
-}
-
 .fab--shadow {
   border: none;
   background-color: #e91e63;
   box-shadow: 5px 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode #theme-toggle.fab--shadow {
+  background-color: #880732 !important;
+}
+
+.dark-mode #lang-toggle.fab--lang {
+  background-color: #000 !important;
+}
+
+.fab--outline {
+  border: 2px solid #000;
+  background-color: #fff;
 }
 
 .lang-icon {
@@ -356,16 +404,7 @@ body {
   border-color: #fff !important;
 }
 
-.dark-mode #theme-toggle.fab--outline,
 .dark-mode #chat-toggle.fab--outline {
-  background-color: #000 !important;
-}
-
-.dark-mode #theme-toggle.fab--shadow {
-  background-color: #880732 !important;
-}
-
-.dark-mode #lang-toggle {
   background-color: #000 !important;
 }
 
@@ -373,7 +412,7 @@ body {
   display: none;
   position: fixed;
   right: 20px;
-  bottom: 230px;
+  bottom: 90px;
   width: 300px;
   max-width: calc(100vw - 40px);
   height: 380px;
@@ -654,13 +693,12 @@ body {
   background-color: transparent;
   padding: 15px 15px 47px;
   border: 2px solid #000;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transform: rotate(-4deg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
 .dark-mode .hero-polaroid {
   border-color: #fff;
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 480px) {
@@ -976,7 +1014,7 @@ button,
 }
 
 @media (hover: hover) and (pointer: fine) {
-  button:not(.fab):hover,
+  button:not(.fab):not(.navbar-icon-btn):hover,
   .w3-button:hover {
     transform: translateY(-3px) scale(1.1);
   }
@@ -990,11 +1028,11 @@ button,
   }
 
   .fab--chat {
-    bottom: 136px;
+    bottom: 12px;
   }
 
   .chat-panel {
-    bottom: 196px;
+    bottom: 72px;
   }
 
   .fab--theme {
