@@ -841,7 +841,8 @@ body {
     background-origin: border-box;
   }
 
-  .section--border-top.section--border-bottom {
+  .section--border-top.section--border-bottom,
+  .w3-card-4.ups {
     background-image:
       repeating-linear-gradient(to right, #000 0, #000 10px, transparent 10px, transparent 20px),
       repeating-linear-gradient(to right, #000 0, #000 10px, transparent 10px, transparent 20px);
